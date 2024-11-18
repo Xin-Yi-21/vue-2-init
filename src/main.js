@@ -1,86 +1,66 @@
 import Vue from 'vue'
-
-import Cookies from 'js-cookie'
-
-import Element from 'element-ui'
-import './assets/styles/element-variables.scss'
-
-import '@/assets/styles/index.scss' // global css
-import '@/assets/styles/ruoyi.scss' // ruoyi css
+// ⭐ 项目全局配置
+window.V = process.env
+import { setConfig, cENV } from '@/api/system/config'
 import App from './App'
-import store from './store'
-import router from './router'
-import directive from './directive' // directive
-import plugins from './plugins' // plugins
-import { download } from '@/utils/request'
 
-import './assets/icons' // icon
-import './permission' // permission control
-import { getDicts } from "@/api/system/dict/data";
-import { getConfigKey } from "@/api/system/config";
-import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from "@/utils/ruoyi";
-// 分页组件
-import Pagination from "@/components/Pagination";
-// 自定义表格工具组件
-import RightToolbar from "@/components/RightToolbar"
-// 富文本组件
-import Editor from "@/components/Editor"
-// 文件上传组件
-import FileUpload from "@/components/FileUpload"
-// 图片上传组件
-import ImageUpload from "@/components/ImageUpload"
-// 图片预览组件
-import ImagePreview from "@/components/ImagePreview"
-// 字典标签组件
-import DictTag from '@/components/DictTag'
-// 头部标签组件
-import VueMeta from 'vue-meta'
-// 字典数据组件
-import DictData from '@/components/DictData'
+// 样式相关
+import './assets/styles/element-variables.scss'
+import '@/assets/styles/index.scss' // global css
+import Element from 'element-ui'
+import Cookies from 'js-cookie'
+Vue.use(Element, { size: Cookies.get('size') || 'medium' })
 
-// 全局方法挂载
-Vue.prototype.getDicts = getDicts
-Vue.prototype.getConfigKey = getConfigKey
-Vue.prototype.parseTime = parseTime
-Vue.prototype.resetForm = resetForm
-Vue.prototype.addDateRange = addDateRange
-Vue.prototype.selectDictLabel = selectDictLabel
-Vue.prototype.selectDictLabels = selectDictLabels
-Vue.prototype.download = download
-Vue.prototype.handleTree = handleTree
+// ⭐ 获取全局配置后执行的文件
+setConfig().then(async () => {
+  for (var k in cENV) {
+    Vue.prototype[k] = cENV[k]
+  }
+  document.title = cENV.VUE_APP_TITLE
+  await import('./utils/request.js')                         // import('./utils/request')
+  await import('./permission.js')                            // import('./permission')
+  await import('./permission.js')                            // import('./permission')
+  const directive = (await import('./directive')).default    // import directive from './directive'
+  const plugins = (await import('./plugins')).default        // import plugins from './plugins'
+  const store = (await import('./store')).default            // import store from './store'
+  const router = (await import('./router')).default          // import router from './router'
+  Vue.use(directive)
+  Vue.use(plugins)
+  // 全局方法
+  // getTableHeaderLRVByGlobal
+  const dayjs = (await import('dayjs')).default
+  const { $getEnumsLabel, $getEnumsLabelList, $exportEchartImg, $exportDomTable, $uniqueArray, $sortArray, } = await import("@/utils/common.js")
+  const { throttle, debounce, deepClone } = await import("lodash")
+  Vue.prototype.$bus = new Vue()
+  Vue.prototype.$dayjs = dayjs
+  Vue.prototype.$getEnumsLabel = $getEnumsLabel
+  Vue.prototype.$getEnumsLabelList = $getEnumsLabelList
+  Vue.prototype.$exportEchartImg = $exportEchartImg
+  Vue.prototype.$exportDomTable = $exportDomTable
+  Vue.prototype.$throttle = throttle
+  Vue.prototype.$debounce = debounce
+  Vue.prototype.$deepClone = deepClone
+  // Vue.prototype.$downloadFile = $downloadFile
+  // Vue.prototype.$previewFile = $previewFile
+  // Vue.prototype.$loadingStart = $loadingStart
+  // Vue.prototype.$loadingEnd = $loadingEnd
+  Vue.prototype.$uniqueArray = $uniqueArray
+  Vue.prototype.$sortArray = $sortArray
 
-// 全局组件挂载
-Vue.component('DictTag', DictTag)
-Vue.component('Pagination', Pagination)
-Vue.component('RightToolbar', RightToolbar)
-Vue.component('Editor', Editor)
-Vue.component('FileUpload', FileUpload)
-Vue.component('ImageUpload', ImageUpload)
-Vue.component('ImagePreview', ImagePreview)
-
-Vue.use(directive)
-Vue.use(plugins)
-Vue.use(VueMeta)
-DictData.install()
-
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online! ! !
- */
-
-Vue.use(Element, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
+  // const echartTheme = themeFile[store.state.theme.currentTheme].echartScssFile()     // Echart主题变量
+  // Vue.prototype.$echartTheme = echartTheme                                           // 挂载为全局变量
+  new Vue({
+    el: '#app',
+    router,
+    store,
+    render: h => h(App),
+    // beforeCreate() { Vue.prototype.$bus = this },
+  })
 })
 
-Vue.config.productionTip = false
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
-})
+
+// import './assets/icons' // icon
+
+
+

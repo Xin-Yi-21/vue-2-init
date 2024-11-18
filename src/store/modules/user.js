@@ -1,10 +1,10 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, logout, getInfo } from '@/api/system/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-
+import md5 from 'js-md5'
 const user = {
   state: {
     token: getToken(),
-    id: '',
+    user: {},
     name: '',
     avatar: '',
     roles: [],
@@ -15,8 +15,8 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_ID: (state, id) => {
-      state.id = id
+    SET_USER: (state, user) => {
+      state.user = user
     },
     SET_NAME: (state, name) => {
       state.name = name
@@ -36,7 +36,7 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      const password = userInfo.password
+      const password = md5(userInfo.password)
       const code = userInfo.code
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {
@@ -54,15 +54,15 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
-          const user = res.user
-          const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
+          const user = res.user || {}
+          user.avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])
           }
-          commit('SET_ID', user.userId)
+          commit('SET_USER', user)
           commit('SET_NAME', user.userName)
           commit('SET_AVATAR', avatar)
           resolve(res)

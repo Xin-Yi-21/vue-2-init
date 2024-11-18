@@ -1,60 +1,30 @@
-import request from '@/utils/request'
+// let cENV = {}
+// const setConfig = async (app) => {
+//   try {
+//     const res = await fetch(`/config.json`)
+//     cENV = await res.json()
+//   } catch (error) { }
+// }
+// export { setConfig, cENV }
 
-// 查询参数列表
-export function listConfig(query) {
-  return request({
-    url: '/system/config/list',
-    method: 'get',
-    params: query
-  })
-}
 
-// 查询参数详细
-export function getConfig(configId) {
-  return request({
-    url: '/system/config/' + configId,
-    method: 'get'
-  })
+let cENV = {}
+const setConfig = async (app) => {
+  try {
+    const res = await fetch(`${process.env.VUE_APP_PATH}/config.js`)
+    // const res = await fetch(process.env.NODE_ENV === 'development' ? `${process.env.VUE_APP_PATH}/config.js` : `./config.js`)
+    const text = await res.text()
+    cENV = new Function('res', text + '\nreturn res')({})
+    // console.log('config.js文件内容', text)
+    // console.log('系统自定义配置环境变量', cENV)
+  } catch (error) {
+    console.log('config.js文件读取错误', error)
+  }
 }
+export { setConfig, cENV }
 
-// 根据参数键名查询参数值
-export function getConfigKey(configKey) {
-  return request({
-    url: '/system/config/configKey/' + configKey,
-    method: 'get'
-  })
-}
+// 1、导入config.js调用封装函数的方式，在构建应用后是静态配置。修改需要重新构建才会生效。
+// 2、查询config.js获取文件内容的方式，在构建应用后可动态配置，不需要重新构建。（动态配置，打包灵活，错误处理，ssr渲染兼容）
 
-// 新增参数配置
-export function addConfig(data) {
-  return request({
-    url: '/system/config',
-    method: 'post',
-    data: data
-  })
-}
 
-// 修改参数配置
-export function updateConfig(data) {
-  return request({
-    url: '/system/config',
-    method: 'put',
-    data: data
-  })
-}
 
-// 删除参数配置
-export function delConfig(configId) {
-  return request({
-    url: '/system/config/' + configId,
-    method: 'delete'
-  })
-}
-
-// 刷新参数缓存
-export function refreshCache() {
-  return request({
-    url: '/system/config/refreshCache',
-    method: 'delete'
-  })
-}

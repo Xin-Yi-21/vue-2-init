@@ -24,6 +24,36 @@ function authRole(role) {
   }
 }
 
+
+function authPerson(persons) {
+  const person = store.getters && store.getters.personId
+  const super_admin = 1
+  if (person && persons && persons instanceof Array) {
+    let flag = persons.some(v => {
+      return v === person
+    })
+    if (person == super_admin) { flag = true }
+    return flag
+  } else {
+    return false
+  }
+}
+
+// function authPerson(personAbout) {
+//   const person = personAbout[0]
+//   const persons = personAbout[1]
+//   const super_admin = '1'
+//   if (person && persons && persons instanceof Array) {
+//     let flag = persons.some(v => {
+//       return v === person
+//     })
+//     if (person == super_admin) { flag = true }
+//     return flag
+//   } else {
+//     return false
+//   }
+// }
+
 export default {
   // 验证用户是否具备某权限
   hasPermi(permission) {
@@ -56,5 +86,9 @@ export default {
     return roles.every(item => {
       return authRole(item)
     })
+  },
+  // 验证用户是否是其中之一人物
+  hasPerson(personAbout) {
+    return authPerson(personAbout);
   }
 }
