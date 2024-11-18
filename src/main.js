@@ -19,7 +19,6 @@ setConfig().then(async () => {
   document.title = cENV.VUE_APP_TITLE
   await import('./utils/request.js')                         // import('./utils/request')
   await import('./permission.js')                            // import('./permission')
-  await import('./permission.js')                            // import('./permission')
   const directive = (await import('./directive')).default    // import directive from './directive'
   const plugins = (await import('./plugins')).default        // import plugins from './plugins'
   const store = (await import('./store')).default            // import store from './store'

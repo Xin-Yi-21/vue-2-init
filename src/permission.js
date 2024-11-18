@@ -5,14 +5,24 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import { isRelogin } from '@/utils/request'
-
+import { isHttp } from '@/utils/validate'
 NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/register']
-
+let isRoutesGenerated = false // 状态变量，用于标记路由是否已生成
 router.beforeEach((to, from, next) => {
-  next()
-  // NProgress.start()
+  NProgress.start()
+  if (!isRoutesGenerated) {
+    store.dispatch('generateRoutes').then(accessRoutes => {
+      console.log('查accessRoutes', accessRoutes)
+      router.addRoutes(accessRoutes) // 动态添加可访问路由表
+      next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+      isRoutesGenerated = true
+    })
+  } else {
+    next()
+  }
+
   // if (getToken()) {
   //   to.meta.title && store.dispatch('settings/setTitle', to.meta.title)
   //   /* has token*/
