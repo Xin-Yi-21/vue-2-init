@@ -3,7 +3,7 @@
     <div class="project">
       <c-icon i="c-logo" cursor="auto"></c-icon>
       <div class="title">项目初始化系统</div>
-      <!-- <Breadcrumb v-if="settingStore.isBreadcrumb" separator=">" class="breadcrumb-container" /> -->
+      <Breadcrumb v-if="setting.isBreadcrumb" separator=">" class="breadcrumb-container" />
     </div>
 
     <div class="menu"> </div>
@@ -12,8 +12,6 @@
     <!-- <div class="user-name"><c-icon i="c-account"></c-icon> <span>admin</span></div> -->
     <el-dropdown @command="handleCommand" class="setting" trigger="click">
       <div class="avatar">
-        <!-- <img src="@/assets/icons/svg/c-profile.svg" />
-        <img src="@/assets/images/c-profile.svg" /> -->
         <img :src="user.avatar" />
         <span class="name">admin</span>
         <el-icon><caret-bottom /></el-icon>
@@ -42,7 +40,9 @@
   </div>
 </template>
 <script>
+import Breadcrumb from '@/components/system/breadcrumb'
 export default {
+  components: { Breadcrumb },
   data() {
     return {
       time: '',
@@ -51,10 +51,10 @@ export default {
   },
   computed: {
     user() { return this.$store.state.user },
+    setting() { return this.$store.state.setting },
   },
   created() {
     this.init()
-    console.log('查user', this.user)
   },
   onBeforeDestory() {
     clearInterval(this.timer)

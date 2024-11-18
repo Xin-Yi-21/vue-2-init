@@ -49,12 +49,11 @@ const menu = {
   },
   actions: {
     // 生成路由
-    generateRoutes({ commit }) {
+    generateRoutes({ commit, state }) {
       return new Promise(resolve => {
         // 向后端请求路由数据
         menuGet().then(res => {
           const dyRoutes = handleDynamicRoutes(dynamicRoutes)
-          // dyRoutes.forEach(item => { router.addRoute(item) })
 
           const resData1 = JSON.parse(JSON.stringify(res.data))
           const backendRoutes = handleBackendRoutes(resData1)
@@ -69,17 +68,12 @@ const menu = {
           commit('setLeftNavRoutes', structureRoutes)
           commit('setAddRoutes', addRoutes)
 
-          // this.setRoutes(structureRoutes)
-          // this.setTopNavRoutes(structureRoutes)
-          // this.setLeftNavRoutes(structureRoutes)
-          // this.setAddRoutes(addRoutes)
-
           // console.log('后端结构路由backendRoutes', backendRoutes)
           // console.log('后端访问路由accessBackendRoutes', accessBackendRoutes)
-          // console.log('全部路由(结构) routes', this.routes)
-          // console.log('左侧导航路由(结构) leftNavRoutes', this.leftNavRoutes)
-          // console.log('顶部导航路由(结构) topNavRoutes', this.topNavRoutes)
-          // console.log('运行添加路由 addRoutes', this.addRoutes)
+          // console.log('全部路由(结构) routes', state.routes)
+          // console.log('左侧导航路由(结构) leftNavRoutes', state.leftNavRoutes)
+          // console.log('顶部导航路由(结构) topNavRoutes', state.topNavRoutes)
+          // console.log('运行添加路由 addRoutes', state.addRoutes)
           resolve(addRoutes)
         })
       })

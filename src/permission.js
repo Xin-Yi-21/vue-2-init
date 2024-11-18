@@ -16,8 +16,8 @@ router.beforeEach((to, from, next) => {
     store.dispatch('generateRoutes').then(accessRoutes => {
       // console.log('查accessRoutes', accessRoutes)
       router.addRoutes(accessRoutes) // 动态添加可访问路由表
-      next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
       isRoutesGenerated = true
+      next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
     })
   } else {
     next()

@@ -9,10 +9,55 @@
   </el-breadcrumb>
 </template>
 
-<script setup>
+
+<script>
+export default {
+  props: {
+    separator: { type: String, default: '/' }
+  },
+  data() {
+    return {
+      levelList: [],
+    }
+  },
+  watch: {
+    '$route': {
+      handler: function () {
+        if (this.$route.path.startsWith('/redirect/')) { return }
+        this.getBreadcrumb()
+      }
+    },
+  },
+
+  methods: {
+    getBreadcrumb() {
+      function isHome(route) {
+        const name = route && route.name
+        return !name ? false : name.trim() === 'Index'
+      }
+      let matched = route.matched.filter(item => item.meta && item.meta.title)
+      // 判断是否为首页
+      if (!isHome(matched[0])) {
+        matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched)
+      }
+      // 设置面包屑
+      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+    },
+    handleLink(item) {
+      const { redirect, path } = item
+      redirect ? router.push(redirect) : router.push(path)
+    }
+
+  },
+}
+</script>
+
+
+<!-- <script setup>
 const props = defineProps({
   separator: { type: String, default: '/' }
 })
+
 const route = useRoute()
 const router = useRouter()
 const levelList = ref([])
@@ -44,7 +89,7 @@ watchEffect(() => {
 })
 
 getBreadcrumb()
-</script>
+</script> -->
 
 <style lang='scss' scoped>
 .el-breadcrumb {
