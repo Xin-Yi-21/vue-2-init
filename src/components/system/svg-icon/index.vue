@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// import { isExternal } from '@/utils/validate'
 function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }

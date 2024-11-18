@@ -5,8 +5,9 @@ import { setConfig, cENV } from '@/api/system/config'
 import App from './App'
 
 // 样式相关
-import './assets/styles/element-variables.scss'
+import '@/assets/styles/element-variables.scss'
 import '@/assets/styles/index.scss' // global css
+import '@/plugins/svg-icon.js'                           // icon
 import Element from 'element-ui'
 import Cookies from 'js-cookie'
 Vue.use(Element, { size: Cookies.get('size') || 'medium' })
@@ -25,6 +26,24 @@ setConfig().then(async () => {
   const router = (await import('./router')).default          // import router from './router'
   Vue.use(directive)
   Vue.use(plugins)
+  // 全局组件
+  const Tooltip = (await import('@/components/project/tooltip')).default
+  const cPagination = (await import('@/components/project/custom-pagination')).default
+  const cButton = (await import('@/components/project/custom-button')).default
+  const cIcon = (await import('@/components/project/custom-icon')).default
+  const cPreview = (await import('@/components/project/custom-preview')).default
+  const cFileList = (await import('@/components/project/custom-file-list')).default
+  const CardHeader = (await import('@/components/project/card-header')).default
+  const CardCircle = (await import('@/components/project/card-circle')).default
+  Vue.component('Tooltip', Tooltip)
+  Vue.component('cPagination', cPagination)
+  Vue.component('cButton', cButton)
+  Vue.component('cIcon', cIcon)
+  // Vue.component('cPreview', cPreview)
+  Vue.component('cFileList', cFileList)
+  Vue.component('CardHeader', CardHeader)
+  Vue.component('CardCircle', CardCircle)
+
   // 全局方法
   // getTableHeaderLRVByGlobal
   const dayjs = (await import('dayjs')).default

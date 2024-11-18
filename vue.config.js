@@ -57,9 +57,7 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        '@': resolve('src')
-        // '@': path.resolve(__dirname, './src'),  // 设置 '@' 为 'src' 目录的别名
-        // '~': path.resolve(__dirname, './')    // 设置 '~' 为项目根目录的别名
+        '@': path.resolve(__dirname, 'src'),  // 设置 '@' 为 'src' 目录的别名
       }
     },
     plugins: [

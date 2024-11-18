@@ -1,12 +1,13 @@
 import { login, logout, getInfo } from '@/api/system/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import defaultAvatar from '@/assets/images/c-profile.svg'
 import md5 from 'js-md5'
 const user = {
   state: {
     token: getToken(),
     user: {},
     name: '',
-    avatar: '',
+    avatar: defaultAvatar,
     roles: [],
     permissions: []
   },
@@ -55,7 +56,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           const user = res.user || {}
-          user.avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
+          const avatar = user.avatar ? defaultAvatar : defaultAvatar
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)

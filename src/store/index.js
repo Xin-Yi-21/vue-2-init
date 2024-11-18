@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import user from './modules/user'
-import menu from './modules/menu'
+import user from './system/user'
+import menu from './system/menu'
 import getters from './getters'
 
 Vue.use(Vuex)
