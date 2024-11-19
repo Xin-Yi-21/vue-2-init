@@ -1,14 +1,31 @@
 <template>
   <div id="app">
     <router-view />
+    <theme-picker style="display:none" />
   </div>
 </template>
 
 <script>
+import ThemePicker from '@/components/system/theme-picker'
+import { handleColor } from '@/utils/theme'
 export default {
   name: 'App',
+  components: { ThemePicker },
+  computed: {
+    setting() { return this.$store.state.setting }
+  },
+  watch: {
+    '$store.state.setting.themeColor': {
+      handler: function (nv, ov) {
+        handleColor(nv)
+      },
+      immediate: true
+    },
+
+  },
   mounted() {
     this.fitScale()
+
     // window.addEventListener('resize', this.$debounce(this.fitScale, 1000, { leading: false, trailing: true }))
   },
   methods: {

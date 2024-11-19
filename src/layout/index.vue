@@ -1,18 +1,18 @@
 <template>
   <div :class="['layout-vue', setting.isFixHeader ? 'is-fixed' : '']" v-if="isDataInitDone">
     <top-header @setLayout="setLayout"></top-header>
-    <!-- <div class="main-container">
-      <left-nav v-if="setting.isLeftNav"></left-nav>
+    <div class="main-container">
+      <!-- <left-nav v-if="setting.isLeftNav"></left-nav> -->
       <div class="main-right-container">
         <div class="top-container">
-          <top-nav v-if="setting.isTopNav"></top-nav>
+          <!-- <top-nav v-if="setting.isTopNav"></top-nav>
           <top-bar v-if="setting.isTopBar"></top-bar>
-          <top-tag v-if="setting.isTopTag"></top-tag>
+          <top-tag v-if="setting.isTopTag"></top-tag> -->
         </div>
-        <app-main />
+        <!-- <app-main /> -->
       </div>
       <setting ref="settingRef"></setting>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -23,9 +23,9 @@ import TopHeader from '@/layout/components/top/top-header/index.vue'
 // import TopNav from '@/layout/components/top/top-nav/index.vue'
 // import LeftNav from '@/layout/components/left-nav/index.vue'
 // import AppMain from '@/layout/components/app-main/index.vue'
-// import Setting from '@/layout/components/setting/index.vue'
+import Setting from '@/layout/components/setting/index.vue'
 export default {
-  components: { TopHeader },
+  components: { TopHeader, Setting },
   data() {
     return {
       isDataInitDone: true,
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     setLayout() {
-      // this.$ref.settingRef.openSetting()
+      this.$refs.settingRef.openSetting()
     }
   },
 }

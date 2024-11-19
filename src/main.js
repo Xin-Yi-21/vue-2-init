@@ -5,10 +5,13 @@ import { setConfig, cENV } from '@/api/system/config'
 import App from './App'
 
 // 样式相关
-import '@/assets/styles/element-variables.scss'
-import '@/assets/styles/index.scss' // global css
-import '@/plugins/svg-icon.js'                           // icon
 import Element from 'element-ui'
+import '@/plugins/svg-icon.js'
+import '@/assets/styles/index.scss'
+
+// import '@/assets/styles/variable.scss'
+
+
 import Cookies from 'js-cookie'
 Vue.use(Element, { size: Cookies.get('size') || 'medium' })
 

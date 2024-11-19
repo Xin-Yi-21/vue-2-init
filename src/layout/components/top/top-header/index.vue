@@ -1,7 +1,7 @@
 <template>
   <div class="top-header-vue">
     <div class="project">
-      <c-icon i="c-logo" cursor="auto"></c-icon>
+      <c-icon i="c-logo" cursor="auto" :color="$store.state.setting.themeColor" size="24"></c-icon>
       <div class="title">项目初始化系统</div>
       <Breadcrumb v-if="setting.isBreadcrumb" separator=">" class="breadcrumb-container" />
     </div>
@@ -10,7 +10,7 @@
 
     <div class="time" v-html="time"></div>
     <!-- <div class="user-name"><c-icon i="c-account"></c-icon> <span>admin</span></div> -->
-    <el-dropdown @command="handleCommand" class="setting" trigger="click">
+    <el-dropdown @command="handleCommand" class="setting" trigger="click" append-to-body="true">
       <div class="avatar">
         <img :src="user.avatar" />
         <span class="name">admin</span>
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.top-header-vue {
+::v-deep.top-header-vue {
   height: 60px;
   display: flex;
   align-items: center;
@@ -128,7 +128,7 @@ export default {
     display: flex;
     align-items: center;
 
-    :deep(.svg-icon) {
+    .svg-icon {
       font-size: 24px !important;
       margin: 0 10px;
     }
@@ -142,7 +142,7 @@ export default {
       text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
     }
 
-    :deep(.breadcrumb-container) {
+    .breadcrumb-container {
       font-size: 16px;
 
       &::before {
@@ -171,7 +171,6 @@ export default {
   .menu {
     flex: 1;
   }
-
 
   .time {
     font-family: PingFang SC, PingFang SC;
@@ -220,6 +219,24 @@ export default {
         margin-right: 10px;
       }
     }
+  }
+
+
+}
+
+::v-deep.el-dropdown-menu {
+  .el-dropdown-menu__item {
+    display: flex;
+    align-items: center;
+
+    &.el-dropdown-menu__item--divided {
+      margin-top: 5px;
+
+      &::before {
+        display: none;
+      }
+    }
+
   }
 }
 </style>
