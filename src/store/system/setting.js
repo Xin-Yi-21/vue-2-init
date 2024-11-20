@@ -1,6 +1,6 @@
 import defaultSetting from '@/setting'
 // import { useDynamicTitle } from '@/utils/dynamicTitle'
-
+import Cookies from 'js-cookie'
 const { defaultTitle, themeStyle, themeColor, elSize, isLeftNav, isTopNav, isTopBar, isBreadcrumb, isTopTag, isDynamicTitle, isFixHeader, isFullScreen } = defaultSetting
 const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
 

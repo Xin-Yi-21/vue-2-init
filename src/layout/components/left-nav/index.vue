@@ -6,7 +6,7 @@
     :default-active="activeMenu"
     -->
     <el-scrollbar wrap-class="c-el-scrollbar">
-      <el-menu :collapse="isCollapse" :unique-opened="false" :collapse-transition="false" :default-active="activeMenu" popper-class="left-nav-menu-modal">
+      <el-menu :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" :default-active="activeMenu">
         <nav-item v-for="(item, index) in leftNavRoutes" :key="index" :navInfo="item" :isNest="true" :basePath="''" />
       </el-menu>
     </el-scrollbar>
@@ -118,9 +118,10 @@ export default {
   }
 }
 </style>
-<!-- <style lang="scss">
+<style lang="scss">
 // 组件内全局样式
-.left-nav-menu-modal {
+// .left-nav-menu-modal
+.el-menu--vertical {
   a {
     color: #333;
     text-decoration: none;
@@ -131,11 +132,49 @@ export default {
     font-weight: 700;
   }
 
-  .menu-title {
-    height: 60px;
-    line-height: 60px;
-    font-size: 14px;
-    margin: 0 10px;
+  .menu-item-container {
+    width: 100%;
+    min-height: 60px;
+
+    li {
+      height: 100%;
+
+      &.el-menu-item {
+        display: flex;
+        align-items: center;
+        height: 60px;
+
+        &.is-active {
+          font-weight: 700;
+        }
+      }
+
+      &.el-submenu {
+        .el-submenu__title {
+          height: 60px;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .menu-title {
+        flex: 1;
+        height: 60px;
+        line-height: 60px;
+        font-size: 14px;
+        margin: 0 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
+
+  // .menu-title {
+  //   height: 60px;
+  //   line-height: 60px;
+  //   font-size: 14px;
+  //   margin: 0 10px;
+  // }
 }
-</style> -->
+</style>

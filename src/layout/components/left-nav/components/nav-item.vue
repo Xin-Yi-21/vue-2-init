@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-item-container" v-if="!navInfo.hidden">
+  <div :class="['menu-item-container', $store.state.setting.leftNav.isCollapse ? 'menu-vertical' : '']" v-if="!navInfo.hidden">
     <!-- [ 当前导航无子导航 , 当前导航有1个子导航 && 子导航无子项  && alwaysShow为true ] -->
     <Link v-if="judgeChild(navInfo.children, navInfo) && (!onlyOne.children || onlyOne.noshowChildren) && !navInfo.alwaysShow && onlyOne.meta" :to="handlePath(onlyOne.path, onlyOne.query)">
     <el-menu-item :index="handlePath(onlyOne.path)" :class="{ 'submenu-title-noDropdown': !isNest }" @click="handleGo(onlyOne)">

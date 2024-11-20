@@ -4,16 +4,19 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  isCollapse: {
-    type: Boolean,
-    default: false
+<script>
+export default {
+  props: {
+    isCollapse: { type: Boolean, default: false },
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    handleToggle() {
+      this.$emit('toggleClick')
+    }
   }
-})
-const emit = defineEmits()
-const handleToggle = () => {
-  emit('toggleClick')
 }
 </script>
 

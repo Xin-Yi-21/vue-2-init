@@ -1,17 +1,27 @@
 <template>
   <div class="top-bar-vue">
-    <hamburger :isCollapse="settingStore.leftNav.isCollapse" @toggleClick="handleToggle" />
+    <hamburger :isCollapse="$store.state.setting.leftNav.isCollapse" @toggleClick="handleToggle" />
     <Breadcrumb class="breadcrumb-container" />
   </div>
 </template>
 
-<script setup>
+
+<script>
 import Hamburger from '@/components/system/hamburger'
 import Breadcrumb from '@/components/system/breadcrumb'
-import useSettingStore from '@/store/system/setting'
-const settingStore = useSettingStore()
-const handleToggle = () => {
-  settingStore.toggleLeftNav()
+export default {
+  components: { Hamburger, Breadcrumb },
+  data() {
+    return {
+
+    }
+  },
+
+  methods: {
+    handleToggle() {
+      this.$store.dispatch('toggleLeftNav')
+    }
+  },
 }
 </script>
 
