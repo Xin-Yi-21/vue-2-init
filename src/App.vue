@@ -7,7 +7,7 @@
 
 <script>
 import ThemePicker from '@/components/system/theme-picker'
-import { handleColor } from '@/utils/theme'
+import { handleThemeColor, handleThemeStyle } from '@/utils/theme'
 export default {
   name: 'App',
   components: { ThemePicker },
@@ -17,11 +17,16 @@ export default {
   watch: {
     '$store.state.setting.themeColor': {
       handler: function (nv, ov) {
-        handleColor(nv)
+        handleThemeColor(nv)
       },
       immediate: true
     },
-
+    '$store.state.setting.themeStyle': {
+      handler: function (nv, ov) {
+        handleThemeStyle(nv)
+      },
+      immediate: true
+    },
   },
   mounted() {
     this.fitScale()

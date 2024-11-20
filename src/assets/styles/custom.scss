@@ -128,6 +128,10 @@
 }
 // c-el-scrollbar
 .el-scrollbar:has(> .c-el-scrollbar) {
+  height: 100%;
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
   .el-scrollbar__bar {
     bottom: 2px;
     right: 2px;

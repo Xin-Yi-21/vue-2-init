@@ -3,14 +3,14 @@
     <div class="setting-part">
       <div class="setting-item">
         <span class="setting-label">主题风格</span>
-        <el-radio-group v-model="setting.themeStyle" @change="handleThemeStyle">
+        <el-radio-group v-model="setting.themeStyle">
           <el-radio label="dark">黑色</el-radio>
           <el-radio label="light">白色</el-radio>
         </el-radio-group>
       </div>
       <div class="setting-item">
         <span class="setting-label">主题颜色</span>
-        <el-color-picker v-model="setting.themeColor" :predefine="predefineColors" @change="handleThemeColor" />
+        <el-color-picker v-model="setting.themeColor" :predefine="predefineColors" />
       </div>
       <div class="setting-item">
         <span class="setting-label">开启顶部导航</span>
@@ -68,7 +68,6 @@
   </el-drawer>
 </template>
 <script>
-import { handleColor } from '@/utils/theme'
 import { handleFixHeader, handleFullScreen } from '@/utils/setting'
 export default {
   data() {
@@ -85,15 +84,6 @@ export default {
     openSetting() {
       this.isShowSet = true
     },
-    // 修改主题风格
-    handleThemeStyle() {
-
-    },
-    // 修改主题颜色
-    handleThemeColor(val) {
-      // handleColor(val)
-    },
-
     // 水印
     handleWaterMark() {
 

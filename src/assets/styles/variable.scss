@@ -5,6 +5,67 @@
   --tcl: rgba(85, 199, 145, 0.6);
 }
 
+:root body[theme-style="light"] #app {
+  --active-color: #4bc7a9; // 激活色
+  --active-color-lighter: rgba(75, 199, 169, 0.6); // 激活透明色
+  --active-bg-color: var(--active-color); // 背景激活色
+  --active-font-color: var(--active-color); // 字体激活色
+  --active-font-color-nc: #fff; // 字体非背景冲突色
+
+  --bg1: #f7f7f7; // 一级背景色（布局）
+  --bg2: #fff; // 二级背景色（卡片）
+  --bg3: #f7f7f7; // 三级背景色（区域）
+  --bg4: #5d5d5d; // 四级背景色（按钮）
+
+  --fc1: #333; // 一级字体色
+  --fc2: #666; // 二级字体色
+  --fc3: #999; // 三级字体色
+
+  // --first-border-color: #1a1a1a; // 一级边框色
+  // --second-border-color: #333; // 二级边框色
+  // --third-border-color: #404040; // 三级边框色
+  --bc1: #efefef; // 一级边框色
+
+  --form-lable-color: var(--second-font-color); // 表单lable的字体颜色
+  --form-content-color: var(--first-font-color); // 表单content的字体颜色
+  --form-bg-color: var(--first-bg-color); // 表单组件的背景颜色
+
+  --primary-button-bg-color: var(--active-color); // 按钮亮色
+  --normal-button-bg-color: var(--fourth-bg-color); // 按钮暗色
+  --button-font-color: var(--first-font-color); // 按钮字体色
+}
+
+:root body[theme-style="dark"] #app {
+  --active-color: #4bc7a9; // 激活色
+  --active-color-lighter: rgba(75, 199, 169, 0.6); // 激活透明色
+  --active-bg-color: var(--active-color); // 背景激活色
+  --active-font-color: var(--active-color); // 字体激活色
+  --active-font-color-nc: #000; // 字体非背景冲突色
+
+  --first-bg-color: #1a1a1a; // 一级背景色（布局）
+  --second-bg-color: #333; // 二级背景色（卡片）
+  --third-bg-color: #404040; // 三级背景色（区域）
+  --fourth-bg-color: #5d5d5d; // 四级背景色（按钮）
+
+  --first-font-color: #fff; // 一级字体色
+  --second-font-color: rgba(255, 255, 255, 0.8); // 二级字体色
+  --third-font-color: rgba(255, 255, 255, 0.6); // 三级字体色
+  --operate-font-color: #518afe; // 操作字体色
+
+  --first-border-color: #5d5d5d; // 一级边框色
+  // --second-border-color: #333; // 二级边框色
+  // --third-border-color: #404040; // 三级边框色
+  // --fourth-border-color: #5d5d5d; // 四级边框色
+
+  --form-lable-color: var(--second-font-color); // 表单lable的字体颜色
+  --form-content-color: var(--first-font-color); // 表单content的字体颜色
+  --form-bg-color: var(--first-bg-color); // 表单组件的背景颜色
+
+  --primary-button-bg-color: var(--active-color); // 按钮亮色
+  --normal-button-bg-color: var(--fourth-bg-color); // 按钮暗色
+  --button-font-color: var(--first-font-color); // 按钮字体色
+}
+
 $--color-primary: #55c791;
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
