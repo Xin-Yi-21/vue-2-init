@@ -6,7 +6,7 @@
     :default-active="activeMenu"
     -->
     <el-scrollbar wrap-class="c-el-scrollbar">
-      <el-menu :collapse="isCollapse" :unique-opened="true" :collapse-transition="false" :default-active="activeMenu">
+      <el-menu :collapse="isCollapse" :unique-opened="false" :collapse-transition="false" :default-active="activeMenu">
         <nav-item v-for="(item, index) in leftNavRoutes" :key="index" :navInfo="item" :isNest="true" :basePath="''" />
       </el-menu>
     </el-scrollbar>

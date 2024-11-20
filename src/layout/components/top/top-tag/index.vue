@@ -1,253 +1,245 @@
 <template>
-  <div class="top-tag-vue">
-    <scroll-pane ref="scrollPaneRef" class="tags-view-wrapper" @scroll="handleCloseContextMenu">
-      <router-link v-for="(tag, index) in visitedViews" :key="index" :class="['tags-view-item', isActive(tag) ? 'active' : '']" :style="activeStyle(tag)"
-        :dataPath="tag.path"
+  <div id="tags-view-container" class="tags-view-container">
+    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
+      <router-link ref="tag" v-for="tag in visitedViews" :key="tag.path"
+        :class="isActive(tag) ? 'active' : ''"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-        @click.middle="handleMiddleClickTag(tag)"
-        @contextmenu.prevent="handleOpenContextMenu(tag, $event)">
+        tag="span"
+        class="tags-view-item"
+        :style="activeStyle(tag)"
+        @click.middle.native="!isAffix(tag) ? closeSelectedTag(tag) : ''"
+        @contextmenu.prevent.native="openMenu(tag, $event)">
         {{ tag.title }}
-        <span v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)">
-          <close class="el-icon-close" style="width: 1em; height: 1em;vertical-align: middle;" />
-        </span>
+        <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
-
-    <ul v-show="isContextMenuVisible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">
-        <refresh-right style="width: 1em; height: 1em;" /> 刷新页面
-      </li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-        <close style="width: 1em; height: 1em;" /> 关闭当前
-      </li>
-      <li @click="closeOthersTags">
-        <circle-close style="width: 1em; height: 1em;" /> 关闭其他
-      </li>
-      <li v-if="!isFirstView()" @click="closeLeftTags">
-        <back style="width: 1em; height: 1em;" /> 关闭左侧
-      </li>
-      <li v-if="!isLastView()" @click="closeRightTags">
-        <right style="width: 1em; height: 1em;" /> 关闭右侧
-      </li>
-      <li @click="closeAllTags(selectedTag)">
-        <circle-close style="width: 1em; height: 1em;" /> 全部关闭
-      </li>
+    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
+      <li @click="refreshSelectedTag(selectedTag)"><i class="el-icon-refresh-right"></i> 刷新页面</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close"></i> 关闭当前</li>
+      <li @click="closeOthersTags"><i class="el-icon-circle-close"></i> 关闭其他</li>
+      <li v-if="!isFirstView()" @click="closeLeftTags"><i class="el-icon-back"></i> 关闭左侧</li>
+      <li v-if="!isLastView()" @click="closeRightTags"><i class="el-icon-right"></i> 关闭右侧</li>
+      <li @click="closeAllTags(selectedTag)"><i class="el-icon-circle-close"></i> 全部关闭</li>
     </ul>
   </div>
 </template>
 
-<script setup>
+<script>
 import ScrollPane from './components/scroll-pane'
-import { getNormalPath } from '@/utils/ruoyi'
-import useTopTagStore from '@/store/system/topTag'
-import useSettingStore from '@/store/system/setting'
-import useRouterStore from '@/store/system/router'
+import path from 'path'
 
-const { proxy } = getCurrentInstance()
-const route = useRoute()
-const router = useRouter()
-
-const routes = computed(() => useRouterStore().routes)
-const theme = computed(() => useSettingStore().themeColor)
-const visitedViews = computed(() => useTopTagStore().visitedViews)
-
-const selectedTag = ref({})
-const affixTags = ref([])
-const scrollPaneRef = ref(null)
-// 一、初始化相关
-// 监听路由
-watch(route, () => {
-  addTags()            // 添加当前路由标签
-  moveToCurrentTag()   // 高亮当前路由标签
-})
-// 监听右键菜单
-const isContextMenuVisible = ref(false)
-const top = ref(0)
-const left = ref(0)
-watch(isContextMenuVisible, (value) => {
-  if (value) {
-    document.body.addEventListener('click', handleCloseContextMenu)
-  } else {
-    document.body.removeEventListener('click', handleCloseContextMenu)
-  }
-})
-// dom加载
-onMounted(() => {
-  initTags()   // 初始化固定标签
-  addTags()    // 添加当前路由标签
-})
-// 固定标签
-function initTags() {
-  const res = filterAffixTags(routes.value)
-  affixTags.value = res
-  res.forEach(item => { item.name && useTopTagStore().addVisitedView(item) })
-}
-// 工具函数-筛选固定标签
-function filterAffixTags(routes, basePath = '') {
-  let tags = []
-  routes.forEach(route => {
-    if (route.meta && route.meta.affix) {
-      const tagPath = getNormalPath(basePath + '/' + route.path)
-      tags.push({ path: tagPath, fullPath: tagPath, name: route.name, meta: { ...route.meta } })
+export default {
+  components: { ScrollPane },
+  data() {
+    return {
+      visible: false,
+      top: 0,
+      left: 0,
+      selectedTag: {},
+      affixTags: []
     }
-    if (route.children) {
-      const tempTags = filterAffixTags(route.children, route.path)
-      if (tempTags.length >= 1) {
-        tags = [...tags, ...tempTags]
+  },
+  computed: {
+    visitedViews() {
+      return this.$store.state.tag.visitedViews
+    },
+    routes() {
+      return this.$store.state.menu.routes
+    },
+    theme() {
+      return this.$store.state.setting.themeColor
+    }
+  },
+  watch: {
+    $route() {
+      this.addTags()
+      this.moveToCurrentTag()
+    },
+    visible(value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeMenu)
       }
     }
-  })
-  return tags
-}
-// 添加当前路由标签
-function addTags() {
-  if (route.name) {
-    useTopTagStore().addView(route)
-    route.meta.link && useTopTagStore().addIframeView(route)
-  }
-  return false
-}
-// 视图移动至当前标签
-function moveToCurrentTag() {
-  nextTick(() => {
-    visitedViews.value.forEach(item => {
-      if (item.path === route.path) {
-        scrollPaneRef.value.moveToTarget(item)
-        // 用户当前标签进行操作或导航导致不同，更新访问记录为当前
-        if (item.fullPath !== route.fullPath) {
-          useTopTagStore().updateVisitedView(route)
+  },
+  mounted() {
+    this.initTags()
+    this.addTags()
+  },
+  methods: {
+    isActive(route) {
+      return route.path === this.$route.path
+    },
+    activeStyle(tag) {
+      if (!this.isActive(tag)) return {};
+      return {
+        "background-color": this.theme,
+        "border-color": this.theme
+      };
+    },
+    isAffix(tag) {
+      return tag.meta && tag.meta.affix
+    },
+    isFirstView() {
+      try {
+        return this.selectedTag.fullPath === '/index' || this.selectedTag.fullPath === this.visitedViews[1].fullPath
+      } catch (err) {
+        return false
+      }
+    },
+    isLastView() {
+      try {
+        return this.selectedTag.fullPath === this.visitedViews[this.visitedViews.length - 1].fullPath
+      } catch (err) {
+        return false
+      }
+    },
+    filterAffixTags(routes, basePath = '/') {
+      let tags = []
+      routes.forEach(route => {
+        if (route.meta && route.meta.affix) {
+          const tagPath = path.resolve(basePath, route.path)
+          tags.push({
+            fullPath: tagPath,
+            path: tagPath,
+            name: route.name,
+            meta: { ...route.meta }
+          })
+        }
+        if (route.children) {
+          const tempTags = this.filterAffixTags(route.children, route.path)
+          if (tempTags.length >= 1) {
+            tags = [...tags, ...tempTags]
+          }
+        }
+      })
+      return tags
+    },
+    initTags() {
+      const affixTags = this.affixTags = this.filterAffixTags(this.routes)
+      for (const tag of affixTags) {
+        // Must have tag name
+        if (tag.name) {
+          this.$store.dispatch('tag/addVisitedView', tag)
         }
       }
-    })
-  })
-}
-// 视图跳转至最后标签
-function moveToLastTag(visitedViews, view) {
-  const latestView = visitedViews.slice(-1)[0]
-  if (latestView) {
-    router.push(latestView.fullPath)
-  } else {
-    // now the default is to redirect to the home page if there is no tags-view,
-    // you can adjust it according to your needs.
-    if (view.name === 'Home') {
-      // to reload home page
-      router.replace({ path: '/redirect' + view.fullPath })
-    } else {
-      router.push('/')
+    },
+    addTags() {
+      const { name } = this.$route
+      if (name) {
+        this.$store.dispatch('tag/addView', this.$route)
+        if (this.$route.meta.link) {
+          this.$store.dispatch('tag/addIframeView', this.$route)
+        }
+      }
+      return false
+    },
+    moveToCurrentTag() {
+      const tags = this.$refs.tag
+      this.$nextTick(() => {
+        for (const tag of tags) {
+          if (tag.to.path === this.$route.path) {
+            this.$refs.scrollPane.moveToTarget(tag)
+            // when query is different then update
+            if (tag.to.fullPath !== this.$route.fullPath) {
+              this.$store.dispatch('tag/updateVisitedView', this.$route)
+            }
+            break
+          }
+        }
+      })
+    },
+    refreshSelectedTag(view) {
+      this.$tab.refreshPage(view);
+      if (this.$route.meta.link) {
+        this.$store.dispatch('tag/delIframeView', this.$route)
+      }
+    },
+    closeSelectedTag(view) {
+      this.$tab.closePage(view).then(({ visitedViews }) => {
+        if (this.isActive(view)) {
+          this.toLastView(visitedViews, view)
+        }
+      })
+    },
+    closeRightTags() {
+      this.$tab.closeRightPage(this.selectedTag).then(visitedViews => {
+        if (!visitedViews.find(i => i.fullPath === this.$route.fullPath)) {
+          this.toLastView(visitedViews)
+        }
+      })
+    },
+    closeLeftTags() {
+      this.$tab.closeLeftPage(this.selectedTag).then(visitedViews => {
+        if (!visitedViews.find(i => i.fullPath === this.$route.fullPath)) {
+          this.toLastView(visitedViews)
+        }
+      })
+    },
+    closeOthersTags() {
+      this.$router.push(this.selectedTag.fullPath).catch(() => { });
+      this.$tab.closeOtherPage(this.selectedTag).then(() => {
+        this.moveToCurrentTag()
+      })
+    },
+    closeAllTags(view) {
+      this.$tab.closeAllPage().then(({ visitedViews }) => {
+        if (this.affixTags.some(tag => tag.path === this.$route.path)) {
+          return
+        }
+        this.toLastView(visitedViews, view)
+      })
+    },
+    toLastView(visitedViews, view) {
+      const latestView = visitedViews.slice(-1)[0]
+      if (latestView) {
+        this.$router.push(latestView.fullPath)
+      } else {
+        // now the default is to redirect to the home page if there is no tags-view,
+        // you can adjust it according to your needs.
+        if (view.name === 'Dashboard') {
+          // to reload home page
+          this.$router.replace({ path: '/redirect' + view.fullPath })
+        } else {
+          this.$router.push('/')
+        }
+      }
+    },
+    openMenu(tag, e) {
+      const menuMinWidth = 105
+      const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
+      const offsetWidth = this.$el.offsetWidth // container width
+      const maxLeft = offsetWidth - menuMinWidth // left boundary
+      const left = e.clientX - offsetLeft + 15 // 15: margin right
+
+      if (left > maxLeft) {
+        this.left = maxLeft
+      } else {
+        this.left = left
+      }
+
+      this.top = e.clientY
+      this.visible = true
+      this.selectedTag = tag
+    },
+    closeMenu() {
+      this.visible = false
+    },
+    handleScroll() {
+      this.closeMenu()
     }
-  }
-}
-
-// 二、操作类
-// 打开右键菜单
-function handleOpenContextMenu(tag, e) {
-  const menuMinWidth = 105
-  const offsetLeft = proxy.$el.getBoundingClientRect().left // container margin left
-  const offsetWidth = proxy.$el.offsetWidth // container width
-  const maxLeft = offsetWidth - menuMinWidth // left boundary
-  // const l = e.clientX - offsetLeft + 15 // 15: margin right
-  const l = e.clientX // 15: margin right
-  // console.log('查宽度', e.clientX, offsetLeft, offsetWidth, l)
-
-  if (l > maxLeft) {
-    left.value = maxLeft
-  } else {
-    left.value = l
-  }
-
-  top.value = e.clientY + 18
-  isContextMenuVisible.value = true
-  selectedTag.value = tag
-}
-// 关闭右键菜单
-function handleCloseContextMenu() {
-  isContextMenuVisible.value = false
-}
-// 中键点击标签
-function handleMiddleClickTag(tag) {
-  !isAffix(tag) && closeSelectedTag(tag)
-}
-// 刷新选中标签
-function refreshSelectedTag(view) {
-  proxy.$tag.refreshPage(view)
-  if (route.meta.link) {
-    useTopTagStore().delIframeView(route)
-  }
-}
-// 关闭选中标签
-function closeSelectedTag(view) {
-  proxy.$tag.closePage(view).then(({ visitedViews }) => {
-    if (isActive(view)) {
-      moveToLastTag(visitedViews, view)
-    }
-  })
-}
-// 关闭左侧标签
-function closeLeftTags() {
-  proxy.$tag.closeLeftPage(selectedTag.value).then(visitedViews => {
-    if (!visitedViews.find(i => i.fullPath === route.fullPath)) { moveToLastTag(visitedViews) }
-  })
-}
-// 关闭右侧标签
-function closeRightTags() {
-  proxy.$tag.closeRightPage(selectedTag.value).then(visitedViews => {
-    if (!visitedViews.find(i => i.fullPath === route.fullPath)) { moveToLastTag(visitedViews) }
-  })
-}
-// 关闭其他标签
-function closeOthersTags() {
-  router.push(selectedTag.value).catch(() => { });
-  proxy.$tag.closeOtherPage(selectedTag.value).then(() => { moveToCurrentTag() })
-}
-// 关闭全部标签
-function closeAllTags(view) {
-  proxy.$tag.closeAllPage().then(({ visitedViews }) => {
-    if (affixTags.value.some(tag => tag.path === route.path)) { return }
-    moveToLastTag(visitedViews, view)
-  })
-}
-// X、判断类
-// 判断是否激活项
-function isActive(rowItem) {
-  return rowItem.path === route.path
-}
-// 激活项样式设置
-function activeStyle(tag) {
-  if (!isActive(tag)) return {}
-  return {
-    "background-color": theme.value,
-    "border-color": theme.value
-  }
-}
-// 判断是否不是
-function isAffix(tag) {
-  return tag.meta && tag.meta.affix
-}
-// 判断是否首标签
-function isFirstView() {
-  try {
-    return selectedTag.value.fullPath === '/index' || selectedTag.value.fullPath === visitedViews.value[1].fullPath
-  } catch (err) {
-    return false
-  }
-}
-// 判断是否末标签
-function isLastView() {
-  try {
-    return selectedTag.value.fullPath === visitedViews.value[visitedViews.value.length - 1].fullPath
-  } catch (err) {
-    return false
   }
 }
 </script>
 
-<style lang='scss' scoped>
-.top-tag-vue {
-  height: 40px;
+<style lang="scss" scoped>
+.tags-view-container {
+  height: 34px;
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
 
   .tags-view-wrapper {
     .tags-view-item {
@@ -278,14 +270,14 @@ function isLastView() {
         border-color: #42b983;
 
         &::before {
-          content: "";
+          content: '';
           background: #fff;
           display: inline-block;
           width: 8px;
           height: 8px;
           border-radius: 50%;
           position: relative;
-          margin-right: 5px;
+          margin-right: 2px;
         }
       }
     }
@@ -302,7 +294,7 @@ function isLastView() {
     font-size: 12px;
     font-weight: 400;
     color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
 
     li {
       margin: 0;
@@ -327,11 +319,11 @@ function isLastView() {
       vertical-align: 2px;
       border-radius: 50%;
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: all .3s cubic-bezier(.645, .045, .355, 1);
       transform-origin: 100% 50%;
 
       &:before {
-        transform: scale(0.6);
+        transform: scale(.6);
         display: inline-block;
         vertical-align: -3px;
       }
@@ -339,8 +331,6 @@ function isLastView() {
       &:hover {
         background-color: #b4bccc;
         color: #fff;
-        width: 12px !important;
-        height: 12px !important;
       }
     }
   }

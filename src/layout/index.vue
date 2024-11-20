@@ -7,9 +7,9 @@
         <div class="top-container">
           <!-- <top-nav v-if="setting.isTopNav"></top-nav> -->
           <top-bar v-if="setting.isTopBar"></top-bar>
-          <!-- <top-tag v-if="setting.isTopTag"></top-tag> -->
+          <top-tag v-if="setting.isTopTag"></top-tag>
         </div>
-        <!-- <app-main /> -->
+        <app-main />
       </div>
       <setting ref="settingRef"></setting>
     </div>
@@ -19,13 +19,13 @@
 <script>
 import TopHeader from '@/layout/components/top/top-header/index.vue'
 import TopBar from '@/layout/components/top/top-bar/index.vue'
-// import TopTag from '@/layout/components/top/top-tag/index.vue'
+import TopTag from '@/layout/components/top/top-tag/index.vue'
 // import TopNav from '@/layout/components/top/top-nav/index.vue'
 import LeftNav from '@/layout/components/left-nav/index.vue'
-// import AppMain from '@/layout/components/app-main/index.vue'
 import Setting from '@/layout/components/setting/index.vue'
+import AppMain from '@/layout/components/app-main/index.vue'
 export default {
-  components: { TopHeader, TopBar, Setting, LeftNav },
+  components: { TopHeader, TopBar, TopTag, LeftNav, Setting, AppMain, },
   data() {
     return {
       isDataInitDone: true,
