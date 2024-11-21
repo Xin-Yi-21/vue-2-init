@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar-vue">
-    <hamburger :isCollapse="$store.state.setting.leftNav.isCollapse" @toggleClick="handleToggle" />
+    <hamburger v-if="$store.state.setting.leftNav.isShow" />
     <Breadcrumb class="breadcrumb-container" />
   </div>
 </template>
@@ -18,9 +18,6 @@ export default {
   },
 
   methods: {
-    handleToggle() {
-      this.$store.dispatch('toggleLeftNav')
-    }
   },
 }
 </script>

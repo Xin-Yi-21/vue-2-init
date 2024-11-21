@@ -96,7 +96,7 @@ export default {
     },
     // 3、登出
     logout() {
-      this.$confirm('确定注销并退出系统吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }).then(() => {
+      this.$confirm('确定注销并退出系统吗？', '提示', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning', customClass: 'c-message-confirm' }).then(() => {
         this.$store.dispatch('LogOut').then(() => {
           location.href = '/index'
         })

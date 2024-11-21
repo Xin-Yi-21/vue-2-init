@@ -47,7 +47,7 @@ export default {
     },
     handleLink(item) {
       const { redirect, path } = item
-      redirect ? router.push(redirect) : router.push(path)
+      redirect ? this.$router.push(redirect) : this.$router.push(path)
     }
 
   },

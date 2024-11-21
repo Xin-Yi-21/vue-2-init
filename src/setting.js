@@ -15,7 +15,12 @@ export default {
   // 显示布局
   showSettings: true,
   // 左侧导航
-  isLeftNav: true,
+  // isLeftNav: true,
+  leftNav: {
+    isCollapse: false,
+    withoutAnimation: false,
+    isShow: true
+  },
   // 顶部导航
   isTopNav: true,
   // 顶部面包屑

@@ -37,7 +37,6 @@ export default {
 
 <style lang="scss" scoped>
 .left-nav-vue {
-  width: 200px;
   height: 100%;
   border-right: 1px solid #ccc;
   box-sizing: border-box;
@@ -99,7 +98,8 @@ export default {
   &.is-collapse {
     ::v-deep .left-nav-menu {
       .menu-title {
-        margin-left: 0;
+        // margin-left: 0;
+        display: none;
       }
 
       .el-submenu__icon-arrow {
@@ -107,11 +107,21 @@ export default {
           display: none;
         }
       }
-    }
-  }
 
-  &.is-expand {
-    width: 200px;
+      .el-menu-item {
+        padding: 0 !important;
+
+        .el-tooltip {
+          padding: 0 !important;
+          text-align: center;
+        }
+      }
+
+      .el-submenu__title {
+        padding: 0 !important;
+        justify-content: center;
+      }
+    }
   }
 }
 </style>

@@ -18,4 +18,5 @@ const store = new Vuex.Store({
   getters
 })
 
+store.dispatch('setLeftNav')
 export default store

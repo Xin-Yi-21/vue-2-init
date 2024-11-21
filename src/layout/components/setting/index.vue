@@ -18,7 +18,11 @@
       </div>
       <div class="setting-item">
         <span class="setting-label">开启左侧导航</span>
-        <el-switch v-model="setting.isLeftNav" />
+        <el-switch v-model="setting.leftNav.isShow" @change="handleLeftNav" />
+      </div>
+      <div class="setting-item">
+        <span class="setting-label">开启折叠导航</span>
+        <el-switch v-model="setting.leftNav.isCollapse" @change="handleLeftNav" />
       </div>
       <div class="setting-item">
         <span class="setting-label">开启面包栏</span>
@@ -88,7 +92,10 @@ export default {
     handleWaterMark() {
 
     },
-
+    // 左侧导航
+    handleLeftNav() {
+      this.$store.dispatch('setLeftNav')
+    },
     // 缩放
     handleScale() {
 
@@ -101,7 +108,11 @@ export default {
         "themeColor": this.setting.themeColor,
         "elSize": this.setting.elSize,
         "isTopNav": this.setting.isTopNav,
-        "isLeftNav": this.setting.isLeftNav,
+        "leftNav": {
+          'isShow': this.setting.leftNav.isShow,
+          'isCollapse': this.setting.leftNav.isCollapse,
+        },
+        "isLeftNavCollapse": this.setting.isLeftNav,
         "isTopBar": this.setting.isTopBar,
         "isTopTag": this.setting.isTopTag,
         "isBreadcrumb": this.setting.isBreadcrumb,

@@ -2,7 +2,7 @@
   <div :class="['layout-vue', setting.isFixHeader ? 'is-fixed' : '']" v-if="isDataInitDone">
     <top-header @setLayout="setLayout"></top-header>
     <div class="main-container">
-      <left-nav v-if="setting.isLeftNav"></left-nav>
+      <left-nav v-if="setting.leftNav.isShow"></left-nav>
       <div class="main-right-container">
         <div class="top-container">
           <top-nav v-if="setting.isTopNav"></top-nav>
@@ -54,26 +54,23 @@ export default {
     height: calc(100% - 60px);
 
     .left-nav-vue {
-      width: 200px;
+      width: var(--left-nav-width);
       flex-shrink: 0;
       // box-sizing: border-box;
       // overflow: hidden;
-
-      &.is-collapse {
-        width: 60px;
-      }
     }
 
     &:has(>.is-collapse) {
       .main-right-container {
-        width: calc(100% - 60px);
+        // width: calc(100% - 60px);
       }
     }
 
     .main-right-container {
       display: flex;
       flex-direction: column;
-      width: calc(100% - 200px);
+      // width: calc(100% - 200px);
+      flex: 1;
       flex-shrink: 0;
       height: 100%;
 

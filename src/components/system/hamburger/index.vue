@@ -6,15 +6,15 @@
 
 <script>
 export default {
-  props: {
-    isCollapse: { type: Boolean, default: false },
+  computed: {
+    isCollapse() { return this.$store.state.setting.leftNav.isCollapse }
   },
   data() {
     return {}
   },
   methods: {
     handleToggle() {
-      this.$emit('toggleClick')
+      this.$store.dispatch('setLeftNav')
     }
   }
 }

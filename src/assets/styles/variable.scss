@@ -66,6 +66,16 @@
   --button-font-color: var(--first-font-color); // 按钮字体色
 }
 
+:root body[leftNavStatus="expand"] #app {
+  --left-nav-width: 200px;
+}
+:root body[leftNavStatus="collapse"] #app {
+  --left-nav-width: 60px;
+}
+:root body[leftNavStatus="hide"] #app {
+  --left-nav-width: 0;
+}
+
 $--color-primary: #55c791;
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
@@ -156,3 +166,7 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
 //     }
 //   }
 // }
+
+:export {
+  leftNavWidth: --leftNavWidth;
+}
