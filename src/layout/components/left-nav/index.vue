@@ -1,19 +1,12 @@
 <template>
   <div :class="['left-nav-vue', isCollapse ? 'is-collapse' : 'is-expand']">
-    <!-- :background-color="sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground"
-    :text-color="sideTheme === 'theme-dark' ? variables.menuColor : variables.menuLightColor"
-    :active-text-color="theme"
-    :default-active="activeMenu"
-    -->
     <el-scrollbar wrap-class="c-el-scrollbar">
-      <el-menu :collapse="isCollapse" :unique-opened="false" :collapse-transition="false" :default-active="activeMenu">
+      <el-menu mode="vertical" :collapse="isCollapse" :unique-opened="false" :collapse-transition="false" :default-active="activeMenu" class="left-nav-menu">
         <nav-item v-for="(item, index) in leftNavRoutes" :key="index" :navInfo="item" :isNest="true" :basePath="''" />
       </el-menu>
     </el-scrollbar>
   </div>
-
 </template>
-
 
 <script>
 import NavItem from './components/nav-item'
@@ -44,41 +37,41 @@ export default {
 
 <style lang="scss" scoped>
 .left-nav-vue {
+  width: 200px;
   height: 100%;
-  overflow: hidden;
   border-right: 1px solid #ccc;
+  box-sizing: border-box;
 
-  ::v-deep .el-menu {
+  ::v-deep .left-nav-menu {
     width: 100%;
-    height: 100%;
     border-right: 0;
 
-    a {
-      color: #333;
-      text-decoration: none;
-    }
-
-    .svg-icon {
-      font-size: 18px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
     .menu-item-container {
-      width: 100%;
       min-height: 60px;
+
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+
+      .svg-icon {
+        font-size: 18px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
 
       li {
         height: 100%;
 
+        &.is-active {
+          font-weight: 700;
+        }
+
         &.el-menu-item {
+          min-width: 0;
           display: flex;
           align-items: center;
           height: 60px;
-
-          &.is-active {
-            font-weight: 700;
-          }
         }
 
         &.el-submenu {
@@ -94,7 +87,7 @@ export default {
           height: 60px;
           line-height: 60px;
           font-size: 14px;
-          margin: 0 10px;
+          margin: 0 20px 0 10px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -104,11 +97,15 @@ export default {
   }
 
   &.is-collapse {
-    width: 60px;
-
-    ::v-deep .el-menu {
+    ::v-deep .left-nav-menu {
       .menu-title {
         margin-left: 0;
+      }
+
+      .el-submenu__icon-arrow {
+        &::before {
+          display: none;
+        }
       }
     }
   }
@@ -120,52 +117,61 @@ export default {
 </style>
 <style lang="scss">
 // 组件内全局样式
-// .left-nav-menu-modal
-.el-menu--vertical {
-  a {
-    color: #333;
-    text-decoration: none;
-  }
+.left-nav-vertical-menu {
+  .el-menu--popup {
+    padding: 0;
 
-  .svg-icon {
-    font-size: 16px;
-    font-weight: 700;
-  }
+    .menu-item-container {
+      border-bottom: 1px solid #ccc;
+      min-height: 50px;
 
-  .menu-item-container {
-    width: 100%;
-    min-height: 60px;
+      &:last-child {
+        border-bottom: 0;
+      }
 
-    li {
-      height: 100%;
+      a {
+        color: #333;
+        text-decoration: none;
+      }
 
-      &.el-menu-item {
-        display: flex;
-        align-items: center;
-        height: 60px;
+      .svg-icon {
+        font-size: 16px;
+        font-weight: 700;
+      }
 
+      li {
         &.is-active {
           font-weight: 700;
         }
-      }
 
-      &.el-submenu {
-        .el-submenu__title {
-          height: 60px;
+        &.el-menu-item {
+          height: 100%;
           display: flex;
           align-items: center;
         }
-      }
 
-      .menu-title {
-        flex: 1;
-        height: 60px;
-        line-height: 60px;
-        font-size: 14px;
-        margin: 0 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        &.el-submenu {
+          // display: flex;
+          // align-items: center;
+
+          .el-submenu__title {
+            // width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        .menu-title {
+          // flex: 1;
+          height: 50px;
+          line-height: 50px;
+          font-size: 14px;
+          margin: 0 20px 0 10px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
     }
   }

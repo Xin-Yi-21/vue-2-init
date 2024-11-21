@@ -5,7 +5,7 @@
       <left-nav v-if="setting.isLeftNav"></left-nav>
       <div class="main-right-container">
         <div class="top-container">
-          <!-- <top-nav v-if="setting.isTopNav"></top-nav> -->
+          <top-nav v-if="setting.isTopNav"></top-nav>
           <top-bar v-if="setting.isTopBar"></top-bar>
           <top-tag v-if="setting.isTopTag"></top-tag>
         </div>
@@ -20,12 +20,12 @@
 import TopHeader from '@/layout/components/top/top-header/index.vue'
 import TopBar from '@/layout/components/top/top-bar/index.vue'
 import TopTag from '@/layout/components/top/top-tag/index.vue'
-// import TopNav from '@/layout/components/top/top-nav/index.vue'
+import TopNav from '@/layout/components/top/top-nav/index.vue'
 import LeftNav from '@/layout/components/left-nav/index.vue'
 import Setting from '@/layout/components/setting/index.vue'
 import AppMain from '@/layout/components/app-main/index.vue'
 export default {
-  components: { TopHeader, TopBar, TopTag, LeftNav, Setting, AppMain, },
+  components: { TopHeader, TopBar, TopTag, TopNav, LeftNav, Setting, AppMain, },
   data() {
     return {
       isDataInitDone: true,
@@ -53,10 +53,27 @@ export default {
     display: flex;
     height: calc(100% - 60px);
 
+    .left-nav-vue {
+      width: 200px;
+      flex-shrink: 0;
+      // box-sizing: border-box;
+      // overflow: hidden;
+
+      &.is-collapse {
+        width: 60px;
+      }
+    }
+
+    &:has(>.is-collapse) {
+      .main-right-container {
+        width: calc(100% - 60px);
+      }
+    }
+
     .main-right-container {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      width: calc(100% - 200px);
       flex-shrink: 0;
       height: 100%;
 
@@ -84,6 +101,7 @@ export default {
       height: calc(100% - 60px);
       top: 60px;
       z-index: 99;
+      flex-shrink: 0;
     }
 
     .main-right-container {
