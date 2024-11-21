@@ -14,7 +14,6 @@ import '@/assets/styles/index.scss'
 
 import Cookies from 'js-cookie'
 Vue.use(Element, { size: Cookies.get('size') || 'medium' })
-
 // ⭐ 获取全局配置后执行的文件
 setConfig().then(async () => {
   for (var k in cENV) {

@@ -1,6 +1,7 @@
 <template>
   <div>
-    用户管理
+    基础模板
+    <router-view></router-view>
   </div>
 </template>
 

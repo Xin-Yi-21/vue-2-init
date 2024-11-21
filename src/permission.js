@@ -12,12 +12,13 @@ const whiteList = ['/login', '/register']
 let isRoutesGenerated = false // 状态变量，用于标记路由是否已生成
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  to.meta.title && store.dispatch('setTitle', to.meta.title)
   if (!isRoutesGenerated) {
     store.dispatch('generateRoutes').then(accessRoutes => {
-      // console.log('查accessRoutes', accessRoutes)
       router.addRoutes(accessRoutes) // 动态添加可访问路由表
       isRoutesGenerated = true
       next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+      // next()
     })
   } else {
     next()

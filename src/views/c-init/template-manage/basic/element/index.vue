@@ -1,6 +1,6 @@
 <template>
   <div>
-    用户管理
+    element模板
   </div>
 </template>
 

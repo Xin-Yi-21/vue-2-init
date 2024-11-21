@@ -1,6 +1,6 @@
 <template>
   <div>
-    基础模版
+    echarts模板
   </div>
 </template>
 
