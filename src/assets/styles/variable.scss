@@ -3,6 +3,8 @@
   --tc: rgb(85, 199, 145);
   --tcRGB: 85, 199, 145;
   --tcl: rgba(85, 199, 145, 0.6);
+  --bc: #ccc;
+  --fc: #333;
 }
 
 :root body[theme-style="light"] #app {
@@ -168,5 +170,6 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
 // }
 
 :export {
+  tc: --tc;
   leftNavWidth: --leftNavWidth;
 }

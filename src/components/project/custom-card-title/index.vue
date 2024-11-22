@@ -1,8 +1,9 @@
 <template>
-  <div class="card-header-container">
-    <svg-icon :icon-class="icon" class-name="card-header-icon-svg"></svg-icon>
-    <span class="card-header-title">{{title}}</span>
-    <slot></slot>
+  <div class="c-card-title">
+    <c-card-circle v-if="icon === 'circle'"></c-card-circle>
+    <c-card-rectangle v-else-if="icon === 'rectangle'"></c-card-rectangle>
+    <svg-icon v-else-if="icon" :icon-class="icon" class-name="card-title-icon"></svg-icon>
+    <span class="card-title">{{ title }}</span>
   </div>
 </template>
 
@@ -31,32 +32,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-header-container {
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #dedede;
+.c-card-title {
+  height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px;
   flex-shrink: 0;
   overflow: hidden;
-  .card-header-icon-svg {
+
+  .card-title-icon-svg {
     font-size: 18px;
-    // transform: translateY(1px);
     flex-shrink: 0;
   }
-  .card-header-title {
-    margin-left: 10px;
+
+  .card-title {
     font-family: PingFang SC, PingFang SC;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 16px;
     color: #333;
     white-space: nowrap;
-  }
-
-  ::v-deep .back-icon {
-    margin-left: 20px;
-    // transform: translateY(2px);
   }
 }
 </style>

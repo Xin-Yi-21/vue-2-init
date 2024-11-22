@@ -4,11 +4,11 @@
     <div class="main-container">
       <left-nav v-if="setting.leftNav.isShow"></left-nav>
       <div class="main-right-container">
-        <div class="top-container">
+        <!-- <div class="top-container">
           <top-nav v-if="setting.isTopNav"></top-nav>
           <top-bar v-if="setting.isTopBar"></top-bar>
           <top-tag v-if="setting.isTopTag"></top-tag>
-        </div>
+        </div> -->
         <app-main />
       </div>
       <setting ref="settingRef"></setting>
@@ -34,9 +34,18 @@ export default {
   computed: {
     setting() { return this.$store.state.setting || {} },
   },
-  mounted() {
+
+  created() {
+    this.init()
   },
   methods: {
+    init() {
+      this.getEnums()
+    },
+    async getEnums() {
+      try { await this.$store.dispatch('GetEnums') } catch { }
+      this.isDataInitDone = true
+    },
     setLayout() {
       this.$refs.settingRef.openSetting()
     }
@@ -70,13 +79,18 @@ export default {
       display: flex;
       flex-direction: column;
       // width: calc(100% - 200px);
-      flex: 1;
+      // flex: 1;
+      width: calc(100% - var(--left-nav-width));
+      // overflow: hidden;
       flex-shrink: 0;
       height: 100%;
 
       .app-main-vue {
         flex: 1;
         flex-shrink: 0;
+        width: 100%;
+        overflow: hidden;
+
       }
     }
   }

@@ -4,6 +4,7 @@ import user from './system/user'
 import menu from './system/menu'
 import setting from './system/setting'
 import tag from './system/tag'
+import enums from './project/enums'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -14,6 +15,7 @@ const store = new Vuex.Store({
     menu,
     setting,
     tag,
+    enums,
   },
   getters
 })

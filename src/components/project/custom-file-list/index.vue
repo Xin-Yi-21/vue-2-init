@@ -1,8 +1,8 @@
 <template>
-  <div class="file-list-container y-scroll" v-if="fileList.length>0">
-    <div class="file-list-item" v-for="(item,index) in fileList" :key="index">
+  <div class="c-file-list y-scroll" v-if="fileList.length > 0">
+    <div class="file-list-item" v-for="(item, index) in fileList" :key="index">
       <c-icon i="file-choose" class="file-icon" size="16" tip=""></c-icon>
-      <span class="file-name">{{item[name]}}</span>
+      <span class="file-name">{{ item[name] }}</span>
       <c-icon i="table-view" class="view-icon" color="#55c791" tip="查看" v-if="showView" :disabled="disabledView" @click="handleView(item)" v-preventReClick="2000"></c-icon>
       <c-icon i="download" color="#55c791" tip="下载" size="18" v-if="showDownload" :disabled="disabledDownload" @click="handleDownload(item)" v-preventReClick="2000"></c-icon>
       <c-icon i="table-delete" class="delete-icon" color="#FA4B4B" tip="删除" v-if="showDelete" :disabled="disabledDelete" @click="handleDelete(item)" v-preventReClick="2000"></c-icon>
@@ -70,10 +70,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.file-list-container {
+.c-file-list {
   padding: 10px 10px 5px;
   height: 100%;
   box-sizing: border-box;
+
   // overflow-y: auto;
   // // 滚动条大小
   // &::-webkit-scrollbar {
@@ -100,12 +101,15 @@ export default {
     align-items: center;
     height: 30px;
     margin-bottom: 5px;
+
     &:hover {
       background-color: #eefaf4;
     }
+
     .file-icon {
       width: 30px;
     }
+
     .file-name {
       flex: 1;
       overflow: hidden;

@@ -65,25 +65,27 @@ export default {
 ::v-deep.c-pagination {
   margin: 10px 20px;
   text-align: right;
-  padding: 1px 5px;
+  padding: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
   .btn-prev,
   .btn-next {
-    padding: 0 5px;
+    padding: 0 5px !important;
   }
 
   .el-pager {
-    // .number {
-    // &:hover {
-    //   color: #3ea48b !important;
-    // }
-    // }
     .active {
-      background-color: var(--themeColor) !important;
+      background-color: var(--tc) !important;
     }
   }
+
   .el-pagination__sizes {
     margin: 0 5px;
   }
+
   .el-pagination__jump {
     margin-left: 5px;
   }

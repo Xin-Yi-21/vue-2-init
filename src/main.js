@@ -29,22 +29,30 @@ setConfig().then(async () => {
   Vue.use(directive)
   Vue.use(plugins)
   // 全局组件
-  const Tooltip = (await import('@/components/project/tooltip')).default
+  const cTooltip = (await import('@/components/project/custom-tooltip')).default
   const cPagination = (await import('@/components/project/custom-pagination')).default
   const cButton = (await import('@/components/project/custom-button')).default
   const cIcon = (await import('@/components/project/custom-icon')).default
   const cPreview = (await import('@/components/project/custom-preview')).default
   const cFileList = (await import('@/components/project/custom-file-list')).default
-  const CardHeader = (await import('@/components/project/card-header')).default
-  const CardCircle = (await import('@/components/project/card-circle')).default
-  Vue.component('Tooltip', Tooltip)
+  const cCardCircle = (await import('@/components/project/custom-card-circle')).default
+  const cCardRectangle = (await import('@/components/project/custom-card-rectangle')).default
+  const cCardTitle = (await import('@/components/project/custom-card-title')).default
+  const cCardHeader = (await import('@/components/project/custom-card-header')).default
+  const cTab = (await import('@/components/project/custom-tab')).default
+
+  Vue.component('cTooltip', cTooltip)
   Vue.component('cPagination', cPagination)
   Vue.component('cButton', cButton)
   Vue.component('cIcon', cIcon)
   // Vue.component('cPreview', cPreview)
   Vue.component('cFileList', cFileList)
-  Vue.component('CardHeader', CardHeader)
-  Vue.component('CardCircle', CardCircle)
+  Vue.component('cCardCircle', cCardCircle)
+  Vue.component('cCardRectangle', cCardRectangle)
+  Vue.component('cCardTitle', cCardTitle)
+  Vue.component('cCardHeader', cCardHeader)
+  Vue.component('cTab', cTab)
+
 
   // 全局方法
   // getTableHeaderLRVByGlobal

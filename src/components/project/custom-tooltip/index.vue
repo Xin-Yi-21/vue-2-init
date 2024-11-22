@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip ref="tooltipRef" popper-class="custom-el-tooltip" :effect="effect" :content="content" :placement="placement" :disabled="disabled" :open-delay="openDelay" :append-to-body="true">
+  <el-tooltip ref="tooltipRef" popper-class="c-tooltip" :effect="effect" :content="content" :placement="placement" :disabled="disabled" :open-delay="openDelay" :append-to-body="true">
     <slot></slot>
   </el-tooltip>
 </template>
@@ -67,14 +67,16 @@ export default {
 </script>
 
 <style lang="scss">
-.custom-el-tooltip {
+.c-tooltip {
   background: #f4f4f5 !important;
   border-radius: 2px;
   opacity: 1;
   border: 1px solid #333 !important;
   color: #333 !important;
+
   .popper__arrow {
     border-top-color: #333 !important;
+
     &::after {
       border-top-color: #f4f4f5 !important;
     }

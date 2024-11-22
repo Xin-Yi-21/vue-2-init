@@ -1,5 +1,5 @@
 <template>
-  <span class="card-circle out-circle" :style="`width:${outerSize}px;height:${outerSize}px;backgroundColor:${outerColor};`">
+  <span class="c-card-circle out-circle" :style="`width:${outerSize}px;height:${outerSize}px;backgroundColor:${outerColor};`">
     <span class="inner-circle" :style="`width:${innerSize}px;height:${innerSize}px;backgroundColor:${innerColor};`"></span>
   </span>
 </template>
@@ -9,11 +9,11 @@ export default {
   props: {
     outerColor: {
       type: String,
-      default: '#55C79133',
+      default: '',
     },
     innerColor: {
       type: String,
-      default: '#55C791 ',
+      default: '',
     },
     outerSize: {
       type: [String, Number],
@@ -37,24 +37,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-circle {
-  position: relative;
-  display: inline-block;
+.c-card-circle {
   width: 12px;
   height: 12px;
+  position: relative;
+  display: inline-block;
   border-radius: 50%;
   background-color: #55c79133;
   margin-right: 5px;
+
   .inner-circle {
+    width: 6px;
+    height: 6px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: inline-block;
-    width: 6px;
-    height: 6px;
     border-radius: 50%;
-    background-color: #55c791;
+    background-color: var(--tc);
   }
 }
 </style>
