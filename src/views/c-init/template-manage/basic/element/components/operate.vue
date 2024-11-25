@@ -2,7 +2,7 @@
   <el-dialog :visible="true" class="c-dialog dispatch-operate-dialog" title="" :modal="true" :close-on-click-modal="false" :before-close="handleClose">
     <div slot="title" class="s-d-title">
       <div class="h-t">{{ dialogInfo.title }}</div>
-      <svg-icon icon-class="close" class-name="n-o-i" @click="handleClose"></svg-icon>
+      <svg-icon icon-class="c-close" class-name="n-o-i" @click="handleClose"></svg-icon>
     </div>
     <div class="c-d-c">
       <el-form :model="form" :rules="formRules" ref="formRef" class="c-form">
@@ -54,7 +54,7 @@ export default {
   },
   props: {
     operate: { type: String, default: 'add' },
-    rowInfo: { type: Object, default: () => { } },
+    info: { type: Object, default: () => { } },
   },
   created() {
     this.init()
@@ -73,16 +73,17 @@ export default {
           this.$set(this, 'form', {})
           this.$set(this, 'dialogInfo', { operate: 'add', title: '人物管理 - 新增' })
           break
+        case 'view':
         case 'update':
           let form = {
-            personId: this.rowInfo.personId,
-            personName: this.rowInfo.personName,
-            gender: this.rowInfo.gender,
-            age: this.rowInfo.age,
-            role: this.rowInfo.role,
+            personId: this.info.personId,
+            personName: this.info.personName,
+            gender: this.info.gender,
+            age: this.info.age,
+            role: this.info.role,
           }
           this.$set(this, 'form', form)
-          this.$set(this, 'dialogInfo', { operate: 'edit', title: '人物管理 - 修改' })
+          this.$set(this, 'dialogInfo', { operate: 'edit', title: this.operate === 'view' ? '人物管理 - 查看' : '人物管理 - 修改' })
           break
       }
     },

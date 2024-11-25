@@ -26,7 +26,7 @@ export default {
 .top-bar-vue {
   display: flex;
   height: 40px;
-  border-bottom: 1px solid #ccc;
-  background-color: #fff;
+  border-bottom: 1px solid var(--bc1);
+  background-color: var(--bg-primary);
 }
 </style>

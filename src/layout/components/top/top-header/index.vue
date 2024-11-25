@@ -1,7 +1,7 @@
 <template>
   <div class="top-header-vue">
     <div class="project">
-      <c-icon i="c-logo" cursor="auto" :color="$store.state.setting.themeColor" size="24"></c-icon>
+      <c-icon i="c-logo" cursor="auto" size="24"></c-icon>
       <div class="title">项目初始化系统</div>
       <Breadcrumb v-if="setting.topHeader.isBreadcrumb" separator=">" class="breadcrumb-container" />
     </div>
@@ -112,7 +112,8 @@ export default {
   // background-image: url(@/assets/images/bg-header.png);
   // background-repeat: no-repeat;
   // background-size: cover;
-  background-color: skyblue;
+  background-color: var(--bg-topHeader);
+  border-bottom: 1px solid var(--bc1);
   font-size: 14px;
 
   &.is-fixed {
@@ -128,42 +129,43 @@ export default {
     align-items: center;
 
     .svg-icon {
-      font-size: 24px !important;
       margin: 0 10px;
+      color: var(--fc1);
+      font-size: 24px !important;
     }
 
     .title {
       display: flex;
       align-items: center;
-      font-weight: 700;
+      color: var(--fc1);
       font-size: 30px;
-      // color: #fff;
-      color: var(--first-font-color);
+      font-weight: 700;
       text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
     }
 
     .breadcrumb-container {
-      font-size: 16px;
+      font-size: 14px;
+      margin-left: 10px;
 
       &::before {
-        content: '>';
+        // content: '>';
         margin-right: 10px;
-        color: #fff;
+        color: var(--fc2);
         font-size: 16px;
       }
 
       .el-breadcrumb__inner {
         a {
-          color: #fff;
+          color: var(--fc2);
         }
 
         .no-redirect {
-          color: #fff;
+          color: var(--fc2);
         }
       }
 
       .el-breadcrumb__separator {
-        color: #fff;
+        color: var(--fc2);
       }
     }
   }
@@ -176,7 +178,7 @@ export default {
     font-family: PingFang SC, PingFang SC;
     font-weight: 800;
     font-size: 20px;
-    color: #ffffff;
+    color: var(--fc2);
     line-height: 28px;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
     margin-right: 50px;
@@ -207,16 +209,16 @@ export default {
       img {
         width: 36px;
         height: 36px;
-        padding: 2px;
-        border-radius: 50%;
-        /* 确保头像是圆形 */
-        border-radius: 50%;
-        border: 2px solid #333;
         margin-right: 10px;
+        padding: 2px;
+        border: 2px solid var(--fc1);
+        border-radius: 50%;
+        background-color: #fff;
       }
 
       >span {
         margin-right: 10px;
+        color: var(--fc1);
       }
     }
   }

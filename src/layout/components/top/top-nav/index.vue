@@ -37,21 +37,23 @@ export default {
   width: 100%;
   height: var(--top-nav-height);
 
+
   ::v-deep .top-nav-menu {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     display: flex;
-    border-bottom: 1px solid #ccc;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--bc1);
 
     .menu-item-container {
       // width: 400px;
       flex: 1;
       flex-shrink: 0;
       height: 100%;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid var(--bc1);
 
-      // border-bottom: 1px solid #ccc;
+      // border-bottom: 1px solid var(--bc1);
       // box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
       a {
         color: #333;

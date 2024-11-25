@@ -1,0 +1,106 @@
+// 主题风格
+:root body {
+  &[theme-style="light"] {
+    --bg-primary: #fff; // 主要背景色
+    --bg-layout: #f0f0f0;
+    --bg-topHeader: #fff;
+
+    --fc1: #333; // 主要字体色
+    --fc2: #666; // 二级字体色
+    --fc3: #999; // 三级字体色
+
+    --bc1: #ccc; // 主要边框色
+  }
+  &[theme-style="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-layout: #f0f0f0;
+    --bg-topHeader: #1a1a1a;
+
+    --fc1: #fff;
+    --fc2: rgba(255, 255, 255, 0.8);
+    --fc3: rgba(255, 255, 255, 0.6);
+
+    --bc1: #efefef;
+  }
+}
+// 头部
+// body {
+//   &[theme-style="light"] #app .top-header-vue {
+//     .project {
+//       .svg-icon {
+//         color: #333;
+//       }
+//       .title {
+//         color: #333;
+//       }
+//     }
+//     .breadcrumb-container {
+//       &::before {
+//         color: #666;
+//       }
+//       .el-breadcrumb__inner {
+//         a {
+//           color: #666;
+//         }
+//         .no-redirect {
+//           color: #666;
+//         }
+//       }
+//       .el-breadcrumb__separator {
+//         color: #666;
+//       }
+//     }
+//     .time {
+//       color: #333;
+//     }
+//     .setting {
+//       .avatar {
+//         img {
+//           border: 2px solid #333;
+//         }
+//         > span {
+//           color: #333;
+//         }
+//       }
+//     }
+//   }
+//   &[theme-style="dark"] #app .top-header-vue {
+//     .project {
+//       .svg-icon {
+//         color: #fff;
+//       }
+//       .title {
+//         color: #fff;
+//       }
+//     }
+//     .breadcrumb-container {
+//       &::before {
+//         color: rgba(255, 255, 255, 0.8);
+//       }
+//       .el-breadcrumb__inner {
+//         a {
+//           color: rgba(255, 255, 255, 0.8);
+//         }
+//         .no-redirect {
+//           color: rgba(255, 255, 255, 0.8);
+//         }
+//       }
+//       .el-breadcrumb__separator {
+//         color: rgba(255, 255, 255, 0.8);
+//       }
+//     }
+//     .time {
+//       color: #fff;
+//     }
+//     .setting {
+//       .avatar {
+//         img {
+//           border: 2px solid #fff;
+//         }
+//         > span {
+//           color: #fff;
+//         }
+//       }
+//     }
+//   }
+// }

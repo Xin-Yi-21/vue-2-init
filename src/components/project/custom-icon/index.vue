@@ -1,12 +1,12 @@
 <template>
-  <i :class="{'c-icon':true,'is-disabled':disabled}" :style="`color:${color};font-size:${size}px;`" @click="handleIconClick">
+  <i :class="{ 'c-icon': true, 'is-disabled': disabled }" :style="`color:${color};font-size:${size}px;`" @click="handleIconClick">
     <svg-icon :icon-class="i"></svg-icon>
-    <span class="icon-tip" v-if="tip" :style="`top:${topTipPx}px`">{{tip}}</span>
-    <!-- <el-tooltip ref="tooltip" effect="light" placement="top" popper-class="custom-icon-el-tooltip" :visible-arrow="false" v-if="tip">
+    <!-- v-if="tip" -->
+    <span class="icon-tip" :style="`top:${topTipPx}px`">{{ tip }}</span>
+    <!-- <el-tooltip ref="tooltip" effect="light" placement="top" popper-class="c-icon-el-tooltip" :visible-arrow="false" v-if="tip">
       <svg-icon :icon-class="i" :style="`color:${color};`"></svg-icon>
-      <span slot="content" :style="`color:${color};`">{{tip}}</span>
-    </el-tooltip>
-    <svg-icon v-else :icon-class="i" :style="`color:${color};`"></svg-icon> -->
+      <span slot="content" :style="`color:${color};`">{{ tip }}</span>
+    </el-tooltip> -->
   </i>
 </template>
 
@@ -38,7 +38,9 @@ export default {
       default: -1,
     }
   },
-  mounted() { },
+  mounted() {
+    console.log('tip', this.tip)
+  },
   data() {
     return {}
   },
@@ -59,19 +61,25 @@ export default {
   font-style: normal;
   font-weight: 400;
   cursor: pointer;
+
   &[class*="is-disabled"] {
-    cursor: not-allowed !important; /* 改变鼠标指针样式为不允许操作 */
+    cursor: not-allowed !important;
+    /* 改变鼠标指针样式为不允许操作 */
     // pointer-events: none; /* 禁止元素接收鼠标事件 */
-    opacity: 0.6; /* 设置元素透明度为半透明，以表示禁用状态 */
+    opacity: 0.6;
+    /* 设置元素透明度为半透明，以表示禁用状态 */
   }
+
   .svg-icon {
     color: inherit;
     font-size: inherit;
     margin: 0 5px;
   }
-  .svg-icon:hover ~ .icon-tip {
+
+  .svg-icon:hover~.icon-tip {
     display: block;
   }
+
   .icon-tip {
     display: none;
     position: absolute;
@@ -86,7 +94,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.custom-icon-el-tooltip {
+.c-icon-el-tooltip {
   border: 0 !important;
   background-color: transparent !important;
   padding: 0 !important;

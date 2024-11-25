@@ -26,6 +26,7 @@ export default {
   height: 100%;
   display: inline-flex;
   align-items: center;
+  color: var(--fc1);
 
   .is-collapse {
     transform: rotate(180deg);

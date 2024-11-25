@@ -62,8 +62,12 @@ export default {
   margin-left: 10px;
   font-size: 14px;
 
+  a {
+    color: var(--fc1);
+  }
+
   .no-redirect {
-    color: #666;
+    color: var(--fc2);
     cursor: text;
   }
 }

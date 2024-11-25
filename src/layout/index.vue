@@ -79,11 +79,16 @@ export default {
       height: 100%;
       overflow: hidden;
 
-      .app-main-vue {
+      ::v-deep .app-main-vue {
         width: 100%;
+        background-color: var(--bg-layout);
         flex: 1;
         flex-shrink: 0;
         overflow: auto auto;
+
+        &>* {
+          border-top: 1px solid transparent;
+        }
 
         // 滚动条大小
         &::-webkit-scrollbar {

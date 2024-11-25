@@ -53,10 +53,14 @@
         </el-table-column>
         <el-table-column label="操作" prop="" align="center">
           <template slot-scope="scope">
-            <div class="table-operate-row">
-              <el-button @click="handleView(scope.row)" type="text">查看</el-button>
+            <div class="c-table-operate-row">
+              <!-- <el-button @click="handleView(scope.row)" type="text">查看</el-button>
               <el-button @click="handleUpdate(scope.row)" type="text">修改</el-button>
-              <el-button @click="handleDelete(scope.row)" type="text">删除</el-button>
+              <el-button @click="handleDelete(scope.row)" type="text">删除</el-button> -->
+
+              <c-icon i="c-t-view" tip="查看" color="#55c791" @click="handleView(scope.row)"></c-icon>
+              <c-icon i="c-t-edit" tip="更新" color="#0077FF" @click="handleUpdate(scope.row)"></c-icon>
+              <c-icon i="c-t-delete" tip="删除" color="#FA4B4B" @click="handleDelete(scope.row)"></c-icon>
             </div>
           </template>
         </el-table-column>
@@ -64,6 +68,8 @@
 
       <c-pagination :currentPageNum.sync="form.currentPageNum" :currentPageSize.sync="form.currentPageSize" :total="tableTotal" @getTable="getTableData"></c-pagination>
     </div>
+
+    <Operate v-if="operateDialog.visible" :operate="operateDialog.operate" :info="operateDialog.info" @close="operateDialog.visible = false" @refresh="getTableData"></Operate>
   </div>
 </template>
 
@@ -84,6 +90,7 @@ export default {
       tableTotal: 1000,
       tabList: [{ label: '要素1', value: '1' }, { label: '要素2', value: '2' }, { label: '要素3', value: '3' }, { label: '要素4', value: '4' },],
       currentTab: '1',
+      operateDialog: {},
     }
   },
   created() {
@@ -155,7 +162,7 @@ export default {
       let operateDialog = {
         visible: true,
         operate: 'add',
-        rowInfo: {},
+        info: {},
       }
       this.$set(this, 'operateDialog', operateDialog)
     },
@@ -164,7 +171,7 @@ export default {
       let operateDialog = {
         visible: true,
         operate: 'view',
-        rowInfo: JSON.parse(JSON.stringify(rowInfo)),
+        info: JSON.parse(JSON.stringify(rowInfo)),
       }
       this.$set(this, 'operateDialog', operateDialog)
     },
@@ -173,14 +180,14 @@ export default {
       let operateDialog = {
         visible: true,
         operate: 'update',
-        rowInfo: JSON.parse(JSON.stringify(rowInfo)),
+        info: JSON.parse(JSON.stringify(rowInfo)),
       }
       this.$set(this, 'operateDialog', operateDialog)
     },
     // 6、删除
     handleDelete(rowInfo) {
       this.$confirm('确定删除吗？', '确认消息', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning', customClass: 'c-message-confirm' }).then(() => {
-        // let params = { id: rowInfo.id }
+        // let params = { id: info.id }
         let params = new FormData()
         params.append('id', rowInfo.id)
         // dispatchManageDelete(params).then(res => {
@@ -199,144 +206,6 @@ export default {
   height: 100%;
   // padding-top: 0;
   // position: relative;
-  border-top: 1px solid transparent;
 
-  // .test {
-  //   // height: ;
-  //   flex: 1;
-  //   background-color: pink;
-  //   flex-shrink: 0;
-  //   // flex-grow: 0;
-  //   // flex-basis: 300px;
-  //   // height: 300px;
-  //   overflow-y: scroll;
-
-  //   .child {
-  //     height: 1000px;
-  //   }
-  // }
-
-  // .c-search-container {
-  //   width: calc(100% - 20px);
-  //   height: 60px;
-  //   display: flex;
-  //   align-items: center;
-  //   overflow: hidden;
-  //   margin: 10px;
-  //   padding: 0 10px;
-  //   border-radius: 8px;
-  //   background-color: #fff;
-
-  //   .c-search-form {
-  //     display: flex;
-  //     align-items: center;
-  //     height: 60px;
-
-  //     .el-form-item {
-  //       display: flex;
-  //       margin-right: 20px;
-  //       margin-bottom: 0;
-
-  //       .el-form-item__label {
-  //         width: 100px;
-  //         flex-shrink: 0;
-  //       }
-
-  //       .el-form-item__content {
-  //         flex: 1;
-  //       }
-  //     }
-  //   }
-
-  //   .button-part {
-  //     flex: 1;
-  //     height: 50px;
-
-  //     .el-button {
-  //       margin-left: 20px;
-  //       margin-top: 7px;
-  //       height: 36px;
-  //       padding: 0 20px;
-  //     }
-
-  //     .left {
-  //       float: left;
-  //       display: flex;
-  //       align-items: center;
-  //     }
-
-  //     .right {
-  //       float: right;
-  //     }
-
-  //     .query-button,
-  //     .confirm-button,
-  //     .add-button {
-  //       background: #5abcaa;
-  //       border-color: #5abcaa;
-
-  //       &:hover {
-  //         border-color: rgba(62, 164, 139, 0.6);
-  //         background-color: rgba(62, 164, 139, 0.6);
-  //       }
-  //     }
-
-  //     .refresh-button {
-  //       padding: 10px 10px;
-  //     }
-  //   }
-  // }
-
-  // .c-result-container {
-  //   width: calc(100% - 20px);
-  //   height: calc(100% - 90px);
-  //   background-color: #fff;
-  //   border-radius: 8px;
-  //   margin: 10px;
-
-  //   .top-part {
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: space-between;
-  //     width: 100%;
-  //     height: 50px;
-  //     border-bottom: 1px solid #efefef;
-
-  //     .prediction-tab {
-  //       display: flex;
-  //       align-items: center;
-  //       margin-left: 10px;
-  //       height: 36px;
-  //       border: 1px solid #ccc;
-  //       border-radius: 8px;
-  //       overflow: hidden;
-
-  //       .tab-item {
-  //         width: 120px;
-  //         height: 36px;
-  //         text-align: center;
-  //         line-height: 36px;
-  //         border-right: 1px solid #ccc;
-  //         cursor: pointer;
-
-  //         &:last-child {
-  //           border-right: 0;
-  //         }
-
-  //         &.is-active {
-  //           background-color: #5fbeac;
-  //           color: #fff;
-  //           font-weight: 700;
-  //         }
-  //       }
-  //     }
-
-  //     .show-factor-radio {
-  //       width: 200px;
-  //     }
-  //   }
-
-
-  // }
 }
 </style>
