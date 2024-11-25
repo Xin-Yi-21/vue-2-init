@@ -9,9 +9,9 @@ const setting = {
       isBreadcrumb: storageSetting.topHeader?.isBreadcrumb === undefined ? topHeader.isBreadcrumb : storageSetting.topHeader.isBreadcrumb,
     },
     leftNav: {
+      isShow: storageSetting.leftNav?.isShow === undefined ? leftNav.isShow : storageSetting.leftNav.isShow,
       isCollapse: storageSetting.leftNav?.isCollapse === undefined ? leftNav.isCollapse : storageSetting.leftNav.isCollapse,
       withoutAnimation: storageSetting.leftNav?.withoutAnimation === undefined ? leftNav.withoutAnimation : storageSetting.leftNav.withoutAnimation,
-      isShow: storageSetting.leftNav?.isShow === undefined ? leftNav.isShow : storageSetting.leftNav.isShow,
     },
     themeStyle: storageSetting.themeStyle === undefined ? themeStyle : storageSetting.themeStyle,
     themeColor: storageSetting.themeColor === undefined ? themeColor : storageSetting.themeColor,

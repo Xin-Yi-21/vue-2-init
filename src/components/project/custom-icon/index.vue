@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted() {
-    console.log('tip', this.tip)
+
   },
   data() {
     return {}

@@ -14,6 +14,7 @@ export default {
   },
   methods: {
     handleToggle() {
+      this.$store.state.setting.leftNav.isCollapse = !this.isCollapse
       this.$store.dispatch('setLeftNav')
     }
   }
