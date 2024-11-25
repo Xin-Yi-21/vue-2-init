@@ -35,12 +35,12 @@ export default {
 <style lang="scss" scoped>
 .top-nav-vue {
   width: 100%;
-  height: 50px;
+  height: var(--top-nav-height);
 
   ::v-deep .top-nav-menu {
     box-sizing: border-box;
     width: 100%;
-    height: 50px;
+    height: 100%;
     display: flex;
     border-bottom: 1px solid #ccc;
 
@@ -121,18 +121,9 @@ export default {
 }
 </style>
 <style lang="scss">
-// 组件内全局样式
-body {
-  &:has(.left-nav-vue.is-collapse) {
-    .top-nav-vertical-menu {
-      // width: calc((100% - 60px)/5);
-    }
-  }
-}
-
 .top-nav-vertical-menu {
 
-  // width: calc((100% - 200px)/5);
+  // width: calc((100% - var(--left-nav-width)) / 5);
   .el-menu--popup {
     padding: 0;
 

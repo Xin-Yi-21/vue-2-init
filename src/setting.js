@@ -14,23 +14,24 @@ export default {
   themeLightColor: '#55c79166',
   // 显示布局
   showSettings: true,
+  // 头部
+  topHeader: {
+    isShow: true,
+    isBreadcrumb: true,
+  },
+  isTopHeader: true,
   // 左侧导航
-  // isLeftNav: true,
   leftNav: {
+    isShow: true,
     isCollapse: false,
     withoutAnimation: false,
-    isShow: true
   },
   // 顶部导航
   isTopNav: true,
-  // 顶部面包屑
-  isBreadcrumb: true,
   // 面包栏
   isTopBar: true,
   // 标签
   isTopTag: true,
-  // 固定头部
-  isFixHeader: false,
   // 是否全屏
   isFullScreen: false,
   /**

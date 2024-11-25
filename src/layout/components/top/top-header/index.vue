@@ -3,7 +3,7 @@
     <div class="project">
       <c-icon i="c-logo" cursor="auto" :color="$store.state.setting.themeColor" size="24"></c-icon>
       <div class="title">项目初始化系统</div>
-      <Breadcrumb v-if="setting.isBreadcrumb" separator=">" class="breadcrumb-container" />
+      <Breadcrumb v-if="setting.topHeader.isBreadcrumb" separator=">" class="breadcrumb-container" />
     </div>
 
     <div class="menu"> </div>
@@ -107,12 +107,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 ::v-deep.top-header-vue {
-  height: 60px;
   display: flex;
   align-items: center;
   // background-image: url(@/assets/images/bg-header.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-repeat: no-repeat;
+  // background-size: cover;
   background-color: skyblue;
   font-size: 14px;
 

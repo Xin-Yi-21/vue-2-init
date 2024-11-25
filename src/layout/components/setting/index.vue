@@ -13,27 +13,33 @@
         <el-color-picker v-model="setting.themeColor" :predefine="predefineColors" />
       </div>
       <div class="setting-item">
-        <span class="setting-label">开启顶部导航</span>
-        <el-switch v-model="setting.isTopNav" />
+        <span class="setting-label">开启头部</span>
+        <el-switch v-model="setting.topHeader.isShow" @change="handleTopHeader" />
+      </div>
+      <div class="setting-item">
+        <span class="setting-label">开启头部面包</span>
+        <el-switch v-model="setting.topHeader.isBreadcrumb" />
       </div>
       <div class="setting-item">
         <span class="setting-label">开启左侧导航</span>
         <el-switch v-model="setting.leftNav.isShow" @change="handleLeftNav" />
       </div>
       <div class="setting-item">
-        <span class="setting-label">开启折叠导航</span>
+        <span class="setting-label">开启左侧折叠</span>
         <el-switch v-model="setting.leftNav.isCollapse" @change="handleLeftNav" />
       </div>
+      <div class="setting-item">
+        <span class="setting-label">开启顶部导航</span>
+        <el-switch v-model="setting.isTopNav" />
+      </div>
+
       <div class="setting-item">
         <span class="setting-label">开启面包栏</span>
         <el-switch v-model="setting.isTopBar" />
       </div>
+
       <div class="setting-item">
-        <span class="setting-label">开启导航面包栏</span>
-        <el-switch v-model="setting.isBreadcrumb" />
-      </div>
-      <div class="setting-item">
-        <span class="setting-label">开启标签</span>
+        <span class="setting-label">开启标签栏</span>
         <el-switch v-model="setting.isTopTag" />
       </div>
       <div class="setting-item">
@@ -44,14 +50,10 @@
         <span class="setting-label">开启水印</span>
         <el-switch v-model="setting.isWaterMark" @change="handleWaterMark" />
       </div>
-      <div class="setting-item">
+      <!-- <div class="setting-item">
         <span class="setting-label">开启全屏</span>
         <el-switch v-model="setting.isFullScreen" @change="handleFullScreen(setting)" />
-      </div>
-      <div class="setting-item">
-        <span class="setting-label">固定头部</span>
-        <el-switch v-model="setting.isFixHeader" @change="handleFixHeader(setting)" />
-      </div>
+      </div> -->
       <div class="setting-item">
         <span class="setting-label">布局大小</span>
         <el-radio-group v-model="setting.elSize">
@@ -60,10 +62,10 @@
           <el-radio label="small">较小</el-radio>
         </el-radio-group>
       </div>
-      <div class="setting-item">
+      <!-- <div class="setting-item">
         <span class="setting-label">设置缩放</span>
         <el-slider v-model="setting.scale" @change="handleScale" />
-      </div>
+      </div> -->
     </div>
     <div class="setting-footer">
       <el-button @click="handleSaveSetting" type="primary">保存配置</el-button>
@@ -92,9 +94,16 @@ export default {
     handleWaterMark() {
 
     },
+    // 头部
+    handleTopHeader() {
+      this.$store.dispatch('setTopHeader')
+    },
     // 左侧导航
     handleLeftNav() {
       this.$store.dispatch('setLeftNav')
+    },
+    handleFullScreen(setting) {
+      handleFullScreen(setting)
     },
     // 缩放
     handleScale() {
@@ -107,17 +116,19 @@ export default {
         "themeStyle": this.setting.themeStyle,
         "themeColor": this.setting.themeColor,
         "elSize": this.setting.elSize,
-        "isTopNav": this.setting.isTopNav,
+        "isTopHeader": this.setting.isTopHeader,
+        "topHeader": {
+          'isShow': this.setting.topHeader.isShow,
+          'isBreadcrumb': this.setting.topHeader.isBreadcrumb,
+        },
         "leftNav": {
           'isShow': this.setting.leftNav.isShow,
           'isCollapse': this.setting.leftNav.isCollapse,
         },
-        "isLeftNavCollapse": this.setting.isLeftNav,
+        "isTopNav": this.setting.isTopNav,
         "isTopBar": this.setting.isTopBar,
         "isTopTag": this.setting.isTopTag,
-        "isBreadcrumb": this.setting.isBreadcrumb,
         "isDynamicTitle": this.setting.isDynamicTitle,
-        "isFixHeader": this.setting.isFixHeader,
         "isFullScreen": this.setting.isFullScreen,
       }
       localStorage.setItem("layout-setting", JSON.stringify(layoutSetting))

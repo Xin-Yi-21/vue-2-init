@@ -24,6 +24,7 @@ export default {
 .index-home-container {
   width: 100%;
   height: 100%;
+  // height: 1200px;
   background-image: url('~@/assets/images/bg-login.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
