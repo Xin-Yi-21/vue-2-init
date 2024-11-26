@@ -30,7 +30,8 @@
             <c-icon i="c-layout"></c-icon>
             <span>布局设置</span>
           </el-dropdown-item>
-          <el-dropdown-item divided command="logout">
+          <div class="line"></div>
+          <el-dropdown-item command="logout">
             <c-icon i="c-logout"></c-icon>
             <span>退出登录</span>
           </el-dropdown-item>
@@ -113,7 +114,7 @@ export default {
   // background-repeat: no-repeat;
   // background-size: cover;
   background-color: var(--bg-topHeader);
-  border-bottom: 1px solid var(--bc1);
+  border-bottom: 1px solid var(--bcp);
   font-size: 14px;
 
   &.is-fixed {
@@ -130,14 +131,14 @@ export default {
 
     .svg-icon {
       margin: 0 10px;
-      color: var(--fc1);
+      color: var(--fcp);
       font-size: 24px !important;
     }
 
     .title {
       display: flex;
       align-items: center;
-      color: var(--fc1);
+      color: var(--fcp);
       font-size: 30px;
       font-weight: 700;
       text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
@@ -211,14 +212,14 @@ export default {
         height: 36px;
         margin-right: 10px;
         padding: 2px;
-        border: 2px solid var(--fc1);
+        border: 2px solid var(--fcp);
         border-radius: 50%;
         background-color: #fff;
       }
 
       >span {
         margin-right: 10px;
-        color: var(--fc1);
+        color: var(--fcp);
       }
     }
   }
@@ -231,14 +232,24 @@ export default {
     display: flex;
     align-items: center;
 
-    &.el-dropdown-menu__item--divided {
-      margin-top: 5px;
 
-      &::before {
-        display: none;
-      }
-    }
 
+    // &.el-dropdown-menu__item--divided {
+    //   margin-top: 5px;
+    //   padding-top: 5px;
+
+    //   &::before {
+    //     display: none;
+    //   }
+    // }
+
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--bcp);
+    margin: 5px 0;
   }
 }
 </style>

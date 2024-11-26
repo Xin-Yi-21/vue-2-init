@@ -238,7 +238,7 @@ export default {
   height: 34px;
   width: 100%;
   background: var(--bg-primary);
-  border-bottom: 1px solid var(--bc1);
+  border-bottom: 1px solid var(--bcp);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
 
   .tags-view-wrapper {

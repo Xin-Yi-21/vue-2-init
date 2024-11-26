@@ -63,7 +63,7 @@ export default {
   font-size: 14px;
 
   a {
-    color: var(--fc1);
+    color: var(--fcp);
   }
 
   .no-redirect {

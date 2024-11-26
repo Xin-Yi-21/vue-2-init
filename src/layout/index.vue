@@ -87,7 +87,8 @@ export default {
         overflow: auto auto;
 
         &>* {
-          border-top: 1px solid transparent;
+          // border-top: 1px solid transparent;
+          overflow: hidden;
         }
 
         // 滚动条大小

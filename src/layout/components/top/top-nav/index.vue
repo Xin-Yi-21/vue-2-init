@@ -1,7 +1,7 @@
 <template>
   <div class="top-nav-vue">
     <el-scrollbar wrap-class="c-el-scrollbar">
-      <el-menu :unique-opened="true" :collapse-transition="false" mode="horizontal" :ellipsis="false" :default-active="activeMenu" menu-trigger="click" class="top-nav-menu">
+      <el-menu :unique-opened="true" :collapse-transition="false" mode="horizontal" :ellipsis="false" :default-active="activeMenu" menu-trigger="hover" class="top-nav-menu">
         <nav-item v-for="(item, index) in topNavRoutes" :key="index" :navInfo="item" :isNest="true" :basePath="''" />
       </el-menu>
     </el-scrollbar>
@@ -43,21 +43,21 @@ export default {
     height: 100%;
     display: flex;
     background-color: var(--bg-primary);
-    border-bottom: 1px solid var(--bc1);
+    border-bottom: 1px solid var(--bcp);
 
     .menu-item-container {
       // width: 400px;
       flex: 1;
       flex-shrink: 0;
       height: 100%;
-      border-right: 1px solid var(--bc1);
+      border-right: 1px solid var(--bcp);
 
       &:last-child {
         border-right: 0;
       }
 
       a {
-        color: var(--fc1);
+        color: var(--fcp);
         text-decoration: none;
       }
 
@@ -75,7 +75,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--fc1);
+          color: var(--fcp);
           background-color: var(--bg-primary);
 
           &.is-active {
@@ -90,7 +90,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fc1);
+              color: var(--fcp);
             }
 
           }
@@ -119,13 +119,13 @@ export default {
             justify-content: center;
             align-items: center;
             border-bottom: 0;
-            color: var(--fc1);
+            color: var(--fcp);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fc1);
+                color: var(--fcp);
               }
             }
 
@@ -166,14 +166,14 @@ export default {
     padding: 0;
 
     .menu-item-container {
-      border-bottom: 1px solid var(--bc1);
+      border-bottom: 1px solid var(--bcp);
 
       &:last-child {
         border-bottom: 0;
       }
 
       a {
-        color: var(--fc1);
+        color: var(--fcp);
         text-decoration: none;
       }
 
@@ -192,7 +192,7 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          color: var(--fc1);
+          color: var(--fcp);
         }
 
         &.el-menu-item {
@@ -200,7 +200,7 @@ export default {
           display: flex;
           align-items: center;
           background-color: var(--bg-primary);
-          color: var(--fc1);
+          color: var(--fcp);
 
           &.is-active {
             font-weight: 700;
@@ -214,7 +214,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fc1);
+              color: var(--fcp);
             }
           }
         }
@@ -240,13 +240,13 @@ export default {
             align-items: center;
             border-bottom: 0;
             background-color: var(--bg-primary);
-            color: var(--fc1);
+            color: var(--fcp);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fc1);
+                color: var(--fcp);
               }
             }
 

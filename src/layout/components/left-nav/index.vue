@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .left-nav-vue {
   height: 100%;
-  border-right: 1px solid var(--bc1);
+  border-right: 1px solid var(--bcp);
   box-sizing: border-box;
   background-color: var(--bg-primary);
 
@@ -80,7 +80,7 @@ export default {
           display: flex;
           align-items: center;
           height: 60px;
-          color: var(--fc1);
+          color: var(--fcp);
 
           &.is-active {
             font-weight: 700;
@@ -94,7 +94,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fc1);
+              color: var(--fcp);
             }
 
           }
@@ -112,13 +112,13 @@ export default {
             height: 60px;
             display: flex;
             align-items: center;
-            color: var(--fc1);
+            color: var(--fcp);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fc1);
+                color: var(--fcp);
               }
             }
           }
@@ -164,7 +164,7 @@ export default {
     padding: 0;
 
     .menu-item-container {
-      border-bottom: 1px solid var(--bc1);
+      border-bottom: 1px solid var(--bcp);
       min-height: 50px;
 
       &:last-child {
@@ -172,7 +172,7 @@ export default {
       }
 
       a {
-        color: var(--fc1);
+        color: var(--fcp);
         text-decoration: none;
       }
 
@@ -191,7 +191,7 @@ export default {
           display: flex;
           align-items: center;
           background-color: var(--bg-primary);
-          color: var(--fc1);
+          color: var(--fcp);
 
           &.is-active {
             font-weight: 700;
@@ -205,7 +205,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fc1);
+              color: var(--fcp);
             }
           }
         }
@@ -228,13 +228,13 @@ export default {
             display: flex;
             align-items: center;
             background-color: var(--bg-primary);
-            color: var(--fc1);
+            color: var(--fcp);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fc1);
+                color: var(--fcp);
               }
             }
 
@@ -245,7 +245,7 @@ export default {
               &::before {
                 content: "\e791";
                 font-size: 16px;
-                // color: var(--fc1);
+                // color: var(--fcp);
               }
             }
           }

@@ -156,6 +156,11 @@ export default {
   // padding: 0 10px;
   .el-drawer__body {
     padding: 20px;
+    background-color: var(--bg-primary);
+
+    & *:not(.el-button):not(.el-button *) {
+      color: var(--fcp);
+    }
   }
 
   .setting-part {

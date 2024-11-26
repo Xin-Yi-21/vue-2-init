@@ -3,25 +3,30 @@
   &[theme-style="light"] {
     --bg-primary: #fff; // 主要背景色
     --bg-layout: #f0f0f0;
+    --bg-modal: #fff;
+    --bg-inner: #fff;
     --bg-topHeader: #fff;
 
-    --fc1: #333; // 主要字体色
+    --fcp: #333; // 主要字体色
     --fcs: #fff; // 同主题风格色
+    --fcl: #333; // label字体色
+    --fcc: #333; // content字体色
     --fc2: #666; // 二级字体色
     --fc3: #999; // 三级字体色
-    --bc1: #ccc; // 主要边框色
+    --bcp: #ccc; // 主要边框色
   }
   &[theme-style="dark"] {
     --bg-primary: #1a1a1a;
+    --bg-modal: #333;
     --bg-layout: #f0f0f0;
     --bg-topHeader: #1a1a1a;
 
-    --fc1: #fff;
+    --fcp: #fff;
     --fcs: #333; // 同主题风格色
     --fc2: rgba(255, 255, 255, 0.8);
     --fc3: rgba(255, 255, 255, 0.6);
 
-    --bc1: #efefef;
+    --bcp: #efefef;
   }
 }
 // 头部
@@ -105,3 +110,48 @@
 //     }
 //   }
 // }
+
+// el-dropdown
+:root body {
+  &[theme-style="light"] {
+    .el-dropdown-menu {
+      border-color: var(--bcp);
+      background-color: var(--bg-modal);
+      & * {
+        color: var(--fcp);
+      }
+      .el-dropdown-menu__item {
+        &:hover {
+          background-color: var(--tca6);
+        }
+      }
+      &[x-placement="bottom-end"] .popper__arrow {
+        border-bottom-color: var(--bcp);
+        &::after {
+          border-bottom-color: var(--bg-modal);
+        }
+      }
+    }
+  }
+  &[theme-style="dark"] {
+    .el-dropdown-menu {
+      border-color: var(--bcp);
+      background-color: var(--bg-modal);
+      & * {
+        color: var(--fcp);
+      }
+      .el-dropdown-menu__item {
+        &:hover {
+          background-color: var(--tca6);
+        }
+      }
+
+      .popper__arrow {
+        border-bottom-color: var(--bcp);
+        &::after {
+          border-bottom-color: var(--bg-modal);
+        }
+      }
+    }
+  }
+}
