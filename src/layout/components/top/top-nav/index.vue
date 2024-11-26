@@ -37,7 +37,6 @@ export default {
   width: 100%;
   height: var(--top-nav-height);
 
-
   ::v-deep .top-nav-menu {
     box-sizing: border-box;
     width: 100%;
@@ -53,10 +52,12 @@ export default {
       height: 100%;
       border-right: 1px solid var(--bc1);
 
-      // border-bottom: 1px solid var(--bc1);
-      // box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+      &:last-child {
+        border-right: 0;
+      }
+
       a {
-        color: #333;
+        color: var(--fc1);
         text-decoration: none;
       }
 
@@ -69,22 +70,47 @@ export default {
         height: 100%;
         position: relative;
 
-        &.is-active {
-          font-weight: 700;
-        }
-
         &.el-menu-item {
           height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
+          color: var(--fc1);
+          background-color: var(--bg-primary);
+
+          &.is-active {
+            font-weight: 700;
+
+            & * {
+              color: var(--tc);
+            }
+          }
+
+          &:hover {
+            background-color: var(--tc);
+
+            & * {
+              color: var(--fc1);
+            }
+
+          }
+
         }
 
         &.el-submenu {
-          // height: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
+
+          &.is-active {
+            .el-submenu__title {
+              font-weight: 700;
+
+              & * {
+                color: var(--tc);
+              }
+            }
+          }
 
           .el-submenu__title {
             width: 100%;
@@ -93,6 +119,15 @@ export default {
             justify-content: center;
             align-items: center;
             border-bottom: 0;
+            color: var(--fc1);
+
+            &:hover {
+              background-color: var(--tc);
+
+              & * {
+                color: var(--fc1);
+              }
+            }
 
             .el-submenu__icon-arrow {
               width: auto;
@@ -109,12 +144,13 @@ export default {
 
         .menu-title {
           height: 100%;
+          margin: 0 10px;
           line-height: 49px;
           font-size: 14px;
-          margin: 0 10px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          color: inherit;
         }
       }
     }
@@ -130,14 +166,14 @@ export default {
     padding: 0;
 
     .menu-item-container {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid var(--bc1);
 
       &:last-child {
         border-bottom: 0;
       }
 
       a {
-        color: #333;
+        color: var(--fc1);
         text-decoration: none;
       }
 
@@ -146,16 +182,56 @@ export default {
         font-weight: 700;
       }
 
+
       li {
+        .menu-title {
+          height: 100%;
+          margin: 0 20px 0 10px;
+          line-height: 36px;
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: var(--fc1);
+        }
+
         &.el-menu-item {
           height: 100%;
           display: flex;
           align-items: center;
+          background-color: var(--bg-primary);
+          color: var(--fc1);
+
+          &.is-active {
+            font-weight: 700;
+
+            & * {
+              color: var(--tc);
+            }
+          }
+
+          &:hover {
+            background-color: var(--tc);
+
+            & * {
+              color: var(--fc1);
+            }
+          }
         }
 
         &.el-submenu {
           display: flex;
           align-items: center;
+
+          &.is-active {
+            .el-submenu__title {
+              font-weight: 700;
+
+              & * {
+                color: var(--tc);
+              }
+            }
+          }
 
           .el-submenu__title {
             width: 100%;
@@ -163,6 +239,16 @@ export default {
             display: flex;
             align-items: center;
             border-bottom: 0;
+            background-color: var(--bg-primary);
+            color: var(--fc1);
+
+            &:hover {
+              background-color: var(--tc);
+
+              & * {
+                color: var(--fc1);
+              }
+            }
 
             .el-submenu__icon-arrow {
               width: auto;
@@ -177,16 +263,7 @@ export default {
           }
         }
 
-        .menu-title {
-          height: 100%;
-          line-height: 36px;
-          font-size: 14px;
-          margin: 0 20px 0 10px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
 
-        }
       }
     }
   }

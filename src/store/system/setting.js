@@ -1,5 +1,6 @@
 import defaultSetting from '@/setting'
 const { defaultTitle, themeStyle, themeColor, elSize, topHeader, leftNav, isTopNav, isTopBar, isTopTag, isDynamicTitle, isFullScreen } = defaultSetting
+import { handleThemeColor } from '@/utils/theme'
 const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
 const setting = {
   state: () => ({
@@ -54,6 +55,12 @@ const setting = {
         document.body.setAttribute('leftNavStatus', 'hide')
       }
     },
+    // 设置主题颜色
+    setThemeColor(state) {
+      console.log('查state', state)
+      handleThemeColor(state.themeColor)
+    },
+
   },
   actions: {
     // 修改布局设置
@@ -71,6 +78,10 @@ const setting = {
     // 切换左侧导航显示
     setLeftNav({ commit }, withoutAnimation) {
       commit('setLeftNav', withoutAnimation)
+    },
+    // 设置主题颜色
+    setThemeColor({ commit }) {
+      commit('setThemeColor')
     },
   },
 }

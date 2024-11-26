@@ -10,7 +10,7 @@
       </div>
       <div class="setting-item">
         <span class="setting-label">主题颜色</span>
-        <el-color-picker v-model="setting.themeColor" :predefine="predefineColors" />
+        <el-color-picker v-model="setting.themeColor" :predefine="predefineColors" @change="handleThemeColor" />
       </div>
       <div class="setting-item">
         <span class="setting-label">开启头部</span>
@@ -74,7 +74,7 @@
   </el-drawer>
 </template>
 <script>
-import { handleFixHeader, handleFullScreen } from '@/utils/setting'
+import { handleFullScreen } from '@/utils/setting'
 export default {
   data() {
     return {
@@ -94,6 +94,11 @@ export default {
     handleWaterMark() {
 
     },
+    // 主题颜色
+    handleThemeColor() {
+      this.$store.dispatch('setThemeColor')
+    },
+
     // 头部
     handleTopHeader() {
       this.$store.dispatch('setTopHeader')

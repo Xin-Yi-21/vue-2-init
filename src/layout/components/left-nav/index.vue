@@ -38,8 +38,9 @@ export default {
 <style lang="scss" scoped>
 .left-nav-vue {
   height: 100%;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid var(--bc1);
   box-sizing: border-box;
+  background-color: var(--bg-primary);
 
   ::v-deep .left-nav-menu {
     width: 100%;
@@ -49,7 +50,6 @@ export default {
       min-height: 60px;
 
       a {
-        color: #333;
         text-decoration: none;
       }
 
@@ -61,25 +61,7 @@ export default {
 
       li {
         height: 100%;
-
-        &.is-active {
-          font-weight: 700;
-        }
-
-        &.el-menu-item {
-          min-width: 0;
-          display: flex;
-          align-items: center;
-          height: 60px;
-        }
-
-        &.el-submenu {
-          .el-submenu__title {
-            height: 60px;
-            display: flex;
-            align-items: center;
-          }
-        }
+        background-color: var(--bg-primary);
 
         .menu-title {
           flex: 1;
@@ -90,6 +72,56 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          color: inherit;
+        }
+
+        &.el-menu-item {
+          min-width: 0;
+          display: flex;
+          align-items: center;
+          height: 60px;
+          color: var(--fc1);
+
+          &.is-active {
+            font-weight: 700;
+
+            & * {
+              color: var(--tc);
+            }
+          }
+
+          &:hover {
+            background-color: var(--tc);
+
+            & * {
+              color: var(--fc1);
+            }
+
+          }
+        }
+
+        &.el-submenu {
+
+          &.is-active {
+            .el-submenu__title {
+              font-weight: 700;
+            }
+          }
+
+          .el-submenu__title {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            color: var(--fc1);
+
+            &:hover {
+              background-color: var(--tc);
+
+              & * {
+                color: var(--fc1);
+              }
+            }
+          }
         }
       }
     }
@@ -132,7 +164,7 @@ export default {
     padding: 0;
 
     .menu-item-container {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid var(--bc1);
       min-height: 50px;
 
       &:last-child {
@@ -140,7 +172,7 @@ export default {
       }
 
       a {
-        color: #333;
+        color: var(--fc1);
         text-decoration: none;
       }
 
@@ -158,22 +190,68 @@ export default {
           height: 100%;
           display: flex;
           align-items: center;
+          background-color: var(--bg-primary);
+          color: var(--fc1);
+
+          &.is-active {
+            font-weight: 700;
+
+            & * {
+              color: var(--tc);
+            }
+          }
+
+          &:hover {
+            background-color: var(--tc);
+
+            & * {
+              color: var(--fc1);
+            }
+          }
         }
 
         &.el-submenu {
-          // display: flex;
-          // align-items: center;
+          background-color: var(--bg-primary);
+
+          &.is-active {
+            .el-submenu__title {
+              font-weight: 700;
+
+              & * {
+                color: var(--tc);
+              }
+            }
+          }
 
           .el-submenu__title {
-            // width: 100%;
             height: 50px;
             display: flex;
             align-items: center;
+            background-color: var(--bg-primary);
+            color: var(--fc1);
+
+            &:hover {
+              background-color: var(--tc);
+
+              & * {
+                color: var(--fc1);
+              }
+            }
+
+            .el-submenu__icon-arrow {
+              width: auto;
+              right: 10px;
+
+              &::before {
+                content: "\e791";
+                font-size: 16px;
+                // color: var(--fc1);
+              }
+            }
           }
         }
 
         .menu-title {
-          // flex: 1;
           height: 50px;
           line-height: 50px;
           font-size: 14px;
@@ -181,16 +259,10 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          color: inherit;
         }
       }
     }
   }
-
-  // .menu-title {
-  //   height: 60px;
-  //   line-height: 60px;
-  //   font-size: 14px;
-  //   margin: 0 10px;
-  // }
 }
 </style>

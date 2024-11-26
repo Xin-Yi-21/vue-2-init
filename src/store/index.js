@@ -19,6 +19,7 @@ const store = new Vuex.Store({
   },
   getters
 })
+store.dispatch('setThemeColor')
 store.dispatch('setTopHeader')
 store.dispatch('setLeftNav')
 export default store

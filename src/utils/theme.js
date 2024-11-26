@@ -1,11 +1,13 @@
 // 处理主题样式
 export function handleThemeColor(themeColor) {
   // document.documentElement.style.setProperty('--el-color-primary', themeColor)
-  // document.documentElement.style.setProperty('--tc', themeColor)
-  // for (let i = 1; i <= 9; i++) {
-  //   document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(themeColor, i / 10)}`)
-  //   document.documentElement.style.setProperty(`--tcl${i}`, `${getLightColor(themeColor, i / 10)}`)
-  // }
+  document.documentElement.style.setProperty('--tc', themeColor)
+  for (let i = 1; i <= 9; i++) {
+    // document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(themeColor, i / 10)}`)
+    document.documentElement.style.setProperty(`--tca${i}`, `${getAlphaColor(themeColor, i / 10)}`)
+    document.documentElement.style.setProperty(`--tcl${i}`, `${getLightColor(themeColor, i / 10)}`)
+    document.documentElement.style.setProperty(`--tcd${i}`, `${getDarkColor(themeColor, i / 10)}`)
+  }
   // for (let i = 1; i <= 9; i++) {
   //   document.documentElement.style.setProperty(`--el-color-primary-dark-${i}`, `${getDarkColor(themeColor, i / 10)}`)
   //   document.documentElement.style.setProperty(`--tcd${i}`, `${getDarkColor(themeColor, i / 10)}`)
@@ -44,6 +46,10 @@ export function rgbToHex(r, g, b) {
   return `#${hexs.join('')}`
 }
 
+export function getAlphaColor(color, level,) {
+  let rgb = hexToRgb(color)
+  return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${level})`;
+}
 // 变浅颜色值
 export function getLightColor(color, level) {
   let rgb = hexToRgb(color)
