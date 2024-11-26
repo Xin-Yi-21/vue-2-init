@@ -43,7 +43,7 @@ export default {
   position: relative;
   display: inline-block;
   border-radius: 50%;
-  background-color: #55c79133;
+  background-color: var(--tca2);
   margin-right: 5px;
 
   .inner-circle {

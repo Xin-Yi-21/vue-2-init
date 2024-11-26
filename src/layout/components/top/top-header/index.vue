@@ -131,14 +131,14 @@ export default {
 
     .svg-icon {
       margin: 0 10px;
-      color: var(--fcp);
+      color: var(--fcpl);
       font-size: 24px !important;
     }
 
     .title {
       display: flex;
       align-items: center;
-      color: var(--fcp);
+      color: var(--fcpl);
       font-size: 30px;
       font-weight: 700;
       text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
@@ -151,22 +151,22 @@ export default {
       &::before {
         // content: '>';
         margin-right: 10px;
-        color: var(--fc2);
+        color: var(--fcs);
         font-size: 16px;
       }
 
       .el-breadcrumb__inner {
         a {
-          color: var(--fc2);
+          color: var(--fcs);
         }
 
         .no-redirect {
-          color: var(--fc2);
+          color: var(--fcs);
         }
       }
 
       .el-breadcrumb__separator {
-        color: var(--fc2);
+        color: var(--fcs);
       }
     }
   }
@@ -179,7 +179,7 @@ export default {
     font-family: PingFang SC, PingFang SC;
     font-weight: 800;
     font-size: 20px;
-    color: var(--fc2);
+    color: var(--fcs);
     line-height: 28px;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.33);
     margin-right: 50px;
@@ -212,14 +212,14 @@ export default {
         height: 36px;
         margin-right: 10px;
         padding: 2px;
-        border: 2px solid var(--fcp);
+        border: 2px solid var(--fcpl);
         border-radius: 50%;
         background-color: #fff;
       }
 
       >span {
         margin-right: 10px;
-        color: var(--fcp);
+        color: var(--fcpl);
       }
     }
   }
@@ -232,17 +232,9 @@ export default {
     display: flex;
     align-items: center;
 
-
-
-    // &.el-dropdown-menu__item--divided {
-    //   margin-top: 5px;
-    //   padding-top: 5px;
-
-    //   &::before {
-    //     display: none;
-    //   }
-    // }
-
+    &>span {
+      margin-right: 5px;
+    }
   }
 
   .line {

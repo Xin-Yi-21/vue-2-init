@@ -49,7 +49,7 @@ export default {
     font-family: PingFang SC, PingFang SC;
     font-weight: 700;
     font-size: 16px;
-    color: #333;
+    color: var(--fcp);
     white-space: nowrap;
   }
 }

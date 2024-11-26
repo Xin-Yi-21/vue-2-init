@@ -13,7 +13,6 @@ export function handleFixHeader(setting) {
 // 处理全屏
 export function handleFullScreen(setting) {
   const element = document.documentElement
-  console.log('查setting', setting)
   if (setting.isFullScreen) {
     if (element.requestFullscreen) {
       // 标准浏览器

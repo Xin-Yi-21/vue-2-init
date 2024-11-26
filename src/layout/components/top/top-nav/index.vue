@@ -57,7 +57,7 @@ export default {
       }
 
       a {
-        color: var(--fcp);
+        color: var(--fcpl);
         text-decoration: none;
       }
 
@@ -75,7 +75,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--fcp);
+          color: var(--fcpl);
           background-color: var(--bg-primary);
 
           &.is-active {
@@ -90,7 +90,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fcp);
+              color: var(--fcpl);
             }
 
           }
@@ -119,13 +119,13 @@ export default {
             justify-content: center;
             align-items: center;
             border-bottom: 0;
-            color: var(--fcp);
+            color: var(--fcpl);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fcp);
+                color: var(--fcpl);
               }
             }
 
@@ -173,7 +173,7 @@ export default {
       }
 
       a {
-        color: var(--fcp);
+        color: var(--fcpl);
         text-decoration: none;
       }
 
@@ -192,7 +192,7 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          color: var(--fcp);
+          color: var(--fcpl);
         }
 
         &.el-menu-item {
@@ -200,7 +200,7 @@ export default {
           display: flex;
           align-items: center;
           background-color: var(--bg-primary);
-          color: var(--fcp);
+          color: var(--fcpl);
 
           &.is-active {
             font-weight: 700;
@@ -214,7 +214,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fcp);
+              color: var(--fcpl);
             }
           }
         }
@@ -240,13 +240,13 @@ export default {
             align-items: center;
             border-bottom: 0;
             background-color: var(--bg-primary);
-            color: var(--fcp);
+            color: var(--fcpl);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fcp);
+                color: var(--fcpl);
               }
             }
 

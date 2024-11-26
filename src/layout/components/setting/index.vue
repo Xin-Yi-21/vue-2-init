@@ -159,7 +159,7 @@ export default {
     background-color: var(--bg-primary);
 
     & *:not(.el-button):not(.el-button *) {
-      color: var(--fcp);
+      color: var(--fcpl);
     }
   }
 

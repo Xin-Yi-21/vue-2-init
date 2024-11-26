@@ -2,6 +2,7 @@
 export function handleThemeColor(themeColor) {
   // document.documentElement.style.setProperty('--el-color-primary', themeColor)
   document.documentElement.style.setProperty('--tc', themeColor)
+  document.documentElement.style.setProperty('--bg-hover', `${getLightColor(themeColor, 6 / 10)}`)
   for (let i = 1; i <= 9; i++) {
     // document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(themeColor, i / 10)}`)
     document.documentElement.style.setProperty(`--tca${i}`, `${getAlphaColor(themeColor, i / 10)}`)

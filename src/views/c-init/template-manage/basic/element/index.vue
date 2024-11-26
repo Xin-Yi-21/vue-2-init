@@ -11,6 +11,12 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入"></el-input>
           </el-form-item>
+          <el-form-item label="起始时间">
+            <el-date-picker v-model="form.startTime" type="datetime" :picker-options="pickerOptions.start" placeholder="请选择开始时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" :clearable="false"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="结束时间">
+            <el-date-picker v-model="form.endTime" type="datetime" :picker-options="pickerOptions.end" placeholder="请选择结束时间" format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss" :clearable="false"></el-date-picker>
+          </el-form-item>
         </el-form>
       </div>
       <div class="c-search-operate">
@@ -91,6 +97,10 @@ export default {
       tabList: [{ label: '要素1', value: '1' }, { label: '要素2', value: '2' }, { label: '要素3', value: '3' }, { label: '要素4', value: '4' },],
       currentTab: '1',
       operateDialog: {},
+      pickerOptions: {
+        start: { disabledDate: time => { if (this.form.endTime) { return (time.getTime() >= new Date(this.form.endTime).getTime()) } } },
+        end: { disabledDate: time => { if (this.form.startTime) { return time.getTime() <= new Date(this.form.startTime).getTime() - 86400000 } } }
+      },
     }
   },
   created() {
@@ -107,6 +117,7 @@ export default {
     },
     // 1、获取枚举
     async getEnums() {
+      console.log('查state2', this.$store.state.enums.allEnums)
       let allEnums = JSON.parse(JSON.stringify(this.$store.state.enums.allEnums))
       let enums = {
         gender: allEnums.gender,

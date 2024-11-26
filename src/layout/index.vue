@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-vue" v-if="isDataInitDone">
+  <div class="layout-vue">
     <top-header @setLayout="setLayout" v-if="setting.topHeader.isShow"></top-header>
     <div class="main-container">
       <left-nav v-if="setting.leftNav.isShow"></left-nav>
@@ -9,7 +9,7 @@
           <top-bar v-if="setting.isTopBar"></top-bar>
           <top-tag v-if="setting.isTopTag"></top-tag>
         </div>
-        <app-main />
+        <app-main v-if="isDataInitDone" />
       </div>
       <setting ref="settingRef"></setting>
     </div>
@@ -28,7 +28,7 @@ export default {
   components: { TopHeader, TopBar, TopTag, TopNav, LeftNav, Setting, AppMain, },
   data() {
     return {
-      isDataInitDone: true,
+      isDataInitDone: false,
     }
   },
   computed: {
@@ -57,6 +57,7 @@ export default {
 .layout-vue {
   width: 100%;
   height: 100%;
+  background-color: var(--bg-layout);
 
   .top-header-vue {
     height: var(--top-header-height);
@@ -81,7 +82,6 @@ export default {
 
       ::v-deep .app-main-vue {
         width: 100%;
-        background-color: var(--bg-layout);
         flex: 1;
         flex-shrink: 0;
         overflow: auto auto;

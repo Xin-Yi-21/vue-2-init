@@ -20,7 +20,6 @@ export default {
     }
   },
   created() {
-    console.log('查variable', variable)
   },
   data() {
     return {

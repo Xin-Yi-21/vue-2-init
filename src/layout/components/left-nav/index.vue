@@ -80,7 +80,7 @@ export default {
           display: flex;
           align-items: center;
           height: 60px;
-          color: var(--fcp);
+          color: var(--fcpl);
 
           &.is-active {
             font-weight: 700;
@@ -94,7 +94,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fcp);
+              color: var(--fcpl);
             }
 
           }
@@ -112,13 +112,13 @@ export default {
             height: 60px;
             display: flex;
             align-items: center;
-            color: var(--fcp);
+            color: var(--fcpl);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fcp);
+                color: var(--fcpl);
               }
             }
           }
@@ -172,7 +172,7 @@ export default {
       }
 
       a {
-        color: var(--fcp);
+        color: var(--fcpl);
         text-decoration: none;
       }
 
@@ -191,7 +191,7 @@ export default {
           display: flex;
           align-items: center;
           background-color: var(--bg-primary);
-          color: var(--fcp);
+          color: var(--fcpl);
 
           &.is-active {
             font-weight: 700;
@@ -205,7 +205,7 @@ export default {
             background-color: var(--tc);
 
             & * {
-              color: var(--fcp);
+              color: var(--fcpl);
             }
           }
         }
@@ -228,13 +228,13 @@ export default {
             display: flex;
             align-items: center;
             background-color: var(--bg-primary);
-            color: var(--fcp);
+            color: var(--fcpl);
 
             &:hover {
               background-color: var(--tc);
 
               & * {
-                color: var(--fcp);
+                color: var(--fcpl);
               }
             }
 
@@ -245,7 +245,7 @@ export default {
               &::before {
                 content: "\e791";
                 font-size: 16px;
-                // color: var(--fcp);
+                // color: var(--fcpl);
               }
             }
           }

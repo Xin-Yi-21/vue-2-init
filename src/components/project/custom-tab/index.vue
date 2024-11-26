@@ -48,9 +48,10 @@ export default {
     height: 100%;
     text-align: center;
     line-height: 36px;
-    border: 1px solid var(--bc);
+    border: 1px solid var(--bcs);
     border-right: 0;
     cursor: pointer;
+    color: var(--fcp);
 
     &:first-child {
       // border: 1px solid #ccc;
@@ -59,7 +60,7 @@ export default {
     }
 
     &:last-child {
-      border-right: 1px solid var(--bc);
+      border-right: 1px solid var(--bcs);
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
     }

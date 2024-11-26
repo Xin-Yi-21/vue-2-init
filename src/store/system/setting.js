@@ -57,10 +57,8 @@ const setting = {
     },
     // 设置主题颜色
     setThemeColor(state) {
-      console.log('查state', state)
       handleThemeColor(state.themeColor)
     },
-
   },
   actions: {
     // 修改布局设置
