@@ -24,9 +24,7 @@
           <c-button type="primary" class="query-button" i="c-search" @click="getTableData">查询</c-button>
           <el-button type="info" icon="el-icon-refresh-right" class="refresh-button" @click="setDefaultParams"></el-button>
         </div>
-        <div class="right">
-          <el-button>新增</el-button>
-        </div>
+        <div class="right"> </div>
       </div>
     </div>
     <div class="c-result">
@@ -65,10 +63,9 @@
               <!-- <el-button @click="handleView(scope.row)" type="text">查看</el-button>
               <el-button @click="handleUpdate(scope.row)" type="text">修改</el-button>
               <el-button @click="handleDelete(scope.row)" type="text">删除</el-button> -->
-
-              <c-icon i="c-t-view" tip="查看" color="#55c791" @click="handleView(scope.row)"></c-icon>
-              <c-icon i="c-t-edit" tip="更新" color="#0077FF" @click="handleUpdate(scope.row)"></c-icon>
-              <c-icon i="c-t-delete" tip="删除" color="#FA4B4B" @click="handleDelete(scope.row)"></c-icon>
+              <c-icon i="c-t-view" tip="查看" color="#55c791" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleView(scope.row)"></c-icon>
+              <c-icon i="c-t-update" tip="更新" color="#0077FF" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleUpdate(scope.row)"></c-icon>
+              <c-icon i="c-t-delete" tip="删除" color="#FA4B4B" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleDelete(scope.row)"></c-icon>
             </div>
           </template>
         </el-table-column>
@@ -218,7 +215,5 @@ export default {
 .element-vue {
   width: 100%;
   height: 100%;
-  // padding-top: 0;
-  // position: relative;
 }
 </style>

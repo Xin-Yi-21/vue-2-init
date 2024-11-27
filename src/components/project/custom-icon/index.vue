@@ -1,12 +1,14 @@
 <template>
-  <i :class="{ 'c-icon': true, 'is-disabled': disabled }" :style="`color:${color};font-size:${size}px;`" @click="handleIconClick">
-    <svg-icon :icon-class="i"></svg-icon>
-    <!-- v-if="tip" -->
-    <span class="icon-tip" :style="`top:${topTipPx}px`">{{ tip }}</span>
-    <!-- <el-tooltip ref="tooltip" effect="light" placement="top" popper-class="c-icon-el-tooltip" :visible-arrow="false" v-if="tip">
+  <i :class="{ 'c-icon': true, 'is-disabled': disabled }" :style="`color:${color};font-size:${size}px;cursor:${cursor}`" @click="handleIconClick">
+    <el-tooltip ref="tooltip" effect="light" placement="top" popper-class="c-icon-el-tooltip" :visible-arrow="false" v-if="tip && showType == 'el'">
       <svg-icon :icon-class="i" :style="`color:${color};`"></svg-icon>
       <span slot="content" :style="`color:${color};`">{{ tip }}</span>
-    </el-tooltip> -->
+    </el-tooltip>
+
+    <template v-else>
+      <svg-icon :icon-class="i"></svg-icon>
+      <span class="icon-tip" :style="`top:${topTipPx}px`" v-if="tip">{{ tip }}</span>
+    </template>
   </i>
 </template>
 
@@ -36,6 +38,14 @@ export default {
     topTipPx: {
       type: [Number, String],
       default: -1,
+    },
+    showType: {
+      type: String,
+      default: 'custom',
+    },
+    cursor: {
+      type: String,
+      default: 'inherit',
     }
   },
   mounted() {
@@ -60,7 +70,7 @@ export default {
   position: relative;
   font-style: normal;
   font-weight: 400;
-  cursor: pointer;
+
 
   &[class*="is-disabled"] {
     cursor: not-allowed !important;

@@ -1,7 +1,7 @@
 <template>
-  <el-dialog :visible="true" class="c-dialog dispatch-operate-dialog" title="" :modal="true" :close-on-click-modal="false" :before-close="handleClose">
+  <el-dialog :visible="true" class="c-dialog" title="" :modal="true" :close-on-click-modal="false" :before-close="handleClose">
     <div slot="title" class="s-d-title">
-      <div class="h-t">{{ dialogInfo.title }}</div>
+      <div class="h-t"><c-icon :i="dialog.icon" class="mr-5" size="18"></c-icon> {{ dialog.title }}</div>
       <svg-icon icon-class="c-close" class-name="n-o-i" @click="handleClose"></svg-icon>
     </div>
     <div class="c-d-c">
@@ -47,7 +47,7 @@ export default {
         age: [{ required: true, message: '年龄不能为空', trigger: 'blur' }, { validator: numberVerify, trigger: 'blur' },],
         role: [{ required: true, message: '身份不能为空', trigger: 'blur' },],
       },
-      dialogInfo: {},
+      dialog: {},
       enums: {},
       isConfirmLoading: false,
     }
@@ -68,22 +68,25 @@ export default {
     },
     // 1、初始化表单
     initForm() {
+      let form = {
+        personId: this.info.personId,
+        personName: this.info.personName,
+        gender: this.info.gender,
+        age: this.info.age,
+        role: this.info.role,
+      }
       switch (this.operate) {
         case 'add':
           this.$set(this, 'form', {})
-          this.$set(this, 'dialogInfo', { operate: 'add', title: '人物管理 - 新增' })
+          this.$set(this, 'dialog', { operate: 'add', title: '人物管理 - 新增', icon: 'c-d-add' })
           break
         case 'view':
-        case 'update':
-          let form = {
-            personId: this.info.personId,
-            personName: this.info.personName,
-            gender: this.info.gender,
-            age: this.info.age,
-            role: this.info.role,
-          }
           this.$set(this, 'form', form)
-          this.$set(this, 'dialogInfo', { operate: 'edit', title: this.operate === 'view' ? '人物管理 - 查看' : '人物管理 - 修改' })
+          this.$set(this, 'dialog', { operate: 'view', title: '人物管理 - 查看', icon: 'c-d-view' })
+          break
+        case 'update':
+          this.$set(this, 'form', form)
+          this.$set(this, 'dialog', { operate: 'update', title: '人物管理 - 更新', icon: 'c-d-update' })
           break
       }
     },
