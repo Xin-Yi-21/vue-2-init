@@ -355,72 +355,18 @@
   &.el-table {
     display: flex;
     flex-direction: column;
+    // flex: 1;
     flex-shrink: 0;
-    // flex: none !important;
     width: calc(100% - 20px);
-    margin: 10px;
-    // overflow: hidden !important;
-  }
-  tr {
-    td:last-child {
-      // border-right: 1px solid red !important;
-      // transform: translateX(-1px);
-    }
-  }
-  &.el-table--border {
-    // border-right: 1px solid #e6ebf5 !important;
-    // border-bottom: 1px solid #e6ebf5 !important;
-  }
-  // 表头和内容错位解决
-  thead {
-    box-sizing: border-box;
-    border-right: 1px solid #000;
-  }
-  th.gutter {
-    width: 0px !important;
-    display: table-cell !important;
-  }
-  // 边框形式表格样式调整
-  &.el-table--border {
-    border-left: none;
-    overflow: visible;
 
-    &::before,
-    &::after {
-      display: none;
-    }
-    .el-table__header-wrapper {
-      width: calc(100% + 1px);
-      .el-table__header {
-        border-left: 1px solid #e6ebf5;
-        // border-right: 1px solid #000;
-        // box-sizing: border-box !important;
-      }
-    }
-    .el-table__body-wrapper {
-      width: calc(100% + 1px);
-      .el-table__body {
-        border-left: 1px solid #e6ebf5;
-      }
-    }
+    margin: 10px;
+    overflow: hidden !important;
   }
+
   .el-table__header-wrapper {
     flex-shrink: 0;
-    .el-table__header {
-      height: 50px;
-      tr {
-        .el-table__cell {
-          padding: 0;
-          overflow: hidden;
-          .cell {
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-          }
-        }
-      }
-    }
   }
+
   .el-table__body-wrapper {
     flex: 1;
     overflow-y: auto;
@@ -428,28 +374,22 @@
     // 滚动条大小
     &::-webkit-scrollbar {
       display: block !important;
-      width: 5px !important;
-      height: 5px !important;
+      width: 4px !important;
+      height: 4px !important;
     }
     // 滚动条轨道
     &::-webkit-scrollbar-track {
-      border-radius: 10px;
+      border-radius: 0px;
       background-color: #efefef;
     }
     // 滚动条滑块
     &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background-color: #5abcaa;
+      border-radius: 4px;
+      background-color: var(--tc);
     }
     // 滚动条右下角
     &::-webkit-scrollbar-corner {
       background: transparent;
-    }
-    .el-table__body {
-      .el-table__cell {
-        padding: 10px 0;
-        font-weight: 400;
-      }
     }
   }
   .c-table-operate-row {

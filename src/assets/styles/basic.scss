@@ -24,7 +24,7 @@ body {
 
   // 滚动条滑块
   &::-webkit-scrollbar-thumb {
-    background-color: #55c791;
+    background-color: var(--tc);
   }
 
   // 滚动条右下角
@@ -60,7 +60,7 @@ body {
     cursor: pointer;
 
     &:hover {
-      background-color: #55c791;
+      background-color: var(--tc);
     }
   }
 }

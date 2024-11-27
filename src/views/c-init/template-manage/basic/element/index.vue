@@ -21,7 +21,7 @@
       </div>
       <div class="c-search-operate">
         <div class="left">
-          <el-button type="primary" class="query-button" @click="getTableData">查询</el-button>
+          <c-button type="primary" class="query-button" i="c-search" @click="getTableData">查询</c-button>
           <el-button type="info" icon="el-icon-refresh-right" class="refresh-button" @click="setDefaultParams"></el-button>
         </div>
         <div class="right">
@@ -37,14 +37,16 @@
           <c-card-title title="人物管理" icon="circle"></c-card-title>
           <c-tab :tabList="tabList" :currentTab="currentTab" @change="handleChangeTab"></c-tab>
         </template>
-        <template #right> <el-button type="primary" @click="handleAdd">新增</el-button> </template>
+        <template #right>
+          <c-button type="primary" i="c-add" @click="handleAdd">新增</c-button>
+        </template>
       </c-card-header>
 
       <c-card-header title="人物管理" icon="circle">
-        <template #right> <el-button type="primary" @click="handleAdd">新增</el-button></template>
+        <template #right> <c-button type="primary" i="c-add" @click="handleAdd">新增</c-button></template>
       </c-card-header>
-
-      <el-table :data="tableData" class="c-table" border>
+      <!--  -->
+      <el-table :data="tableData" border class="c-table" stripe>
         <el-table-column label="人物" prop="" align="center">
           <template slot-scope="scope"> {{ scope.row.personName }} </template>
         </el-table-column>
@@ -54,7 +56,7 @@
         <el-table-column label="年龄" prop="" align="center">
           <template slot-scope="scope"> {{ scope.row.age }} </template>
         </el-table-column>
-        <el-table-column label="角色" prop="" align="center">
+        <el-table-column label="角色" prop="" align="center" :show-overflow-tooltip="true">
           <template slot-scope="scope"> {{ scope.row.role }} </template>
         </el-table-column>
         <el-table-column label="操作" prop="" align="center">
@@ -143,9 +145,10 @@ export default {
       const res = await personGet(params)
       let tableData = res.data || []
       tableData.map(item => {
+        item.role = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         item.genderName = this.$getEnumsLabel(this.$store.state.enums.allEnums.gender, item.gender)
       })
-      // for (var i = 0; i < 3; i++) { tableData.push(...tableData) }
+      for (var i = 0; i < 3; i++) { tableData.push(...tableData) }
 
       this.$set(this, 'tableData', tableData || [])
     },
@@ -217,6 +220,5 @@ export default {
   height: 100%;
   // padding-top: 0;
   // position: relative;
-
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-button class="c-button" :size="size" :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :icon="icon" :autofocus="autofocus" :native-type="nativeType" :style="`width:${width?width+'px':'auto'};height:${height?height+'px':'36px'}`" @click="$emit('click')">
+  <el-button class="c-button" :size="size" :type="type" :plain="plain" :round="round" :circle="circle" :loading="loading" :disabled="disabled" :icon="icon" :autofocus="autofocus" :native-type="nativeType" :style="`width:${width ? width + 'px' : 'auto'};height:${height ? height + 'px' : '36px'}`" @click="$emit('click')">
     <svg-icon v-if="i" :icon-class="i" :style="`fontSize:${iSize}px`"></svg-icon>
     <slot></slot>
   </el-button>
@@ -44,20 +44,26 @@ export default {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
   &[class*="is-disabled"] {
-    cursor: not-allowed !important; /* 改变鼠标指针样式为不允许操作 */
+    cursor: not-allowed !important;
+    /* 改变鼠标指针样式为不允许操作 */
     // pointer-events: none; /* 禁止元素接收鼠标事件 */
-    opacity: 0.6; /* 设置元素透明度为半透明，以表示禁用状态 */
+    // opacity: 1;
+    /* 设置元素透明度为半透明，以表示禁用状态 */
   }
+
   &:last-child {
     margin-right: 0;
   }
+
   span {
     display: flex;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
+
     .svg-icon {
       flex-shrink: 0;
       font-size: 14px;

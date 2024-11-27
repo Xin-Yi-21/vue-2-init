@@ -1,4 +1,4 @@
-// 主题变量
+// 一、主题变量
 :root body {
   &[theme-style="light"] {
     // 固定主题配置
@@ -24,6 +24,13 @@
 
     // 其他自定义主题配置
     --bg-topHeader: skyblue; // top-header 背景色
+    --bg-leftNav: skyblue; // left-nav 背景色
+    --bg-topNav: skyblue; // top-nav 背景色
+
+    --bg-tableHeader: #eee;
+    --bg-tableHoverRow: #f5f7fa;
+    --bg-tableOddRow: #fff;
+    --bg-tableEvenRow: #efefef;
   }
   &[theme-style="dark"] {
     // 固定主题配置
@@ -51,10 +58,14 @@
 
     // 其他自定义主题配置
     --bg-topHeader: #1a1a1a; // top-header 背景色
+    --bg-tableHeader: #6a5acd;
+    --bg-tableHoverRow: skyblue;
+    --bg-tableOddRow: #aaa;
+    --bg-tableEvenRow: #ccc;
   }
 }
 
-// element
+// 二、element主题风格样式
 :root body {
   &[theme-style="light"] {
   }
@@ -78,7 +89,8 @@
     // el-select
     .el-select {
     }
-    .el-select-dropdown {
+    .el-select-dropdown,
+    .el-cascader__dropdown {
       background-color: var(--bg-inner-primary);
       border: 1px solid var(--bcs);
       .el-select-dropdown__item {
@@ -238,13 +250,127 @@
       }
     }
   }
+
+  // el-table
+  .el-table {
+    margin: 10px;
+    width: calc(100% - 20px);
+    background-color: var(--bg-inner-primary);
+    &::before {
+      display: none;
+    }
+
+    .el-table__header-wrapper {
+      .el-table__header {
+        border-left: 0;
+        .el-table__cell {
+          background-color: var(--bg-tableHeader);
+          border-bottom-color: var(--bcs);
+          padding: 11px 0 12px;
+          .cell {
+            color: #333;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 26px;
+          }
+        }
+      }
+    }
+    .el-table__body-wrapper {
+      background-color: var(--bg-inner-primary);
+      .el-table__body {
+        border-left: 0;
+        .el-table__row {
+          td {
+            border-bottom: 1px solid var(--bcs);
+            background: transparent;
+          }
+          &:hover {
+            td {
+              background-color: var(--bg-tableHoverRow);
+            }
+          }
+          &:nth-child(2n + 1) {
+            background-color: var(--bg-tableOddRow);
+          }
+
+          &:nth-child(2n) {
+            background-color: var(--bg-tableOddRow);
+          }
+
+          .el-table__cell {
+            padding: 8px 0 8px;
+            box-sizing: content-box;
+            .cell {
+              color: #333;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 23px;
+              min-height: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    // 斑马纹
+    &.el-table--striped {
+      .el-table__body-wrapper {
+        .el-table__body {
+          .el-table__row {
+            &:nth-child(2n) {
+              background-color: var(--bg-tableEvenRow);
+            }
+          }
+        }
+      }
+    }
+
+    // 边框
+    &.el-table--border {
+      border: 1px solid var(--bcs);
+      &::before,
+      &::after {
+        display: none;
+      }
+      .el-table__header-wrapper {
+        .el-table__header {
+          th {
+            border-right-color: var(--bcs);
+          }
+        }
+      }
+      .el-table__body-wrapper {
+        .el-table__body {
+          .el-table__row {
+            td {
+              border-right-color: var(--bcs);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-// 组件
-// 头部
-// body {
-//   &[theme-style="light"] #app .top-header-vue {
-//   }
-//   &[theme-style="dark"] #app .top-header-vue {
-//   }
-// }
+// 三、element主题基础样式
+:root body {
+  // el-tooltip
+  .el-tooltip__popper {
+    max-width: 600px;
+    line-height: 24px;
+    white-space: wrap;
+    &.is-dark {
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+  }
+}
+
+// 四、组件主题样式
+:root body {
+  //   &[theme-style="light"] #app .top-header-vue {
+  //   }
+  //   &[theme-style="dark"] #app .top-header-vue {
+  //   }
+}
