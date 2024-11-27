@@ -3,20 +3,22 @@
   &[theme-style="light"] {
     // 固定主题配置
     --bg-primary: #fff; // 主要背景色
-    --bg-layout: #efefef; // 布局背景色
-    --bg-inner: #fff; // 组件背景色
-    --bg-modal: #fff; // 动框背景色
-    --bg-card: #fff; // 卡片背景色
+    --bg-layout: #f3f3f3; // 布局背景色
+    --bg-card: #eff; // 卡片背景色
+    --bg-inner-primary: #fff; // 组件主要背景色
+    --bg-inner-secondary: #fff; // 组件二级背景色
+    --bg-inner-tertiary: #fff; // 组件三级背景色
+    // --bg-inner-hover: #f5f7fa; // 组件悬浮背景色
+    --bg-inner-hover: var(--bg-hover); // 表格悬浮行背景色
+    --bg-inner-modal: #fff; // 动框背景色
 
     --fcp: #333; // font-color-primary : app-main主要字体色。用于app-main内容字体色。
     --fcpl: #333; // font-color-primary-layout : layout主要字体色。用于layout布局字体色。区分是为考虑主题风格app-main保持不变的情况。
-
-    --fcl: #333; // font-color-label : label字体色
-    --fcc: #666; // font-color-content : content字体色
-
     --fcs: #666; // font-color-secondray : 次级字体色
     --fct: #999; // font-color-tertiary : 三级字体色
     --fcsts: #fff; // font-color-same-theme-style : 主题同色字体色
+    --fcl: #333; // font-color-label : label字体色
+    --fcc: #666; // font-color-content : content字体色
 
     --bcp: #ccc; // border-color-primary : 主要边框色
     --bcs: #ddd; // border-color-secondary : 次级边框色
@@ -24,31 +26,33 @@
 
     // 其他自定义主题配置
     --bg-topHeader: skyblue; // top-header 背景色
-    --bg-leftNav: skyblue; // left-nav 背景色
-    --bg-topNav: skyblue; // top-nav 背景色
-
-    --bg-tableHeader: #eee;
-    --bg-tableHoverRow: #f5f7fa;
-    --bg-tableOddRow: #fff;
-    --bg-tableEvenRow: #efefef;
+    --bg-leftNav: #e5ffff; // left-nav 背景色
+    --bg-topNav: #e5ffff; // top-nav 背景色
+    --bg-topBar: #f0ffff; // top-bar 背景色
+    --bg-topTag: #f0ffff; // top-bar 背景色
+    --bg-tableHeader: #f1f1f1; // 表格头部背景色
+    --bg-tableHoverRow: #f0ffff; // 表格悬浮行背景色
+    --bg-tableHoverRow: var(--bg-hover); // 表格悬浮行背景色
+    --bg-tableOddRow: #fff; // 表格奇数行背景色
+    --bg-tableEvenRow: #f5f7fa; // 表格偶数行背景色
   }
   &[theme-style="dark"] {
     // 固定主题配置
-    --bg-primary: #1a1a1a; // 主要背景色
+    --bg-primary: #333; // 主要背景色
     --bg-layout: #1a1a1a; // 布局背景色
     --bg-card: #333; // 卡片背景色
     --bg-inner-primary: #1a1a1a; // 组件主要背景色
     --bg-inner-secondary: #333; // 组件二级背景色
     --bg-inner-tertiary: #666; // 组件三级背景色
-    --bg-inner-hover: #666; // 组件悬浮背景色
-    // --bg-inner-modal: #1a1a1a; // 组件弹窗背景色
+    // --bg-inner-hover: #666; // 组件悬浮背景色
+    --bg-inner-hover: var(--bg-hover); // 表格悬浮行背景色
+    --bg-inner-modal: #1a1a1a; // 组件弹窗背景色
 
     --fcp: #fff; // font-color-primary : app-main主要字体色。用于app-main内容字体色。
+    --fcpl: #fff; // font-color-primary : app-main主要字体色。用于app-main内容字体色。
     --fcs: rgba(255, 255, 255, 0.8); // font-color-secondray : 次级字体色
     --fct: rgba(255, 255, 255, 0.6); // font-color-tertiary : 三级字体色
     --fcsts: #000; // font-color-same-theme-style : 主题同色字体色
-    --fcpl: #fff; // font-color-primary-layout : layout主要字体色。用于layout布局字体色。区分是为考虑主题风格app-main保持不变的情况。
-
     --fcl: rgba(255, 255, 255, 0.8); // font-color-label : label字体色
     --fcc: rgba(255, 255, 255, 0.6); // font-color-content : content字体色
 
@@ -58,10 +62,15 @@
 
     // 其他自定义主题配置
     --bg-topHeader: #1a1a1a; // top-header 背景色
-    --bg-tableHeader: #6a5acd;
-    --bg-tableHoverRow: skyblue;
-    --bg-tableOddRow: #aaa;
-    --bg-tableEvenRow: #ccc;
+    --bg-leftNav: #333; // left-nav 背景色
+    --bg-topNav: #333; // top-nav 背景色
+    --bg-topBar: #1e2338; // top-bar 背景色
+    --bg-topTag: #1e2338; // top-bar 背景色
+    --bg-tableHeader: #1e2338; // 表格头部背景色
+    // --bg-tableHoverRow: #008080; // 表格悬浮行背景色
+    --bg-tableHoverRow: var(--bg-hover); // 表格悬浮行背景色
+    --bg-tableOddRow: #aaa; // 表格奇数行背景色
+    --bg-tableEvenRow: #ccc; // 表格偶数行背景色
   }
 }
 
@@ -266,12 +275,12 @@
         .el-table__cell {
           background-color: var(--bg-tableHeader);
           border-bottom-color: var(--bcs);
-          padding: 11px 0 12px;
+          padding: 12px 0 12px;
           .cell {
-            color: #333;
+            color: var(--fcp);
             font-size: 14px;
             font-weight: 700;
-            line-height: 26px;
+            line-height: 25px;
           }
         }
       }

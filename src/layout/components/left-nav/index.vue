@@ -40,7 +40,7 @@ export default {
   height: 100%;
   border-right: 1px solid var(--bcp);
   box-sizing: border-box;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-leftNav);
 
   ::v-deep .left-nav-menu {
     width: 100%;
@@ -61,7 +61,7 @@ export default {
 
       li {
         height: 100%;
-        background-color: var(--bg-primary);
+        background-color: var(--bg-leftNav);
 
         .menu-title {
           flex: 1;

@@ -42,7 +42,7 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-topNav);
     border-bottom: 1px solid var(--bcp);
 
     .menu-item-container {
@@ -76,7 +76,7 @@ export default {
           align-items: center;
           justify-content: center;
           color: var(--fcpl);
-          background-color: var(--bg-primary);
+          background-color: var(--bg-topNav);
 
           &.is-active {
             font-weight: 700;

@@ -67,7 +67,7 @@ export default {
   }
 
   .no-redirect {
-    color: var(--fc2);
+    color: var(--fcs);
     cursor: text;
   }
 }

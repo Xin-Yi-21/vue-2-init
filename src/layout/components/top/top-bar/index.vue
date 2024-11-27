@@ -27,6 +27,6 @@ export default {
   display: flex;
   height: 40px;
   border-bottom: 1px solid var(--bcp);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-topBar);
 }
 </style>

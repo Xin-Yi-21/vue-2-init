@@ -4,8 +4,8 @@
       <div class="setting-item">
         <span class="setting-label">主题风格</span>
         <el-radio-group v-model="setting.themeStyle">
-          <el-radio label="dark">黑色</el-radio>
-          <el-radio label="light">白色</el-radio>
+          <el-radio label="light">浅色</el-radio>
+          <el-radio label="dark">深色</el-radio>
         </el-radio-group>
       </div>
       <div class="setting-item">
@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       isShowSet: false,
-      predefineColors: ["#409EFF", "#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#55c791", "#1e90ff", "#c71585"],
+      predefineColors: ["#F00", "#FF6100", "#FF0", "#0F0", "#0FF", "#00F", "#F0F", "#FF1493", "#55c791",],
     }
   },
   computed: {
