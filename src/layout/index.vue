@@ -88,6 +88,7 @@ export default {
 
         &>* {
           // border-top: 1px solid transparent;
+          height: 100%;
           overflow: hidden;
         }
 

@@ -40,7 +40,7 @@ export default {
   height: 100%;
   display: inline-flex;
   height: 36px;
-  border-radius: 8px;
+  border-radius: 18px;
   overflow: hidden;
 
   .tab-item {
@@ -55,14 +55,14 @@ export default {
 
     &:first-child {
       // border: 1px solid #ccc;
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
+      border-top-left-radius: 18px;
+      border-bottom-left-radius: 18px;
     }
 
     &:last-child {
       border-right: 1px solid var(--bcs);
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+      border-top-right-radius: 18px;
+      border-bottom-right-radius: 18px;
     }
 
     &.is-active {

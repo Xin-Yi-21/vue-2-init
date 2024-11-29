@@ -1,59 +1,51 @@
-// element-variable.scss
+// 一、自定义变量配置
 :root {
-  --tc: rgb(85, 199, 145); // 字体主题色
-  --tcRGB: 85, 199, 145;
+  // --tc: rgb(85, 199, 145); // 字体主题色
+  // --tcRGB: 85, 199, 145;
   --top-nav-height: 50px;
   --top-bar-height: 40px;
   --top-tag-height: 30px;
-}
-
-// 头部
-:root body {
-  &[topHeaderStatus="show"] {
-    --top-header-height: 60px;
+  // 头部
+  & {
+    &:has(body[topHeaderStatus="show"]) {
+      --top-header-height: 60px;
+    }
+    &:has(body[topHeaderStatus="hide"]) {
+      --top-header-height: 0px;
+    }
   }
-  &[topHeaderStatus="hide"] {
-    --top-header-height: 0px;
-  }
-}
-
-// 左侧导航
-:root body {
-  &[leftNavStatus="expand"] {
-    --left-nav-width: 200px;
-  }
-  &[leftNavStatus="collapse"] {
-    --left-nav-width: 60px;
-  }
-  &[leftNavStatus="hide"] {
-    --left-nav-width: 0px;
+  // 左侧导航
+  & {
+    &:has(body[leftNavStatus="expand"]) {
+      --left-nav-width: 200px;
+    }
+    &:has(body[leftNavStatus="collapse"]) {
+      --left-nav-width: 60px;
+    }
+    &:has(body[leftNavStatus="hide"]) {
+      --left-nav-width: 0px;
+    }
   }
 }
 
+// 二、element变量配置
 $--color-primary: #55c791;
 $--color-success: #13ce66;
 $--color-warning: #ffba00;
 $--color-danger: #ff4949;
 $--color-info: #1e1e1e;
-
 $--button-font-weight: 400;
-
 // $--color-text-regular: #1f2d3d;
-
 $--border-color-light: #dfe4ed;
 $--border-color-lighter: #e6ebf5;
-
 $--table-border: 1px solid #dfe6ec;
-
 $--font-path: "~element-ui/lib/theme-chalk/fonts";
-
 @import "~element-ui/packages/theme-chalk/src/index";
-
 // :export {
-//   theme: $--color-primary;
+
 // }
 
-// 二、变量类名
+// 三、变量类名
 @for $i from 0 through 100 {
   .w-#{$i} {
     width: calc(#{$i} * 1%);
@@ -110,18 +102,13 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
     transform: translateY(calc(#{$i}* (-1) * 1px));
   }
 }
-// @for $i from 0 through 100 {
-//   @for $j from 0 through 100 {
-//     @if $j != 0 {
-//       $width:calc($i / $j) * 100%;
-//       .cw-#{$i}\/#{$j} {
-//         width: $width;
-//       }
-//     }
-//   }
-// }
-
-:export {
-  tc: --tc;
-  leftNavWidth: --leftNavWidth;
+@for $i from 0 through 100 {
+  @for $j from 0 through 100 {
+    @if $j != 0 {
+      $width: $i / $j * 100%;
+      .cw-#{$i}\/#{$j} {
+        width: $width;
+      }
+    }
+  }
 }

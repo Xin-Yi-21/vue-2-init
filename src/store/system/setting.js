@@ -16,6 +16,7 @@ const setting = {
     },
     themeStyle: storageSetting.themeStyle === undefined ? themeStyle : storageSetting.themeStyle,
     themeColor: storageSetting.themeColor === undefined ? themeColor : storageSetting.themeColor,
+    theme: {},
     elSize: storageSetting.elSize === undefined ? elSize : storageSetting.elSize,
     isTopNav: storageSetting.isTopNav === undefined ? isTopNav : storageSetting.isTopNav,
     isTopBar: storageSetting.isTopBar === undefined ? isTopBar : storageSetting.isTopBar,

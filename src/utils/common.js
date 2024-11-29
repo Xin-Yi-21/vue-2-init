@@ -171,15 +171,6 @@ export function $exportEchartImg(chartObject, options) {
 }
 
 
-// export function $dedulicateArray(arr) {
-//   let obj = {}
-//   return arr.filter((item, index) => {
-//     // 防止key重复
-//     let newItem = item + JSON.stringify(item)
-//     return obj.hasOwnProperty(newItem) ? false : obj[newItem] = true
-//   })
-// }
-
 // 数组去重
 export function $uniqueArray(arr, key) {
   // 数组是简单类型（字符串、数字等），直接去重
@@ -202,7 +193,6 @@ export function $uniqueArray(arr, key) {
       return index === self.findIndex((t) => (
         JSON.stringify(t) === JSON.stringify(item)
       ))
-
     })
     // let obj = {}
     // return arr.filter((item, index) => {
@@ -244,5 +234,48 @@ export function $sortArray(arr, type, key, order = 'asc',) {
     } else {
       return valA < valB ? 1 : valA > valB ? -1 : 0
     }
+  })
+}
+
+// echart数据补全
+export function $completeEchart(chart) {
+  let xyData = chart.xyData
+  let timeList = []
+  for (var k in xyData) { xyData[k].forEach(item => { timeList.push(item[0]) }) }
+  timeList = this.$uniqueArray(timeList)
+  $sortArray(timeList, 'time',)
+  for (var k in xyData) { xyData[k] = fill(xyData[k], timeList) }
+  function fill(arr, allTimes) {
+    let result = []
+    let arrMap = new Map(arr.map(item => [item[0], item[1]]))  // 将原数组转为一个 Map，方便查找
+    allTimes.forEach(time => {
+      if (arrMap.has(time)) {
+        result.push([time, arrMap.get(time)]) // 如果原数组中存在该时间，直接添加
+      } else {
+        result.push([time, null])  // 如果原数组中没有该时间，填充 null
+      }
+    })
+    return result
+  }
+  let tableData = []
+  timeList.forEach(item1 => {
+    let rowItem = { time: item1, }
+    for (var k in xyData) {
+      xyData[k].forEach(item2 => { if (item1 === item2[0]) { rowItem[k] = (item2[1] || item2[1] === 0) ? item2[1] : '-' } })
+    }
+    tableData.push(rowItem)
+  })
+  chart.xData = timeList
+  chart.tableData = tableData
+}
+
+export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
+  return new ResizeObserver(() => {
+    if (isFirstResize) {
+      isFirstResize = false
+      return
+    }
+    console.log('zou');
+    fn()
   })
 }

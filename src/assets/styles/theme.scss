@@ -1,5 +1,5 @@
 // 一、主题变量
-:root body {
+:root {
   &[theme-style="light"] {
     // 固定主题配置
     --bg-primary: #fff; // 主要背景色
@@ -75,7 +75,7 @@
 }
 
 // 二、element主题风格样式
-:root body {
+:root {
   &[theme-style="light"] {
   }
   &[theme-style="dark"] {
@@ -403,7 +403,7 @@
 }
 
 // 三、element主题基础样式
-:root body {
+:root {
   // el-tooltip
   .el-tooltip__popper {
     max-width: 600px;
@@ -417,7 +417,7 @@
 }
 
 // 四、组件主题样式
-:root body {
+:root {
   //   &[theme-style="light"] #app .top-header-vue {
   //   }
   //   &[theme-style="dark"] #app .top-header-vue {

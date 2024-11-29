@@ -1,8 +1,8 @@
 <template>
-  <i :class="{ 'c-icon': true, 'is-disabled': disabled }" :style="`color:${color};font-size:${size}px;cursor:${cursor}`" @click="handleIconClick">
+  <i :class="{ 'c-icon': true, 'is-disabled': disabled }" :style="`font-size:${size}px;cursor:${cursor};--color:${color};--hoverColor:${hoverColor};`" @click="handleIconClick">
     <el-tooltip ref="tooltip" effect="light" placement="top" popper-class="c-icon-el-tooltip" :visible-arrow="false" v-if="tip && showType == 'el'">
-      <svg-icon :icon-class="i" :style="`color:${color};`"></svg-icon>
-      <span slot="content" :style="`color:${color};`">{{ tip }}</span>
+      <svg-icon :icon-class="i"></svg-icon>
+      <span slot="content" :style="`color:${hoverColor};`">{{ tip }}</span>
     </el-tooltip>
 
     <template v-else>
@@ -20,6 +20,10 @@ export default {
       default: '',
     },
     color: { // 图标颜色
+      type: String,
+      default: 'inherit',
+    },
+    hoverColor: {
       type: String,
       default: 'inherit',
     },
@@ -70,6 +74,12 @@ export default {
   position: relative;
   font-style: normal;
   font-weight: 400;
+  color: var(--color);
+
+  &:hover {
+    color: var(--hoverColor);
+  }
+
 
 
   &[class*="is-disabled"] {
@@ -81,7 +91,6 @@ export default {
   }
 
   .svg-icon {
-    color: inherit;
     font-size: inherit;
     margin: 0 5px;
   }
@@ -111,5 +120,6 @@ export default {
   line-height: 1 !important;
   transform: translateY(5px);
   transition: none !important;
+  color: var(--fcp);
 }
 </style>

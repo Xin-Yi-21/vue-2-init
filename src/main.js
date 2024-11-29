@@ -57,7 +57,7 @@ setConfig().then(async () => {
   // 全局方法
   // getTableHeaderLRVByGlobal
   const dayjs = (await import('dayjs')).default
-  const { $getEnumsLabel, $getEnumsLabelList, $exportEchartImg, $exportDomTable, $uniqueArray, $sortArray, } = await import("@/utils/common.js")
+  const { $getEnumsLabel, $getEnumsLabelList, $exportEchartImg, $exportDomTable, $uniqueArray, $sortArray, $completeEchart, $newResizeObserver } = await import("@/utils/common.js")
   const { throttle, debounce, deepClone } = await import("lodash")
   Vue.prototype.$bus = new Vue()
   Vue.prototype.$dayjs = dayjs
@@ -74,6 +74,8 @@ setConfig().then(async () => {
   // Vue.prototype.$loadingEnd = $loadingEnd
   Vue.prototype.$uniqueArray = $uniqueArray
   Vue.prototype.$sortArray = $sortArray
+  Vue.prototype.$completeEchart = $completeEchart
+  Vue.prototype.$newResizeObserver = $newResizeObserver
 
   // const echartTheme = themeFile[store.state.theme.currentTheme].echartScssFile()     // Echart主题变量
   // Vue.prototype.$echartTheme = echartTheme                                           // 挂载为全局变量
