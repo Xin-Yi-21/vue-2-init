@@ -4,12 +4,10 @@
       <line-echart></line-echart>
     </div>
     <div class="echart-card bar">
-      <div class="card-title">柱状图</div>
-      <!-- <div id="bar"></div> -->
+      <bar-echart></bar-echart>
     </div>
     <div class="echart-card pie">
-      <div class="card-title">扇形图</div>
-      <!-- <div id="pie"></div> -->
+      <pie-echart></pie-echart>
     </div>
     <div class="echart-card radar">
       <div class="card-title">雷达图</div>
@@ -32,8 +30,11 @@
 
 <script>
 import LineEchart from './components/line'
+import BarEchart from './components/bar'
+import PieEchart from './components/pie'
+
 export default {
-  components: { LineEchart },
+  components: { LineEchart, BarEchart, PieEchart },
   data() {
     return {
 

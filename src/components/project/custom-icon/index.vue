@@ -77,10 +77,12 @@ export default {
   color: var(--color);
 
   &:hover {
-    color: var(--hoverColor);
+
+    * {
+      color: var(--hoverColor);
+    }
+
   }
-
-
 
   &[class*="is-disabled"] {
     cursor: not-allowed !important;

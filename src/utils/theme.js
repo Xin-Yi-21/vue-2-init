@@ -67,6 +67,7 @@ export function handleThemeStyle(themeStyle) {
   }
   Vue.prototype.$theme = theme
   // window.dispatchEvent(new CustomEvent('theme-style-change'))
+  // window.removeEventListener('theme-style-change')
 }
 
 // hex颜色转rgb颜色

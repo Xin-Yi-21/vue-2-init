@@ -1,8 +1,7 @@
 <template>
-  <div class="line-vue">
-    <!-- <div class="echart-title">折线图</div> -->
+  <div class="bar-vue">
     <c-icon class="echart-export" i="c-download" tip="导出图片" size="20" cursor="pointer" :color="$store.state.setting.themeColor" :hoverColor="$theme['--tc']" showType="el" @click="handleExportEchart()"></c-icon>
-    <div id="line-echart"> </div>
+    <div id="bar-echart"> </div>
   </div>
 </template>
 
@@ -14,6 +13,7 @@ export default {
       apiData: {},
       echartInfo: {},
       timer: null,
+      resizer: null,
     }
   },
   created() {
@@ -68,10 +68,10 @@ export default {
     async getechartInfo() {
       const res = await this.lineechartInfoGet()
       this.$set(this, 'apiData', res.data || {})
-      this.handleechartInfo()
+      this.handleEchartData()
     },
     // 2、处理echart数据
-    handleechartInfo() {
+    handleEchartData() {
       let chart = {
         lData: [],
         xyData: {},
@@ -96,10 +96,10 @@ export default {
       chart.lData.forEach((item, index) => {
         let sItem = {
           ...common,
-          type: 'line',
+          type: 'bar',
           name: item,
           itemStyle: {
-            color: '#fff',
+            color: color[index],
             borderWidth: '2',
             borderColor: color[index],
           },
@@ -115,14 +115,14 @@ export default {
     initEchart() {
       this.echartInfo?.instance?.clear()
       this.echartInfo?.instance?.dispose()
-      this.echartInfo?.resizer?.disconnect()
-      let chartDom = document.getElementById('line-echart')
+      this.resizer?.disconnect()
+      let chartDom = document.getElementById('bar-echart')
       if (!chartDom) return
       chartDom && chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
       let option = {
         title: {
-          text: '折线图',
+          text: '柱状图',
           textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 },
           left: 'center',
           top: 5,
@@ -152,6 +152,7 @@ export default {
             return start + content + end
           }
         },
+
         legend: {
           top: 30,
           textStyle: { color: this.$echartTheme.fcs },
@@ -201,7 +202,7 @@ export default {
     },
     // 4、导出echart
     handleExportEchart() {
-      let exportFileName = '折线图'
+      let exportFileName = '柱状图'
       this.$exportEchartImg(this.echartInfo.instance, { name: exportFileName, type: 'png', pixelRatio: 10, backgroundColor: this.$echartTheme.bg })
     },
   },
@@ -210,7 +211,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.line-vue {
+.bar-vue {
   width: 100%;
   height: 100%;
   position: relative;
@@ -224,7 +225,7 @@ export default {
     z-index: 9;
   }
 
-  #line-echart {
+  #bar-echart {
     width: 100%;
     height: 100%;
   }

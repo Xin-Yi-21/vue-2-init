@@ -4,7 +4,7 @@
       <div class="c-search-condition">
         <el-form :model="form" ref="formRef">
           <el-form-item label="性别">
-            <el-select v-model="form.gender" placeholder="请选择" style="width:120px" @change="handleChangeCondition('direction')">
+            <el-select v-model="form.gender" placeholder="请选择" style="width:120px" @change="handleChangeCondition('gender')">
               <el-option v-for="(item, index) in enums.gender" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
@@ -43,7 +43,7 @@
       <c-card-header title="人物管理" icon="circle">
         <template #right> <c-button type="primary" i="c-add" @click="handleAdd">新增</c-button></template>
       </c-card-header>
-      <!--  -->
+
       <el-table :data="tableData" border class="c-table" stripe>
         <el-table-column label="人物" prop="" align="center">
           <template slot-scope="scope"> {{ scope.row.personName }} </template>
@@ -63,9 +63,9 @@
               <!-- <el-button @click="handleView(scope.row)" type="text">查看</el-button>
               <el-button @click="handleUpdate(scope.row)" type="text">修改</el-button>
               <el-button @click="handleDelete(scope.row)" type="text">删除</el-button> -->
-              <c-icon i="c-t-view" tip="查看" color="#55c791" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleView(scope.row)"></c-icon>
-              <c-icon i="c-t-update" tip="更新" color="#0077FF" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleUpdate(scope.row)"></c-icon>
-              <c-icon i="c-t-delete" tip="删除" color="#FA4B4B" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleDelete(scope.row)"></c-icon>
+              <c-icon i="c-t-view" tip="查看" color="#55c791" hoverColor="#55c791" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleView(scope.row)"></c-icon>
+              <c-icon i="c-t-update" tip="更新" color="#0077FF" hoverColor="#0077FF" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleUpdate(scope.row)"></c-icon>
+              <c-icon i="c-t-delete" tip="删除" color="#FA4B4B" hoverColor="#FA4B4B" :showType="scope.$index ? 'c' : 'el'" cursor="pointer" @click="handleDelete(scope.row)"></c-icon>
             </div>
           </template>
         </el-table-column>
@@ -145,7 +145,7 @@ export default {
         item.role = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         item.genderName = this.$getEnumsLabel(this.$store.state.enums.allEnums.gender, item.gender)
       })
-      for (var i = 0; i < 3; i++) { tableData.push(...tableData) }
+      // for (var i = 0; i < 3; i++) { tableData.push(...tableData) }
 
       this.$set(this, 'tableData', tableData || [])
     },
