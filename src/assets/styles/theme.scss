@@ -30,11 +30,16 @@
     --bg-topNav: #e5ffff; // top-nav 背景色
     --bg-topBar: #f0ffff; // top-bar 背景色
     --bg-topTag: #f0ffff; // top-bar 背景色
-    --bg-tableHeader: #f1f1f1; // 表格头部背景色
-    --bg-tableHoverRow: #f0ffff; // 表格悬浮行背景色
-    --bg-tableHoverRow: var(--bg-hover); // 表格悬浮行背景色
-    --bg-tableOddRow: #fff; // 表格奇数行背景色
-    --bg-tableEvenRow: #f5f7fa; // 表格偶数行背景色
+    // --bg-tableHeader: #f1f1f1; // 表格头部背景色
+    // --bg-tableHoverRow: #f0ffff; // 表格悬浮行背景色
+    // // --bg-tableHoverRow: var(--bg-hover); // 表格悬浮行背景色
+    // --bg-tableOddRow: #fff; // 表格奇数行背景色
+    // --bg-tableEvenRow: #f5f7fa; // 表格偶数行背景色
+    --bg-tableHeader: #22becd; // 表格头部背景色
+    --bg-tableHoverRow: #cffeff; // 表格悬浮行背景色
+    --bg-tableOddRow: #e0ffff; // 表格奇数行背景色
+    --bg-tableEvenRow: #f0ffff; // 表格偶数行背景色
+    --bg-tableBody: #eff;
   }
   &[theme-style="dark"] {
     // 固定主题配置
@@ -71,6 +76,7 @@
     --bg-tableHoverRow: var(--bg-hover); // 表格悬浮行背景色
     --bg-tableOddRow: #aaa; // 表格奇数行背景色
     --bg-tableEvenRow: #ccc; // 表格偶数行背景色
+    --bg-tableBody: #333;
   }
 }
 
@@ -326,7 +332,7 @@
       }
     }
     .el-table__body-wrapper {
-      background-color: var(--bg-inner-primary);
+      background-color: var(--bg-tableBody);
       .el-table__body {
         border-left: 0;
         .el-table__row {

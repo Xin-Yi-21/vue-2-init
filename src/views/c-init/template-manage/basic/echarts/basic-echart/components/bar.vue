@@ -41,16 +41,16 @@ export default {
         try {
           const data = {
             '济南': [
-              { time: '2024-01-01 12:00:00', temperature: 1, rain: 10, humidity: 70, pressure: 1030, },
-              { time: '2024-04-01 12:00:00', temperature: 10, rain: 30, humidity: 50, pressure: 1015, },
-              { time: '2024-07-01 12:00:00', temperature: 25, rain: 120, humidity: 80, pressure: 1010, },
-              { time: '2024-10-01 12:00:00', temperature: 15, rain: 40, humidity: 60, pressure: 1025, },
+              { time: '2024-01-01 12:00:00', temperature: 1, rain: 10, windDirection: 350, windSpeed: 4, humidity: 70, pressure: 1030, },
+              { time: '2024-04-01 12:00:00', temperature: 10, rain: 30, windDirection: 220, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-07-01 12:00:00', temperature: 25, rain: 120, windDirection: 150, windSpeed: 2, humidity: 80, pressure: 1010, },
+              { time: '2024-10-01 12:00:00', temperature: 15, rain: 40, windDirection: 300, windSpeed: 4, humidity: 60, pressure: 1025, },
             ],
             '青岛': [
-              { time: '2024-01-01 12:00:00', temperature: 5, rain: 20, humidity: 70, pressure: 1020, },
-              { time: '2024-04-01 12:00:00', temperature: 15, rain: 40, humidity: 75, pressure: 1015, },
-              { time: '2024-07-01 12:00:00', temperature: 22, rain: 180, humidity: 85, pressure: 1010, },
-              { time: '2024-10-01 12:00:00', temperature: 16, rain: 50, humidity: 70, pressure: 1020, },
+              { time: '2024-01-01 12:00:00', temperature: 5, rain: 20, windDirection: 320, windSpeed: 5, humidity: 70, pressure: 1020, },
+              { time: '2024-04-01 12:00:00', temperature: 15, rain: 40, windDirection: 210, windSpeed: 4, humidity: 75, pressure: 1015, },
+              { time: '2024-07-01 12:00:00', temperature: 22, rain: 180, windDirection: 180, windSpeed: 3, humidity: 85, pressure: 1010, },
+              { time: '2024-10-01 12:00:00', temperature: 16, rain: 50, windDirection: 310, windSpeed: 4, humidity: 70, pressure: 1020, },
             ],
           }
           resolve({ code: 200, data: data, msg: '请求成功！' })

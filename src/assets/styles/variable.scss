@@ -17,7 +17,7 @@
   // 左侧导航
   & {
     &:has(body[leftNavStatus="expand"]) {
-      --left-nav-width: 200px;
+      --left-nav-width: 220px;
     }
     &:has(body[leftNavStatus="collapse"]) {
       --left-nav-width: 60px;
@@ -106,8 +106,9 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
   @for $j from 0 through 100 {
     @if $j != 0 {
       $width: $i / $j * 100%;
-      .cw-#{$i}\/#{$j} {
+      #app .cw-#{$i}\/#{$j} {
         width: $width;
+        flex-shrink: 0;
       }
     }
   }

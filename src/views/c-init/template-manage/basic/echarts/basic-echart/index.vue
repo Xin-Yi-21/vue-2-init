@@ -22,8 +22,7 @@
       <!-- <div id="gauge"></div> -->
     </div>
     <div class="echart-card rose">
-      <div class="card-title">玫瑰图</div>
-      <!-- <div id="rose"></div> -->
+      <wind-rose-echart></wind-rose-echart>
     </div>
   </div>
 </template>
@@ -32,9 +31,10 @@
 import LineEchart from './components/line'
 import BarEchart from './components/bar'
 import PieEchart from './components/pie'
+import WindRoseEchart from './components/wind-rose'
 
 export default {
-  components: { LineEchart, BarEchart, PieEchart },
+  components: { LineEchart, BarEchart, PieEchart, WindRoseEchart },
   data() {
     return {
 

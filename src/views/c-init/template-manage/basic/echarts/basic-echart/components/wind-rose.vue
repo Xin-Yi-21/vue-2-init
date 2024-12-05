@@ -1,8 +1,8 @@
 <template>
-  <div class="line-vue">
+  <div class="wind-rose-vue">
     <!-- <div class="echart-title">折线图</div> -->
     <c-icon class="echart-export" i="c-download" tip="导出图片" size="20" cursor="pointer" :color="$store.state.setting.themeColor" :hoverColor="$theme['--tc']" showType="el" @click="handleExportEchart()"></c-icon>
-    <div id="line-echart"> </div>
+    <div id="wind-rose-echart"> </div>
   </div>
 </template>
 
@@ -116,7 +116,7 @@ export default {
       this.echartInfo?.instance?.clear()
       this.echartInfo?.instance?.dispose()
       this.echartInfo?.resizer?.disconnect()
-      let chartDom = document.getElementById('line-echart')
+      let chartDom = document.getElementById('wind-rose-echart')
       if (!chartDom) return
       chartDom && chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
@@ -210,7 +210,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.line-vue {
+.wind-rose-vue {
   width: 100%;
   height: 100%;
   position: relative;
@@ -224,7 +224,7 @@ export default {
     z-index: 9;
   }
 
-  #line-echart {
+  #wind-rose-echart {
     width: 100%;
     height: 100%;
   }

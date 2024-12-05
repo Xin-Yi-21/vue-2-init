@@ -36,7 +36,7 @@ export default {
     width: calc(100% - 20px);
     height: 50px;
     margin: 10px;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-card);
     border-radius: 4px;
     padding: 0 10px;
     display: flex;
@@ -47,7 +47,7 @@ export default {
     width: calc(100% - 20px);
     height: calc(100% - 80px);
     margin: 10px;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-card);
     border-radius: 4px;
   }
 }
