@@ -1,6 +1,5 @@
 <template>
   <div class="wind-rose-vue">
-    <!-- <div class="echart-title">折线图</div> -->
     <c-icon class="echart-export" i="c-download" tip="导出图片" size="20" cursor="pointer" :color="$store.state.setting.themeColor" :hoverColor="$theme['--tc']" showType="el" @click="handleExportEchart()"></c-icon>
     <div id="wind-rose-echart"> </div>
   </div>
@@ -36,7 +35,7 @@ export default {
   },
   methods: {
     // 模拟api
-    lineechartInfoGet() {
+    lineEchartInfoGet() {
       return new Promise((resolve, reject) => {
         try {
           const data = {
@@ -62,35 +61,44 @@ export default {
     // 一、初始化相关
     // 0、初始化总调用
     init() {
-      this.getechartInfo()
+      this.getEchartInfo()
     },
     // 1、获取echart数据
-    async getechartInfo() {
-      const res = await this.lineechartInfoGet()
+    async getEchartInfo() {
+      const res = await this.lineEchartInfoGet()
       this.$set(this, 'apiData', res.data || {})
-      this.handleechartInfo()
+      this.handleEchartInfo()
     },
     // 2、处理echart数据
-    handleechartInfo() {
-      let chart = {
-        lData: [],
-        xyData: {},
-        sData: [],
-        tableData: [],
-      }
+    handleEchartInfo() {
+      let chart = { directionsLRV: [], lData: [], xyData: {}, sData: [], windInfo: {} }
       let apiData = JSON.parse(JSON.stringify(this.apiData || {}))
+      let directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+      chart.directionsLRV = directions.map((item, index) => {
+        let angle = 22.5 * index
+        let angleRange = [angle - 11.25, angle + 11.25]
+        angleRange = angleRange.map(a => (a + 360) % 360)
+        return { name: item, angle: angle, angleRange: angleRange }
+      })
+
       for (var k in apiData) {
         chart.lData.push(k)
+        let kData = []
+        apiData[k].forEach(item => { kData.push({ windDirection: item.windDirection, windSpeed: item.windSpeed }) })
+        let kInfo = this.getWindInfo(kData, chart.directionsLRV) || []
+        chart.windInfo[k] = kInfo || []
         chart.xyData[k] = []
-        apiData[k].forEach(item => { chart.xyData[k].push([item.time, item.temperature?.toFixed(2)]) })
+        chart.directionsLRV.forEach((item, index) => {
+          chart.xyData[k].push([kInfo[index].frequency, kInfo[index].angle])
+        })
+        chart.xyData[k].push([kInfo[0].frequency, kInfo[0].angle]) // 首尾连接
       }
-      this.$completeEchart(chart)
+
       let common = {
-        smooth: true,
-        showAllSymbol: true,
-        symbol: 'circle',
-        symbolSize: 4,
-        connectNulls: false
+        coordinateSystem: 'polar',
+        type: 'line',
+        connectNulls: false,
+        symbolSize: 0,
       }
       let color = ['#549BDD', '#59D7D7', '#5ABCAA', '#93E42B', '#2ADE26', '#2981D2', '#C274E7']
       chart.lData.forEach((item, index) => {
@@ -98,11 +106,7 @@ export default {
           ...common,
           type: 'line',
           name: item,
-          itemStyle: {
-            color: '#fff',
-            borderWidth: '2',
-            borderColor: color[index],
-          },
+          itemStyle: { color: color[index], borderWidth: '2', borderColor: color[index], },
           lineStyle: { color: color[index] },
           data: chart.xyData[item]
         }
@@ -111,85 +115,105 @@ export default {
       this.$set(this, 'echartInfo', Object.assign({}, this.echartInfo, chart))
       this.$nextTick(() => { this.initEchart() })
     },
+    // 获取风信息
+    getWindInfo(data, directionsLRV) {
+      if (!directionsLRV) {
+        let directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+        directionsLRV = directions.map((item, index) => {
+          let angle = 22.5 * index
+          let angleRange = [angle - 11.25, angle + 11.25]
+          angleRange = angleRange.map(a => (a + 360) % 360)
+          return { name: item, angle: angle, angleRange: angleRange }
+        })
+      }
+
+      let res = directionsLRV.map(item => ({ angle: item.angle, frequencyCount: 0, frequency: 0, windSpeedSum: 0, windSpeedAvg: 0, }))
+
+      data.forEach(item1 => {
+        directionsLRV.forEach((item2, index2) => {
+          if (item1.windDirection >= item2.angleRange[0] && item1.windDirection < item2.angleRange[1]) {
+            res[index2].frequencyCount += 1
+            res[index2].windSpeedSum += item1.windSpeed || 0
+          }
+        })
+      })
+
+      res.forEach(item => {
+        item.frequency = this.$accurate(((item.frequencyCount / data.length) * 100), 2, false)
+        item.windSpeedAvg = this.$accurate(item.frequencyCount != 0 ? item.windSpeedSum / item.frequencyCount : 0, 2, false)
+      })
+      return res
+    },
+
     // 3、渲染echart
     initEchart() {
       this.echartInfo?.instance?.clear()
       this.echartInfo?.instance?.dispose()
       this.echartInfo?.resizer?.disconnect()
       let chartDom = document.getElementById('wind-rose-echart')
-      if (!chartDom) return
-      chartDom && chartDom.removeAttribute('_echarts_instance_')
+      if (!chartDom) return this.$message.warning('未获取到相关元素！')
+      chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
       let option = {
-        title: {
-          text: '折线图',
-          textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 },
-          left: 'center',
-          top: 5,
-        },
-        grid: { top: 70, left: 50, right: 50, bottom: 10, containLabel: true, },
-        tooltip: {
-          trigger: 'axis',
-          backgroundColor: 'rgba(255,255,255,0.55)',
-          padding: [0, 0],
-          formatter: params => {
-            let start = `<div class="c-echart-tooltip">
-                           <div class="tooltip-title">${params[0].name}</div>
-                           <div class="tooltip-content">`
-            let end = ` </div></div>`
-            let content = ''
-            params.forEach(item => {
-              let unit = ' ℃'
-              let text = `<div class="content-item">
-                            <div class="item-cycle" style="background: ${item.borderColor}"></div>
-                            <div class="item-text">
-                              <div class="text-left">${item.seriesName}</div>
-                              <div class="text-right">${item.data[1] || item.data[1] === 0 ? item.data[1] + unit : '暂无数据'}</div>
-                            </div>
-                           </div>`
-              content = content + text
-            })
-            return start + content + end
-          }
-        },
+        title: { text: '风向玫瑰图', top: 5, left: 'center', textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 }, },
         legend: {
           top: 30,
           textStyle: { color: this.$echartTheme.fcs },
           data: this.echartInfo.lData
         },
-        xAxis: {
-          type: 'category',
-          axisLine: { show: true, lineStyle: { color: this.$echartTheme.bcp } },
-          axisTick: { show: true, lineStyle: { color: this.$echartTheme.bcs }, alignWithLabel: true },
-          axisLabel: {
-            show: true, color: this.$echartTheme.fcp, align: 'center',
-            showMinLabel: true,
-            showMaxLabel: true,
-            formatter: (value) => {
-              const time = value ? this.$dayjs(value).format('MM-DD HH:mm') : '?'
-              return time
-            }
-          },
-        },
-        yAxis: [
-          {
-            type: 'value',
-            name: '气温 ( ℃ )',
-            nameTextStyle: {
-              color: this.$echartTheme.fcs,
-              fontFamily: 'Alibaba PuHuiTi',
-              fontSize: 14,
-              fontWeight: 600,
-              padding: [0, 0, 0, -30]
-            },
-            nameGap: 15,
-            // max: function (value) { return value.max + 5 },
-            axisLine: { show: true, lineStyle: { color: this.$echartTheme.bcp } },
-            axisTick: { show: false },
-            axisLabel: { color: this.$echartTheme.fcp, fontSize: 14 },
-            splitLine: { show: true, lineStyle: { color: this.$echartTheme.bcs, type: 'dashed' } }
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'cross', },
+          backgroundColor: "rgba(255,255,255,0.55)",
+          padding: [0, 0],
+          confine: true,
+          // appendToBody: true,
+          formatter: (params) => {
+            let start = `<div class="c-echart-tooltip">
+                           <div class="tooltip-title">风向频率统计</div>
+                           <div class="tooltip-content">`
+            let end = ` </div></div>`
+            let content = ''
+            let hasIndex = [] // 记录已拼接过的数据索引，用于解决在数据末尾额外添加了一组数据使折线图形成闭环而造成的鼠标悬浮提示重复问题
+            console.log('查params', params)
+            params.forEach((item, index) => {
+              console.log('查item', item)
+              if (!hasIndex.includes(item.seriesIndex)) {
+                let text = `<div class="content-item">
+                            <div class="item-cycle" style="background: ${item.color}"></div>
+                            <div class="item-text">
+                              <div class="text-left">${item.seriesName}</div>
+                              <div class="text-right">
+                                 ${item.data[0] || item.data[0] === 0 ? item.data[0] + '%' : '暂无数据'}
+                              </div>
+                            </div>
+                          </div>`
+                content = content + text
+                hasIndex.push(item.seriesIndex)
+                // &nbsp;&nbsp;&nbsp;
+                // 平均风速： ${this.echartInfo.windInfo?.[item.seriesName]?.[item.dataIndex]?.windSpeedAvg + ' m/s' || '暂无数据'}
+              }
+            })
+            return start + content + end
           }
-        ],
+        },
+        polar: {
+          center: ['50%', '58%'],
+          radius: '66%'
+        },
+        angleAxis: {
+          type: 'value',
+          startAngle: 90,
+          min: 0,
+          max: 360,
+          interval: 360 / this.echartInfo.directionsLRV.length,
+          axisLabel: { formatter: (value, index) => { return this.echartInfo.directionsLRV[index]?.name } },
+        },
+        radiusAxis: {
+          min: function (value) { return value.min - 5 < 0 ? 0 : value.min - 5 },
+          max: function (value) { return value.max + 5 > 100 ? 100 : value.max + 5 },
+          axisPointer: { show: false },
+        },
         series: this.echartInfo.sData
       }
       option && myChart.setOption(option, true)
@@ -201,7 +225,7 @@ export default {
     },
     // 4、导出echart
     handleExportEchart() {
-      let exportFileName = '折线图'
+      let exportFileName = '风向玫瑰图'
       this.$exportEchartImg(this.echartInfo.instance, { name: exportFileName, type: 'png', pixelRatio: 10, backgroundColor: this.$echartTheme.bg })
     },
   },

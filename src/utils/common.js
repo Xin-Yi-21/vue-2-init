@@ -268,7 +268,7 @@ export function $completeEchart(chart) {
   chart.xData = timeList
   chart.tableData = tableData
 }
-
+// echart容器大小变化监听
 export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
   return new ResizeObserver(() => {
     if (isFirstResize) {
@@ -278,4 +278,13 @@ export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
     console.log('zou');
     fn()
   })
+}
+
+// 数字精确位数
+export function $accurate(num, precision = 0, isAllPrecision = false) {
+  const parsedNum = parseFloat(num)
+  if (isNaN(parsedNum)) { return '' }
+  const pow = Math.pow(10, precision)
+  const res = Math.round(parsedNum * pow) / pow
+  return isAllPrecision ? res.toFixed(precision) : res
 }

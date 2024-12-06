@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     // 模拟api
-    lineechartInfoGet() {
+    lineEchartInfoGet() {
       return new Promise((resolve, reject) => {
         try {
           const data = {
@@ -62,36 +62,25 @@ export default {
     // 一、初始化相关
     // 0、初始化总调用
     init() {
-      this.getechartInfo()
+      this.getEchartInfo()
     },
     // 1、获取echart数据
-    async getechartInfo() {
-      const res = await this.lineechartInfoGet()
+    async getEchartInfo() {
+      const res = await this.lineEchartInfoGet()
       this.$set(this, 'apiData', res.data || {})
-      this.handleechartInfo()
+      this.handleEchartInfo()
     },
     // 2、处理echart数据
-    handleechartInfo() {
-      let chart = {
-        lData: [],
-        xyData: {},
-        sData: [],
-        tableData: [],
-      }
+    handleEchartInfo() {
+      let chart = { lData: [], xyData: {}, sData: [], }
       let apiData = JSON.parse(JSON.stringify(this.apiData || {}))
       for (var k in apiData) {
         chart.lData.push(k)
         chart.xyData[k] = []
-        apiData[k].forEach(item => { chart.xyData[k].push([item.time, item.temperature?.toFixed(2)]) })
+        apiData[k].forEach(item => { chart.xyData[k].push([item.time, this.$accurate(item.temperature, 2, false)]) })
       }
       this.$completeEchart(chart)
-      let common = {
-        smooth: true,
-        showAllSymbol: true,
-        symbol: 'circle',
-        symbolSize: 4,
-        connectNulls: false
-      }
+      let common = { smooth: true, showAllSymbol: true, symbol: 'circle', symbolSize: 4, connectNulls: false }
       let color = ['#549BDD', '#59D7D7', '#5ABCAA', '#93E42B', '#2ADE26', '#2981D2', '#C274E7']
       chart.lData.forEach((item, index) => {
         let sItem = {
@@ -121,12 +110,7 @@ export default {
       chartDom && chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
       let option = {
-        title: {
-          text: '折线图',
-          textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 },
-          left: 'center',
-          top: 5,
-        },
+        title: { text: '折线图', top: 5, left: 'center', textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 }, },
         grid: { top: 70, left: 50, right: 50, bottom: 10, containLabel: true, },
         tooltip: {
           trigger: 'axis',
@@ -183,7 +167,7 @@ export default {
               padding: [0, 0, 0, -30]
             },
             nameGap: 15,
-            // max: function (value) { return value.max + 5 },
+            max: function (value) { return value.max + 5 },
             axisLine: { show: true, lineStyle: { color: this.$echartTheme.bcp } },
             axisTick: { show: false },
             axisLabel: { color: this.$echartTheme.fcp, fontSize: 14 },

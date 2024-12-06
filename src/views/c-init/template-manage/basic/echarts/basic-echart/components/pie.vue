@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     // 模拟api
-    lineechartInfoGet() {
+    lineEchartInfoGet() {
       return new Promise((resolve, reject) => {
         try {
           const data = {
@@ -55,29 +55,25 @@ export default {
     // 一、初始化相关
     // 0、初始化总调用
     init() {
-      this.getechartInfo()
+      this.getEchartInfo()
     },
     // 1、获取echart数据
-    async getechartInfo() {
-      const res = await this.lineechartInfoGet()
+    async getEchartInfo() {
+      const res = await this.lineEchartInfoGet()
       this.$set(this, 'apiData', res.data || {})
-      this.handleechartInfo()
+      this.handleEchartInfo()
     },
     // 2、处理echart数据
-    handleechartInfo() {
-      let chart = {
-        lData: [],
-        xyData: {},
-        sData: [],
-      }
+    handleEchartInfo() {
+      let chart = { lData: [], xyData: {}, sData: [], }
       let apiData = JSON.parse(JSON.stringify(this.apiData || {}))
       for (var k in apiData) {
         chart.lData.push(k)
         chart.xyData[k] = [
-          { name: '气温', value: apiData[k].temperature.toFixed(0), itemStyle: { color: '#549BDD' }, unit: '℃' },
-          { name: '降水', value: apiData[k].rain.toFixed(0), itemStyle: { color: '#59D7D7' }, unit: '℃' },
-          { name: '湿度', value: apiData[k].humidity.toFixed(0), itemStyle: { color: '#5ABCAA' }, unit: '℃' },
-          { name: '气压', value: apiData[k].pressure.toFixed(0), itemStyle: { color: '#93E42B' }, unit: '℃' },
+          { name: '气温', value: this.$accurate(apiData[k].temperature, 2, false), itemStyle: { color: '#549BDD' }, unit: '℃' },
+          { name: '降水', value: this.$accurate(apiData[k].rain, 2, false), itemStyle: { color: '#59D7D7' }, unit: 'mm' },
+          { name: '湿度', value: this.$accurate(apiData[k].humidity, 2, false), itemStyle: { color: '#5ABCAA' }, unit: '%' },
+          { name: '气压', value: this.$accurate(apiData[k].pressure, 2, false), itemStyle: { color: '#93E42B' }, unit: 'hPa' },
         ]
       }
 
@@ -126,14 +122,8 @@ export default {
       chartDom && chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
       let option = {
-        title: {
-          text: '扇形图',
-          textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 },
-          left: 'center',
-          top: 5,
-        },
+        title: { text: '扇形图', top: 5, left: 'center', textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 }, },
         grid: { top: 70, left: 50, right: 50, bottom: 10, containLabel: true, },
-
         tooltip: {
           trigger: 'item',
           backgroundColor: 'rgba(255,255,255,0.55)',
@@ -144,14 +134,13 @@ export default {
                            <div class="tooltip-content">`
             let end = ` </div></div>`
             let content = ''
-            let unit = ''
             let text = `<div class="content-item">
                             <div class="item-cycle" style="background: ${params.color}"></div>
                             <div class="item-text">
                               <div class="text-left">${params.name}</div>
-                              <div class="text-right">${params.value != undefined ? params.value : '暂无数据'}</div>
+                              <div class="text-right">${params.value != undefined ? params.value + ` ${params.data.unit}` : '暂无数据'}</div>
                             </div>
-                           </div>`
+                        </div>`
             content = content + text
             return start + content + end
           }
@@ -159,7 +148,6 @@ export default {
         legend: {
           top: 30,
           textStyle: { color: this.$echartTheme.fcs },
-          // data: this.echartInfo.lData
         },
         avoidLabelOverlap: true,
         series: this.echartInfo.sData
