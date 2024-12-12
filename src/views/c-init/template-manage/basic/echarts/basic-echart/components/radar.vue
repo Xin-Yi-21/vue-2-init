@@ -1,9 +1,9 @@
 <template>
-  <div class="pie-vue">
+  <div class="radar-vue">
     <c-icon class="echart-export" i="c-download" tip="导出图片" size="20" cursor="pointer" :color="$store.state.setting.themeColor" :hoverColor="$theme['--tc']" showType="el" @click="handleExportEchart()"></c-icon>
-    <div id="pie-echart"> </div>
+    <div id="radar-echart"> </div>
     <div class="part-title-container">
-      <span class="part-title" v-for="(item, index) in echartInfo.lData">{{ item }}今日天气</span>
+      <!-- <span class="part-title" v-for="(item, index) in echartInfo.lData">{{ item }}今日天气</span> -->
     </div>
   </div>
 </template>
@@ -42,8 +42,8 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           const data = {
-            '济南': { temperature: 10, rain: 10, humidity: 10, pressure: 10, },
-            '青岛': { temperature: 5, rain: 10, humidity: 15, pressure: 20, },
+            '济南': { temperature: 90, rain: 80, humidity: 70, pressure: 60, },
+            '青岛': { temperature: 92, rain: 71, humidity: 86, pressure: 77, },
             // '上海': { temperature: 5, rain: 10, humidity: 15, pressure: 20, },
           }
           resolve({ code: 200, data: data, msg: '请求成功！' })
@@ -65,50 +65,37 @@ export default {
     },
     // 2、处理echart数据
     handleEchartInfo() {
-      let chart = { lData: [], xyData: {}, sData: [], }
+      let chart = { lData: [], xyData: [], sData: [], radarInfo: {} }
       let apiData = JSON.parse(JSON.stringify(this.apiData || {}))
+
+      chart.indicator = [
+        { name: '气温准确率', unit: '%', max: 100, field: 'temperature' },
+        { name: '降水准确率', unit: '%', max: 100, field: 'rain' },
+        { name: '湿度准确率', unit: '%', max: 100, field: 'humidity' },
+        { name: '气压准确率', unit: '%', max: 100, field: 'pressure' },
+      ]
+      let color = ['#549BDD', '#59D7D7', '#5ABCAA', '#93E42B', '#2ADE26', '#2981D2', '#C274E7']
       for (var k in apiData) {
         chart.lData.push(k)
-        chart.xyData[k] = [
-          { name: '气温', value: this.$accurate(apiData[k].temperature, 2, false), itemStyle: { color: '#549BDD' }, unit: '℃' },
-          { name: '降水', value: this.$accurate(apiData[k].rain, 2, false), itemStyle: { color: '#59D7D7' }, unit: 'mm' },
-          { name: '湿度', value: this.$accurate(apiData[k].humidity, 2, false), itemStyle: { color: '#5ABCAA' }, unit: '%' },
-          { name: '气压', value: this.$accurate(apiData[k].pressure, 2, false), itemStyle: { color: '#93E42B' }, unit: 'hPa' },
-        ]
+        let rowItem = { name: k, value: [], itemStyle: {} }
+        chart.indicator.forEach((item, index) => {
+          this.$accurate(rowItem.value.push(apiData[k]?.[item.field]), 2, false)
+        })
+        chart.xyData.push(rowItem)
       }
+      chart.xyData.forEach((item, index) => { item.itemStyle = { color: color[index] } })
 
       let common = {
-        label: { show: false, position: 'outer', formatter: '{b}', color: 'inherit', width: 20, overflow: 'trunacate', ellipsis: '...', alignTo: 'labelLine', },
-        labelLine: { show: false, length: 10, length2: 10, },
+        symbolSize: 6,
         emphasis: {
-          label: { show: false, fontSize: 14, color: 'transparent', formatter: '{b}: {c}' },
-          labelLine: { show: false, lineStyle: { color: 'transparent' }, },
+          lineStyle: { width: 4 },
+          // label: { show: true, fontSize: 14, formatter: '{b}: {c}' },
+          // labelLine: { show: true, },
         },
       }
 
-      function getPositionConfig(numCharts) {
-        const positionConfig = []
-        for (let i = 0; i < numCharts; i++) {
-          const left = (i === 0) ? '0%' : `${(100 / numCharts) * i}%`
-          const right = (i === numCharts - 1) ? '100%' : `${(100 / numCharts) * (i + 1)}%`
-          const center = [(parseFloat(left) + parseFloat(right)) / 2 + '%', '50%']
-          const radius = ['25%', '50%']
-          positionConfig.push({ radius: radius, center: center })
-        }
-        return positionConfig
-      }
-      let positionConfig = getPositionConfig(chart.lData.length)
-
-      chart.lData.forEach((item, index) => {
-        let sItem = {
-          ...common,
-          ...positionConfig[index],
-          type: 'pie',
-          name: item,
-          data: chart.xyData[item],
-        }
-        chart.sData.push(sItem)
-      })
+      let sItem = { ...common, type: 'radar', name: '预报准确率', data: chart.xyData, }
+      chart.sData.push(sItem)
       this.$set(this, 'echartInfo', Object.assign({}, this.echartInfo, chart))
       this.$nextTick(() => { this.initEchart() })
     },
@@ -117,12 +104,12 @@ export default {
       this.echartInfo?.instance?.clear()
       this.echartInfo?.instance?.dispose()
       this.echartInfo?.resizer?.disconnect()
-      let chartDom = document.getElementById('pie-echart')
+      let chartDom = document.getElementById('radar-echart')
       if (!chartDom) return
       chartDom && chartDom.removeAttribute('_echarts_instance_')
       let myChart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom)
       let option = {
-        title: { text: '扇形图', top: 5, left: 'center', textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 }, },
+        title: { text: '雷达图', top: 5, left: 'center', textStyle: { color: this.$echartTheme.fcp, fontWeight: 'bold', fontSize: 14 }, },
         grid: { top: 70, left: 50, right: 50, bottom: 10, containLabel: true, },
         tooltip: {
           trigger: 'item',
@@ -130,25 +117,43 @@ export default {
           padding: [0, 0],
           formatter: params => {
             let start = `<div class="c-echart-tooltip">
-                           <div class="tooltip-title">${params.seriesName}</div>
+                           <div class="tooltip-title">${params.name} - ${params.seriesName}</div>
                            <div class="tooltip-content">`
             let end = ` </div></div>`
             let content = ''
-            let text = `<div class="content-item">
-                            <div class="item-cycle" style="background: ${params.color}"></div>
-                            <div class="item-text">
-                              <div class="text-left">${params.name}</div>
-                              <div class="text-right">${params.value != undefined ? params.value + ` ${params.data.unit}` : '暂无数据'}</div>
-                            </div>
-                        </div>`
-            content = content + text
+            params.data.value.forEach((item, index) => {
+              let indicator = this.echartInfo.indicator[index]
+              let itemText = `<div class="content-item">
+                        <div class="item-cycle" style="background: ${params.color}"></div>
+                        <div class="item-text">
+                          <div class="text-left">${indicator.name}</div>
+                          <div class="text-right">${item != undefined ? item + ` ${indicator.unit}` : '暂无数据'}</div>
+                        </div>
+                      </div>`;
+              content += itemText
+            })
             return start + content + end
           }
         },
-        legend: { top: 30, icon: 'circle', textStyle: { color: this.$echartTheme.fcs, }, itemWidth: 14, itemHeight: 14, },
-        avoidLabelOverlap: true,
+        legend: { top: 30, icon: 'diamond', textStyle: { color: this.$echartTheme.fcs, }, itemWidth: 14, itemHeight: 14, },
+        radar: {
+          splitNumber: 5,
+          splitLine: { show: true, },
+          axisLine: { show: true, },
+          axisName: {
+            show: true,
+            fontSize: 14,
+            fontWeight: "bold",
+            color: this.$echartTheme.fcs,
+          },
+          axisNameGap: 3,
+          radius: 90,
+          center: ['50%', '58%'],
+          indicator: this.echartInfo.indicator,
+        },
         series: this.echartInfo.sData
       }
+
       option && myChart.setOption(option, true)
       // 实例化
       this.$set(this.echartInfo, 'instance', myChart)
@@ -158,7 +163,7 @@ export default {
     },
     // 4、导出echart
     handleExportEchart() {
-      let exportFileName = '扇形图'
+      let exportFileName = '雷达图'
       this.$exportEchartImg(this.echartInfo.instance, { name: exportFileName, type: 'png', pixelRatio: 10, backgroundColor: this.$echartTheme.bg })
     },
   },
@@ -167,7 +172,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pie-vue {
+.radar-vue {
   width: 100%;
   height: 100%;
   position: relative;
@@ -181,7 +186,7 @@ export default {
     z-index: 9;
   }
 
-  #pie-echart {
+  #radar-echart {
     width: 100%;
     height: 100%;
   }

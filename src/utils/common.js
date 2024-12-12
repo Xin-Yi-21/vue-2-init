@@ -239,34 +239,69 @@ export function $sortArray(arr, type, key, order = 'asc',) {
 
 // echart数据补全
 export function $completeEchart(chart) {
-  let xyData = chart.xyData
-  let timeList = []
-  for (var k in xyData) { xyData[k].forEach(item => { timeList.push(item[0]) }) }
-  timeList = this.$uniqueArray(timeList)
-  $sortArray(timeList, 'time',)
-  for (var k in xyData) { xyData[k] = fill(xyData[k], timeList) }
-  function fill(arr, allTimes) {
-    let result = []
-    let arrMap = new Map(arr.map(item => [item[0], item[1]]))  // 将原数组转为一个 Map，方便查找
-    allTimes.forEach(time => {
-      if (arrMap.has(time)) {
-        result.push([time, arrMap.get(time)]) // 如果原数组中存在该时间，直接添加
-      } else {
-        result.push([time, null])  // 如果原数组中没有该时间，填充 null
-      }
-    })
-    return result
-  }
-  let tableData = []
-  timeList.forEach(item1 => {
-    let rowItem = { time: item1, }
+  try {
+    let xyData = chart.xyData || {}
+    let xData = []
+    let isTime = false
     for (var k in xyData) {
-      xyData[k].forEach(item2 => { if (item1 === item2[0]) { rowItem[k] = (item2[1] || item2[1] === 0) ? item2[1] : '-' } })
+      xyData[k].forEach(item => {
+        const dayjs = require('dayjs')
+        let xDataItem = item.value?.[0] || item[0]
+        xData.push(xDataItem)
+        if (dayjs(xDataItem).isValid()) { isTime = true }
+      })
     }
-    tableData.push(rowItem)
-  })
-  chart.xData = timeList
-  chart.tableData = tableData
+    xData = $uniqueArray(xData)
+    isTime ? $sortArray(xData, 'time') : $sortArray(xData)
+    for (var k in xyData) { xyData[k] = fill(xyData[k], xData) }
+    function fill(arr, xList) {
+      let result = []
+      let arrObj = {}
+      arr.forEach(item => {
+        if (item.value?.[0]) {
+          arrObj[item.value[0]] = { y: item.value[1], isValue: true }
+          arrObj.kPropertyValue = true
+        } else if (item[0]) {
+          arrObj[item[0]] = { y: item[1], isValue: false }
+        }
+      })
+      xList.forEach(item => {
+        if (arrObj[item]) {
+          result.push(arrObj[item].isValue ? { value: [item, arrObj[item].y] } : [item, arrObj[item].y])
+        } else {
+          result.push(arrObj.kPropertyValue ? { value: [item, null] } : [item, null])
+        }
+      })
+
+      // let arrMap = new Map(arr.map(item => [item.value?.[0] || item[0], item.value?.[1] || item[1]]))  // 将原数组转为一个 Map，方便查找
+      // xList.forEach(item => {
+      //   if (arrMap.has(item)) {
+      //     result.push({ value: [item, arrMap.get(item)] }) // 如果原数组中存在该时间，直接添加
+      //   } else {
+      //     result.push({ value: [item, null] })  // 如果原数组中没有该时间，填充 null
+      //   }
+      // })
+      return result
+    }
+
+    let tableData = []
+    xData.forEach(item1 => {
+      let rowItem = { time: item1, }
+      for (var k in xyData) {
+        xyData[k].forEach(item2 => {
+          if (item1 === (item2.value?.[0] || item2[0])) {
+            rowItem[k] = (item2.value?.[1] || item2.value?.[1] === 0 || item2[1] || item2[1] === 0) ? item2.value?.[1] || item2[1] : '-'
+          }
+        })
+      }
+      tableData.push(rowItem)
+    })
+    chart.xData = xData
+    chart.tableData = tableData
+  } catch {
+    this.$message.warning('数据补全出现问题！')
+  }
+
 }
 // echart容器大小变化监听
 export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
@@ -275,7 +310,6 @@ export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
       isFirstResize = false
       return
     }
-    console.log('zou');
     fn()
   })
 }

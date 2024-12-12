@@ -40,17 +40,49 @@ export default {
         try {
           const data = {
             '济南': [
-              { time: '2024-01-01 12:00:00', temperature: 1, rain: 10, windDirection: 350, windSpeed: 4, humidity: 70, pressure: 1030, },
-              { time: '2024-04-01 12:00:00', temperature: 10, rain: 30, windDirection: 220, windSpeed: 3, humidity: 50, pressure: 1015, },
-              { time: '2024-07-01 12:00:00', temperature: 25, rain: 120, windDirection: 150, windSpeed: 2, humidity: 80, pressure: 1010, },
-              { time: '2024-10-01 12:00:00', temperature: 15, rain: 40, windDirection: 300, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-01 12:00:00', temperature: 1, rain: 10, windDirection: 11, windSpeed: 4, humidity: 70, pressure: 1030, },
+              { time: '2024-01-02 12:00:00', temperature: 10, rain: 30, windDirection: 21, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-03 12:00:00', temperature: 10, rain: 30, windDirection: 31, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-04 12:00:00', temperature: 10, rain: 30, windDirection: 41, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-05 12:00:00', temperature: 10, rain: 30, windDirection: 51, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-06 12:00:00', temperature: 10, rain: 30, windDirection: 61, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-07 12:00:00', temperature: 10, rain: 30, windDirection: 71, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-08 12:00:00', temperature: 10, rain: 30, windDirection: 81, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-09 12:00:00', temperature: 10, rain: 30, windDirection: 91, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-10 12:00:00', temperature: 10, rain: 30, windDirection: 101, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-11 12:00:00', temperature: 10, rain: 30, windDirection: 111, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-12 12:00:00', temperature: 10, rain: 30, windDirection: 121, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-13 12:00:00', temperature: 10, rain: 30, windDirection: 131, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-14 12:00:00', temperature: 10, rain: 30, windDirection: 141, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-15 12:00:00', temperature: 10, rain: 30, windDirection: 151, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-16 12:00:00', temperature: 10, rain: 30, windDirection: 161, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-17 12:00:00', temperature: 10, rain: 30, windDirection: 171, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-18 12:00:00', temperature: 10, rain: 30, windDirection: 181, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-19 12:00:00', temperature: 10, rain: 30, windDirection: 191, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-20 12:00:00', temperature: 10, rain: 30, windDirection: 201, windSpeed: 3, humidity: 50, pressure: 1015, },
+              { time: '2024-01-21 12:00:00', temperature: 25, rain: 120, windDirection: 211, windSpeed: 2, humidity: 80, pressure: 1010, },
+              { time: '2024-01-22 12:00:00', temperature: 15, rain: 40, windDirection: 221, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-23 12:00:00', temperature: 15, rain: 40, windDirection: 231, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-24 12:00:00', temperature: 15, rain: 40, windDirection: 241, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-25 12:00:00', temperature: 15, rain: 40, windDirection: 251, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-26 12:00:00', temperature: 15, rain: 40, windDirection: 261, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-27 12:00:00', temperature: 15, rain: 40, windDirection: 271, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-28 12:00:00', temperature: 15, rain: 40, windDirection: 281, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-29 12:00:00', temperature: 15, rain: 40, windDirection: 291, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-30 12:00:00', temperature: 15, rain: 40, windDirection: 301, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-01-31 12:00:00', temperature: 15, rain: 40, windDirection: 311, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-02-01 12:00:00', temperature: 15, rain: 40, windDirection: 321, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-02-02 12:00:00', temperature: 15, rain: 40, windDirection: 331, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-02-03 12:00:00', temperature: 15, rain: 40, windDirection: 341, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-02-04 12:00:00', temperature: 15, rain: 40, windDirection: 351, windSpeed: 4, humidity: 60, pressure: 1025, },
+              { time: '2024-02-05 12:00:00', temperature: 15, rain: 40, windDirection: 1, windSpeed: 4, humidity: 60, pressure: 1025, },
             ],
-            '青岛': [
-              { time: '2024-01-01 12:00:00', temperature: 5, rain: 20, windDirection: 320, windSpeed: 5, humidity: 70, pressure: 1020, },
-              { time: '2024-04-01 12:00:00', temperature: 15, rain: 40, windDirection: 210, windSpeed: 4, humidity: 75, pressure: 1015, },
-              { time: '2024-07-01 12:00:00', temperature: 22, rain: 180, windDirection: 180, windSpeed: 3, humidity: 85, pressure: 1010, },
-              { time: '2024-10-01 12:00:00', temperature: 16, rain: 50, windDirection: 310, windSpeed: 4, humidity: 70, pressure: 1020, },
-            ],
+            // '青岛': [
+            //   { time: '2024-01-01 12:00:00', temperature: 5, rain: 20, windDirection: 320, windSpeed: 5, humidity: 70, pressure: 1020, },
+            //   { time: '2024-04-01 12:00:00', temperature: 15, rain: 40, windDirection: 210, windSpeed: 4, humidity: 75, pressure: 1015, },
+            //   { time: '2024-07-01 12:00:00', temperature: 22, rain: 180, windDirection: 180, windSpeed: 3, humidity: 85, pressure: 1010, },
+            //   { time: '2024-10-01 12:00:00', temperature: 16, rain: 50, windDirection: 310, windSpeed: 4, humidity: 70, pressure: 1020, },
+            // ],
           }
           resolve({ code: 200, data: data, msg: '请求成功！' })
         } catch {
@@ -126,18 +158,19 @@ export default {
           return { name: item, angle: angle, angleRange: angleRange }
         })
       }
-
       let res = directionsLRV.map(item => ({ angle: item.angle, frequencyCount: 0, frequency: 0, windSpeedSum: 0, windSpeedAvg: 0, }))
-
       data.forEach(item1 => {
         directionsLRV.forEach((item2, index2) => {
-          if (item1.windDirection >= item2.angleRange[0] && item1.windDirection < item2.angleRange[1]) {
+          if (
+            (item2.angleRange[0] > item2.angleRange[1] && ((item1.windDirection >= item2.angleRange[0] && item1.windDirection < 360) || (item1.windDirection >= 0 && item1.windDirection < item2.angleRange[1])))
+            ||
+            ((item1.windDirection >= item2.angleRange[0] && item1.windDirection < item2.angleRange[1]))
+          ) {
             res[index2].frequencyCount += 1
             res[index2].windSpeedSum += item1.windSpeed || 0
           }
         })
       })
-
       res.forEach(item => {
         item.frequency = this.$accurate(((item.frequencyCount / data.length) * 100), 2, false)
         item.windSpeedAvg = this.$accurate(item.frequencyCount != 0 ? item.windSpeedSum / item.frequencyCount : 0, 2, false)
@@ -175,9 +208,7 @@ export default {
             let end = ` </div></div>`
             let content = ''
             let hasIndex = [] // 记录已拼接过的数据索引，用于解决在数据末尾额外添加了一组数据使折线图形成闭环而造成的鼠标悬浮提示重复问题
-            console.log('查params', params)
             params.forEach((item, index) => {
-              console.log('查item', item)
               if (!hasIndex.includes(item.seriesIndex)) {
                 let text = `<div class="content-item">
                             <div class="item-cycle" style="background: ${item.color}"></div>
@@ -210,8 +241,8 @@ export default {
           axisLabel: { formatter: (value, index) => { return this.echartInfo.directionsLRV[index]?.name } },
         },
         radiusAxis: {
-          min: function (value) { return value.min - 5 < 0 ? 0 : value.min - 5 },
-          max: function (value) { return value.max + 5 > 100 ? 100 : value.max + 5 },
+          // min: function (value) { return value.min - 5 < 0 ? 0 : value.min - 5 },
+          // max: function (value) { return value.max + 5 > 100 ? 100 : value.max + 5 },
           axisPointer: { show: false },
         },
         series: this.echartInfo.sData

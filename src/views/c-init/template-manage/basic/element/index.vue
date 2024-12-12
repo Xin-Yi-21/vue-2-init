@@ -116,7 +116,6 @@ export default {
     },
     // 1、获取枚举
     async getEnums() {
-      console.log('查state2', this.$store.state.enums.allEnums)
       let allEnums = JSON.parse(JSON.stringify(this.$store.state.enums.allEnums))
       let enums = {
         gender: allEnums.gender,

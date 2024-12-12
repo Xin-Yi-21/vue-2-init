@@ -77,7 +77,9 @@ export default {
       for (var k in apiData) {
         chart.lData.push(k)
         chart.xyData[k] = []
-        apiData[k].forEach(item => { chart.xyData[k].push([item.time, this.$accurate(item.temperature, 2, false)]) })
+        apiData[k].forEach(item => {
+          chart.xyData[k].push({ value: [item.time, this.$accurate(item.temperature, 2, false)] })
+        })
       }
       this.$completeEchart(chart)
       let common = { smooth: true, showAllSymbol: true, symbol: 'circle', symbolSize: 4, connectNulls: false }
@@ -133,7 +135,7 @@ export default {
                             <div class="item-cycle" style="background: ${item.borderColor}"></div>
                             <div class="item-text">
                               <div class="text-left">${item.seriesName}</div>
-                              <div class="text-right">${item.data[1] || item.data[1] === 0 ? item.data[1] + unit : '暂无数据'}</div>
+                              <div class="text-right">${item.data?.value[1] || item.data?.value[1] === 0 ? item.data?.value[1] + unit : '暂无数据'}</div>
                             </div>
                            </div>`
               content = content + text

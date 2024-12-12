@@ -10,19 +10,17 @@
       <pie-echart></pie-echart>
     </div>
     <div class="echart-card radar">
-      <div class="card-title">雷达图</div>
-      <!-- <div id="radar"></div> -->
-    </div>
-    <div class="echart-card liquid">
-      <div class="card-title">水球图</div>
-      <!-- <div id="liquid"></div> -->
-    </div>
-    <div class="echart-card gauge">
-      <div class="card-title">仪表图</div>
-      <!-- <div id="gauge"></div> -->
+      <radar-echart></radar-echart>
     </div>
     <div class="echart-card rose">
       <wind-rose-echart></wind-rose-echart>
+    </div>
+    <div class="echart-card liquid">
+      <liquid-echart></liquid-echart>
+    </div>
+
+    <div class="echart-card gauge">
+      <dashbord-echart></dashbord-echart>
     </div>
   </div>
 </template>
@@ -31,10 +29,13 @@
 import LineEchart from './components/line'
 import BarEchart from './components/bar'
 import PieEchart from './components/pie'
+import RadarEchart from './components/radar'
+import LiquidEchart from './components/liquid'
+import DashbordEchart from './components/dashbord'
 import WindRoseEchart from './components/wind-rose'
 
 export default {
-  components: { LineEchart, BarEchart, PieEchart, WindRoseEchart },
+  components: { LineEchart, BarEchart, PieEchart, RadarEchart, LiquidEchart, DashbordEchart, WindRoseEchart },
   data() {
     return {
 
