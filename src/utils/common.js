@@ -224,6 +224,7 @@ export function $sortArray(arr, type, key, order = 'asc',) {
         valA = Number(valA)
         valB = Number(valB)
         break
+      case '':
       default:
         valA = valA
         valB = valB
@@ -244,15 +245,11 @@ export function $completeEchart(chart) {
     let xData = []
     let isTime = false
     for (var k in xyData) {
-      xyData[k].forEach(item => {
-        const dayjs = require('dayjs')
-        let xDataItem = item.value?.[0] || item[0]
-        xData.push(xDataItem)
-        if (dayjs(xDataItem).isValid()) { isTime = true }
-      })
+      xyData[k].forEach(item => { xData.push(item.value?.[0] || item[0]) })
     }
     xData = $uniqueArray(xData)
-    isTime ? $sortArray(xData, 'time') : $sortArray(xData)
+    let isTimeField = xData.some(item => this.$dayjs(item).isValid())
+    this.$sortArray(xData, isTimeField ? 'time' : '')
     for (var k in xyData) { xyData[k] = fill(xyData[k], xData) }
     function fill(arr, xList) {
       let result = []
@@ -303,6 +300,31 @@ export function $completeEchart(chart) {
   }
 
 }
+
+// 表格数据补全
+export function $completeTable(data, callback = null, xFieldT = 'time', xFieldN = 'time') {
+  let apiData = JSON.parse(JSON.stringify(data))
+  let res = []
+  let xData = []
+  for (var k in apiData) {
+    apiData[k].forEach(item => { xData.push(item[xFieldT]) })
+  }
+  xData = this.$uniqueArray(xData)
+  let isTimeField = xData.some(item => this.$dayjs(item).isValid())
+  this.$sortArray(xData, isTimeField ? 'time' : '')
+
+  xData.forEach((item1, index1) => {
+    res[index1] = { [xFieldN]: item1 }
+    for (var k in apiData) {
+      let matchItem = apiData[k].find(item2 => item1 === item2[xFieldT]) || {}
+      if (callback && typeof callback === 'function') {
+        callback(res[index1], matchItem, k)
+      }
+    }
+  })
+  return res
+}
+
 // echart容器大小变化监听
 export function $newResizeObserver(fn = () => { }, isFirstResize = true) {
   return new ResizeObserver(() => {

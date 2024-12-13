@@ -1,5 +1,5 @@
 <template>
-  <div class="map-echart">
+  <div class="map-echart-vue">
     地图echart
   </div>
 </template>
@@ -21,5 +21,6 @@ export default {
 <style lang="scss" scoped>
 .map-echart-vue {
   height: 100%;
+  background-color: var(--bg-card);
 }
 </style>

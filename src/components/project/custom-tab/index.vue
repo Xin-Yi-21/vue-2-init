@@ -52,6 +52,7 @@ export default {
     border-right: 0;
     cursor: pointer;
     color: var(--fcp);
+    padding: 0 20px;
 
     &:first-child {
       // border: 1px solid #ccc;

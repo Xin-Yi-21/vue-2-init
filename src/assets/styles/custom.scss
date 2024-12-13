@@ -340,6 +340,102 @@
     }
   }
 }
+
+.c-table-update {
+  .el-table__cell:has(.el-input) {
+    box-sizing: border-box;
+    overflow: hidden !important;
+    height: 100%;
+    padding: 0 !important;
+    font-weight: 400;
+
+    .cell {
+      width: 100%;
+      padding: 0;
+
+      .el-form {
+        width: 100%;
+        min-height: 39px;
+
+        .el-form-item {
+          width: 100%;
+          height: 100%;
+          margin-bottom: 0;
+
+          .el-form-item__content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
+
+          &.is-error {
+            height: 39px;
+
+            .el-form-item__error {
+              position: absolute;
+              top: auto;
+              left: 50%;
+              bottom: 2px;
+              width: 100%;
+              height: 12px;
+              padding: 0;
+              transform: translate(-50%);
+            }
+
+            &:has(.el-form-item__error) {
+              .el-input {
+                display: block !important;
+                height: 100% !important;
+
+                .el-input__inner {
+                  display: flex;
+                  align-items: flex-start !important;
+                  padding-bottom: 10px;
+                  border: 1px solid red;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .el-textarea {
+        width: 100%;
+        height: 100%;
+
+        .el-textarea__inner {
+          min-height: 100% !important;
+          border-radius: 0;
+          border: 0;
+          resize: none;
+
+          &:focus {
+            border: 1px solid var(--themeColor);
+          }
+        }
+
+        &[class*="is-disabled"] {
+          .el-textarea__inner {
+            border-color: #dfe4ed;
+            background-color: #fff;
+          }
+        }
+      }
+
+      .el-input {
+        height: 100%;
+
+        .el-input__inner {
+          height: 100%;
+          border: 0;
+          border-radius: 0;
+          text-align: center;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
 // 模态框
 .c-dialog {
   display: flex;

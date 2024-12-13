@@ -57,7 +57,7 @@ setConfig().then(async () => {
   // 全局方法
   // getTableHeaderLRVByGlobal
   const dayjs = (await import('dayjs')).default
-  const { $getEnumsLabel, $getEnumsLabelList, $exportEchartImg, $exportDomTable, $uniqueArray, $sortArray, $completeEchart, $newResizeObserver, $accurate } = await import("@/utils/common.js")
+  const { $getEnumsLabel, $getEnumsLabelList, $exportEchartImg, $exportDomTable, $uniqueArray, $sortArray, $completeEchart, $completeTable, $newResizeObserver, $accurate } = await import("@/utils/common.js")
   const { throttle, debounce, deepClone } = await import("lodash")
   Vue.prototype.$bus = new Vue()
   Vue.prototype.$dayjs = dayjs
@@ -75,6 +75,7 @@ setConfig().then(async () => {
   Vue.prototype.$uniqueArray = $uniqueArray
   Vue.prototype.$sortArray = $sortArray
   Vue.prototype.$completeEchart = $completeEchart
+  Vue.prototype.$completeTable = $completeTable
   Vue.prototype.$newResizeObserver = $newResizeObserver
   Vue.prototype.$accurate = $accurate
 

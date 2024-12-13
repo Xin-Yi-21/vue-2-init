@@ -53,6 +53,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+  background-color: var(--bg-card);
 
   .echart-card {
     width: 33.33%;

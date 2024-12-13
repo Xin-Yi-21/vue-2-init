@@ -66,8 +66,8 @@ export function numberVerify(rule, value, callback) {
   else { callback() }
 }
 
-// 费用
-export function costNumberVerify(rule, value, callback) {
+// 非负数
+export function nonNegativeNumberVerify(rule, value, callback) {
   let exp = /^[+-]?\d*(\.\d*)?(e[+-]?\d+)?$/
   if (value) {
     if (!exp.test(value)) { callback(new Error('请输入数字')) }
