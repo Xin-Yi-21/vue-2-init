@@ -1,13 +1,10 @@
-import { personGet } from '@/api/project/project'
+import { roleGet, monthGet } from '@/api/project/project'
 import { Message } from 'element-ui'
 const enums = {
   state: {
     // 前端枚举
     frontendEnums: {
-      // 性别
-      gender: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }],
-      // 月份
-      month: [{ label: '1', value: '01' }, { label: '2', value: '02' }, { label: '3', value: '03' }, { label: '4', value: '04' }, { label: '5', value: '05' }, { label: '6', value: '06' }, { label: '7', value: '07' }, { label: '8', value: '08' }, { label: '9', value: '09' }, { label: '10', value: '10' }, { label: '11', value: '11' }, { label: '12', value: '12' },]
+      gender: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }],     // 性别
     },
     // 后端枚举
     backendEnums: {},
@@ -16,7 +13,7 @@ const enums = {
   },
   // getters: {
   //   allEnums(state) {
-  //     return Object.assign({}, state.backendEnums, state.frontendEnums)
+  //     return Object.assign({}, state.backendEnums, state.frontendEnums)      // 使用：this.$store.getters.allEnums
   //   },
   // },
   mutations: {
@@ -29,12 +26,18 @@ const enums = {
     async GetEnums({ commit, state, }, refreshTypeList) {
       let enums = { ...state.backendEnums }
       try {
-        if (!refreshTypeList || refreshTypeList.includes('personGet')) {
-          const res = await personGet()
-          enums.person = (res.data || []).map(item => ({ label: item.personName, value: item.personId, }))
+        if (!refreshTypeList || refreshTypeList.includes('roleGet')) {
+          const res = await roleGet()
+          enums.role = (res.data || []).map(item => ({ label: item.label, value: item.value, }))
         }
-        commit('GET_ENUMS', enums)
-      } catch (error) { Message.warning('枚举查询存在问题，请联系管理员！') }
+      } catch (error) { Message.warning('角色枚举查询存在问题，请联系管理员！') }
+      try {
+        if (!refreshTypeList || refreshTypeList.includes('monthGet')) {
+          const res = await monthGet()
+          enums.month = (res.data || []).map(item => ({ label: item.label, value: item.value, }))
+        }
+      } catch (error) { ElMessage.warning('月份枚举查询存在问题，请联系管理员！') }
+      commit('GET_ENUMS', enums)
     },
   }
 }
