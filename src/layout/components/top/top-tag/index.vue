@@ -1,25 +1,42 @@
 <template>
-  <div id="tags-view-container" class="tags-view-container">
+  <div id="tags-view-container" class="top-tag-vue">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link ref="tag" v-for="tag in visitedViews" :key="tag.path"
-        :class="isActive(tag) ? 'active' : ''"
+        :class="['tags-view-item', isActive(tag) ? 'active' : '']"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
         tag="span"
-        class="tags-view-item"
         :style="activeStyle(tag)"
         @click.middle.native="!isAffix(tag) ? closeSelectedTag(tag) : ''"
         @contextmenu.prevent.native="openMenu(tag, $event)">
-        {{ tag.title }}
-        <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+        <span class="tag-title"> {{ tag.title }}</span>
+        <span v-if="!isAffix(tag)" class="el-icon-close tag-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)"><i class="el-icon-refresh-right"></i> 刷新页面</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close"></i> 关闭当前</li>
-      <li @click="closeOthersTags"><i class="el-icon-circle-close"></i> 关闭其他</li>
-      <li v-if="!isFirstView()" @click="closeLeftTags"><i class="el-icon-back"></i> 关闭左侧</li>
-      <li v-if="!isLastView()" @click="closeRightTags"><i class="el-icon-right"></i> 关闭右侧</li>
-      <li @click="closeAllTags(selectedTag)"><i class="el-icon-circle-close"></i> 全部关闭</li>
+      <li @click="refreshSelectedTag(selectedTag)">
+        <i class="el-icon-refresh-right"></i>
+        <span class="operate-text">刷新页面</span>
+      </li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
+        <i class="el-icon-close"></i>
+        <span class="operate-text">关闭当前</span>
+      </li>
+      <li @click="closeOthersTags">
+        <i class="el-icon-circle-close"></i>
+        <span class="operate-text">关闭其他</span>
+      </li>
+      <li v-if="!isFirstView()" @click="closeLeftTags">
+        <i class="el-icon-back"></i>
+        <span class="operate-text">关闭左侧</span>
+      </li>
+      <li v-if="!isLastView()" @click="closeRightTags">
+        <i class="el-icon-right"></i>
+        <span class="operate-text">关闭右侧</span>
+      </li>
+      <li @click="closeAllTags(selectedTag)">
+        <i class="el-icon-circle-close"></i>
+        <span class="operate-text">全部关闭</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -211,7 +228,8 @@ export default {
       const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
       const offsetWidth = this.$el.offsetWidth // container width
       const maxLeft = offsetWidth - menuMinWidth // left boundary
-      const left = e.clientX - offsetLeft + 15 // 15: margin right
+      // const left = e.clientX - offsetLeft + 15 // 15: margin right
+      const left = e.clientX // 15: margin right
 
       if (left > maxLeft) {
         this.left = maxLeft
@@ -219,7 +237,7 @@ export default {
         this.left = left
       }
 
-      this.top = e.clientY
+      this.top = e.clientY + 18
       this.visible = true
       this.selectedTag = tag
     },
@@ -233,76 +251,129 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.tags-view-container {
-  height: 34px;
+<style lang='scss' scoped>
+.top-tag-vue {
+  height: 30px;
   width: 100%;
   background: var(--bg-topTag);
-  border-bottom: 1px solid var(--bcp);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  border-bottom: 1px solid #d8dce5;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
 
   .tags-view-wrapper {
-    .tags-view-item {
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-      height: 26px;
-      line-height: 26px;
-      border: 1px solid #d8dce5;
-      color: #495060;
-      background: #fff;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
+    height: 100%;
 
-      &:first-of-type {
-        margin-left: 15px;
-      }
+    ::v-deep .el-scrollbar__wrap {
+      height: 100% !important;
+      margin-bottom: 0 !important;
+      margin-right: 0 !important;
+      overflow: auto;
 
-      &:last-of-type {
-        margin-right: 15px;
-      }
+      .el-scrollbar__view {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
 
-      &.active {
-        background-color: #42b983;
-        color: #fff;
-        border-color: #42b983;
-
-        &::before {
-          content: '';
-          background: #fff;
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
+        .tags-view-item {
           position: relative;
-          margin-right: 2px;
+          display: inline-flex;
+          align-items: center;
+          height: 24px;
+          margin-left: 10px;
+          padding: 0 30px;
+          cursor: pointer;
+          border-radius: 3px;
+          background-color: var(--bg-topTag);
+          border: 1px solid var(--bcs);
+          color: var(--fcpl);
+          font-size: 12px;
+          text-decoration: none;
+
+          &:first-of-type {
+            margin-left: 15px;
+          }
+
+          &:last-of-type {
+            margin-right: 15px;
+          }
+
+          &.active {
+            background-color: var(--tc);
+            border-color: var(--tc);
+            color: #fff;
+
+            .tag-close {
+              color: #fff;
+            }
+          }
+
+          &:has(.tag-close) {
+            padding: 0 30px 0 20px;
+          }
+
+          .tag-title {
+            font-size: 12px;
+          }
+
+          .tag-close {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(calc(-50% + 1px));
+            width: 1em;
+            height: 1em;
+            color: var(--fcs);
+
+            &:hover {
+              scale: 1.1;
+            }
+          }
         }
       }
     }
   }
 
   .contextmenu {
-    margin: 0;
-    background: #fff;
-    z-index: 3000;
     position: absolute;
-    list-style-type: none;
+    margin: 0;
     padding: 5px 0;
+    background: var(--bg-inner-primary);
+    z-index: 3000;
+    list-style-type: none;
     border-radius: 4px;
+    color: var(--fcs);
     font-size: 12px;
     font-weight: 400;
-    color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
 
     li {
+      display: flex;
+      align-items: center;
+      height: 30px;
       margin: 0;
-      padding: 7px 16px;
+      padding: 0 15px;
+      font-size: 12px;
       cursor: pointer;
 
+
+      .operate-text {
+        display: block;
+        font-size: 12px;
+        line-height: 12px;
+      }
+
+      i {
+        display: block;
+        width: 12px;
+        height: 12px;
+        font-size: 12px;
+        line-height: 12px;
+        margin-right: 5px;
+        margin-top: 1px;
+      }
+
       &:hover {
-        background: #eee;
+        background: var(--bg-hover);
       }
     }
   }
@@ -314,24 +385,26 @@ export default {
 .tags-view-wrapper {
   .tags-view-item {
     .el-icon-close {
-      width: 16px;
-      height: 16px;
-      vertical-align: 2px;
-      border-radius: 50%;
-      text-align: center;
-      transition: all .3s cubic-bezier(.645, .045, .355, 1);
-      transform-origin: 100% 50%;
+      // width: 16px;
+      // height: 16px;
+      // vertical-align: 2px;
+      // border-radius: 50%;
+      // text-align: center;
+      // transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      // transform-origin: 100% 50%;
 
-      &:before {
-        transform: scale(.6);
-        display: inline-block;
-        vertical-align: -3px;
-      }
+      // &:before {
+      //   transform: scale(0.6);
+      //   display: inline-block;
+      //   vertical-align: -3px;
+      // }
 
-      &:hover {
-        background-color: #b4bccc;
-        color: #fff;
-      }
+      // &:hover {
+      //   // background-color: #b4bccc;
+      //   scale: 1.1;
+      //   width: 12px !important;
+      //   height: 12px !important;
+      // }
     }
   }
 }
