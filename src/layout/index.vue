@@ -5,9 +5,9 @@
       <left-nav v-if="setting.leftNav.isShow"></left-nav>
       <div class="main-right-container">
         <div class="top-container">
-          <top-nav v-if="setting.isTopNav"></top-nav>
-          <top-bar v-if="setting.isTopBar"></top-bar>
-          <top-tag v-if="setting.isTopTag"></top-tag>
+          <top-nav v-if="setting.topNav.isShow"></top-nav>
+          <top-bar v-if="setting.topBar.isShow"></top-bar>
+          <top-tag v-if="setting.topTag.isShow"></top-tag>
         </div>
         <app-main v-if="isDataInitDone" />
       </div>

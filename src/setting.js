@@ -1,7 +1,4 @@
-import { cENV } from '@/api/system/config'
 export default {
-  // 网页标题
-  defaultTitle: cENV.VUE_APP_TITLE || '',
   // 动态标题
   isDynamicTitle: true,
   // 主题风格
@@ -9,29 +6,34 @@ export default {
   // 主题颜色
   themeColor: '#55c791',
   // 主题大小
-  elSize: 'default',
+  themeSize: 'large',
   // 主题轻量级颜色
   themeLightColor: '#55c79166',
   // 显示布局
   showSettings: true,
-  // 头部
-  topHeader: {
-    isShow: true,
-    isBreadcrumb: true,
-  },
-  isTopHeader: true,
   // 左侧导航
   leftNav: {
     isShow: true,
     isCollapse: false,
     withoutAnimation: false,
   },
+  // 顶部页头
+  topHeader: {
+    isShow: true,
+    isBreadcrumb: true,
+  },
   // 顶部导航
-  isTopNav: true,
-  // 面包栏
-  isTopBar: true,
-  // 标签
-  isTopTag: true,
+  topNav: {
+    isShow: true,
+  },
+  // 顶部工具
+  topBar: {
+    isShow: false,
+  },
+  // 顶部标签
+  topTag: {
+    isShow: false,
+  },
   // 是否全屏
   isFullScreen: false,
   /**

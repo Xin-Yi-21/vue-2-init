@@ -1,25 +1,23 @@
 import Vue from 'vue'
 // ⭐ 项目全局配置
-window.V = process.env
-import { setConfig, cENV } from '@/api/system/config'
+window.vEnv = process.env
+import { setConfig } from '@/api/system/config'
 import App from './App'
 
 // 样式相关
 import Element from 'element-ui'
 import '@/plugins/svg-icon.js'
 import '@/assets/styles/index.scss'
-
 // import '@/assets/styles/variable.scss'
-
-
 import Cookies from 'js-cookie'
 Vue.use(Element, { size: Cookies.get('size') || 'medium' })
+
 // ⭐ 获取全局配置后执行的文件
-setConfig().then(async () => {
-  for (var k in cENV) {
-    Vue.prototype[k] = cENV[k]
+setConfig().then(async (cEnv) => {
+  for (var k in cEnv) {
+    Vue.prototype[k] = cEnv[k]
   }
-  document.title = cENV.VUE_APP_TITLE
+  document.title = cEnv.VUE_APP_TITLE
   await import('./utils/request.js')                         // import('./utils/request')
   await import('./permission.js')                            // import('./permission')
   const directive = (await import('./directive')).default    // import directive from './directive'

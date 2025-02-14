@@ -1,22 +1,20 @@
-
-const ENV = window.V
 const common = {
-  VUE_APP_TITLE: '项目初始化系统',
+  VUE_APP_TITLE: 'V2项目初始化系统',
   // VUE_APP_PATH: '/power-prediction-yl',
 }
 const ip = {
   'slx': '192.168.120.19',
   'zjj': '',
-  'zl': '192.168.120.24',
   'axk': '192.168.120.34',
   'tey': '192.168.120.60',
+  'dev': '',
   'test': '192.168.120.26',
   'prod': '192.168.120.26',
 }
 const config = {
   'development': {
     ...common,
-    VUE_APP_BASE_API: `http://${ip.zl}:10046/power`,
+    VUE_APP_BASE_API: `http://${ip.dev}:10046/power`,
   },
   'test': {
     ...common,
@@ -28,5 +26,5 @@ const config = {
   }
 }
 
-return config[ENV.NODE_ENV]
+return config[window.vEnv.NODE_ENV]
 
